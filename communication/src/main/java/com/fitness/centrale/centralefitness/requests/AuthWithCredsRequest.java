@@ -21,7 +21,7 @@ public class AuthWithCredsRequest extends Communication {
 
 
     public static void main(String[] args) {
-        new AuthWithCredsRequest("toto", "tata").prepareRequest();
+        System.out.println(new AuthWithCredsRequest("toto", "tata").prepareRequest().get(Constants.TOKEN));
     }
 
 

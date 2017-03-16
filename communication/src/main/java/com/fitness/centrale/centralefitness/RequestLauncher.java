@@ -1,14 +1,18 @@
 package com.fitness.centrale.centralefitness;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by remy on 16/03/17.
@@ -69,7 +73,10 @@ public class RequestLauncher extends Thread{
             in.close();
             synchronized (object){
                 object.isRunning = false;
-                object.response = new GsonBuilder().create().fromJson(response.toString(), ResponseObject.class);
+                Type listType = new TypeToken<HashMap<String, String>>() {}.getType();
+                HashMap<String, String> tmp = new GsonBuilder().create().fromJson(response.toString(), listType);
+                object.response = new ResponseObject();
+                object.response.putAll(tmp);
             }
             return;
 

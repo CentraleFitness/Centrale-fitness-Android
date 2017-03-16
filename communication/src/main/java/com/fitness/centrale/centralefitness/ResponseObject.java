@@ -13,6 +13,10 @@ public class ResponseObject extends HashMap<String, String> {
         put("error", String.valueOf(isAnError));
     }
 
+    public ResponseObject(){
+
+    }
+
     public boolean isAnError(){
         if (!containsKey("error"))
             return true;

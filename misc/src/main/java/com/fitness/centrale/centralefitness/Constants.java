@@ -10,9 +10,9 @@ public class Constants {
     /**
      * SERVER INFO
      */
-    public static String HOST = "?";
-    public static String PORT  = "?";
-    public static String SERVER = HOST + ":" + PORT;
+    public static String HOST = "10.20.85.145";
+    public static String PORT  = "8080";
+    public static String SERVER = "http://" + HOST + ":" + PORT;
 
 
     /*
@@ -29,5 +29,9 @@ public class Constants {
     public static String LOGIN = "login";
     public static String PASSWORD = "password";
     public static String TOKEN  ="token";
+    public static String EMAIL = "email address";
+    public static String PHONE = "phone number";
+    public static String FIRST_NAME = "first name";
+    public static String LAST_NAME="last name";
 
 }
