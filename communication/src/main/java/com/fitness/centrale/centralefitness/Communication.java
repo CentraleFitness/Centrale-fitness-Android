@@ -11,7 +11,7 @@ public class Communication {
     protected Paths path;
 
 
-    protected ResponseObject prepareRequest(){
+    public ResponseObject prepareRequest(){
         SendRequestObject obj = new SendRequestObject();
         obj.messageToSend = requestObject;
         new RequestLauncher(obj, path).start();

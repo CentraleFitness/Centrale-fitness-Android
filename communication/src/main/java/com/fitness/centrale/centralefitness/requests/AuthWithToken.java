@@ -16,4 +16,9 @@ public class AuthWithToken extends Communication {
         requestObject = new RequestObject();
         requestObject.put(Constants.TOKEN, token);
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(new AuthWithToken("eyJhbGciOiJIUzI1NiJ9.pc3MiOiJ0b3RvIn0.2VC8mvqNJH6Cb_wUFDCdGGGxNH18WmWrtLB-sszfA").prepareRequest().get("code"));
+    }
 }
