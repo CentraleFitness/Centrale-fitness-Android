@@ -15,8 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fitness.centrale.centralefitness.fragment.HomeFragment;
-import com.fitness.centrale.centralefitness.fragment.SecondFragment;
-import com.fitness.centrale.centralefitness.fragment.ThirdFragment;
+import com.fitness.centrale.centralefitness.fragment.ProfileFragment;
+import com.fitness.centrale.centralefitness.fragment.StatsFragment;
+import com.fitness.centrale.centralefitness.fragment.SocialFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +46,7 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -86,20 +88,21 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
             HomeFragment frag = new HomeFragment();
             transaction.replace(R.id.layoutContent, frag);
-        } else if (id == R.id.nav_slideshow) {
-            SecondFragment frag = new SecondFragment();
+            // Handle the camera action
+        } else if (id == R.id.nav_stats) {
+            StatsFragment frag = new StatsFragment();
             transaction.replace(R.id.layoutContent, frag);
-        } else if (id == R.id.nav_manage) {
-            ThirdFragment frag = new ThirdFragment();
+        } else if (id == R.id.nav_social) {
+            SocialFragment frag = new SocialFragment();
             transaction.replace(R.id.layoutContent, frag);
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_profile) {
+            ProfileFragment frag = new ProfileFragment();
+            transaction.replace(R.id.layoutContent, frag);
+        } else if (id == R.id.nav_options) {
 
         }
         transaction.commit();

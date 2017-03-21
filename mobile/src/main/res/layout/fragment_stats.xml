@@ -1,14 +1,329 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="57dp">
 
 
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/VeloLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="third"
-        android:gravity="center"/>
+        android:layout_height="85dp"
+        android:background="@color/ourVioletClair"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="49dp"
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="Vélo"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/StatVeloValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="40W"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="40dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+
+    </View>
+
+
+    <LinearLayout
+        android:id="@+id/ellipLayout"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/ourOrangeClair"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="49dp"
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="Elliptique"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/StatEllipValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="70W"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="40dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+
+    </View>
+
+    <LinearLayout
+        android:id="@+id/RameurLayout"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/ourVioletClair"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="49dp"
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="Rameur"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/StatRameurValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="30W"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="40dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+
+    </View>
+
+
+    <LinearLayout
+        android:id="@+id/TrekLayout"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/ourOrangeClair"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="49dp"
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="Trek"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/StatTrekValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="70W"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="40dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+
+    </View>
+
+    <LinearLayout
+        android:id="@+id/VeloCoucheLayout"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/ourVioletClair"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="49dp"
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="Vélo couché"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/StatVeloCoucheValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="50W"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="40dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+
+    </View>
+
+    <LinearLayout
+        android:id="@+id/StepperLayout"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/ourOrangeClair"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="49dp"
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="Stepper"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/StatStepperValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="100W"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="40dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+
+    </View>
 
 </LinearLayout>
