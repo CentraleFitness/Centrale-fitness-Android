@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.fitness.centrale.centralefitness.drawer.HomeActivity;
+import com.fitness.centrale.centralefitness.HomeActivity;
 import com.fitness.centrale.centralefitness.requests.AuthWithToken;
 
 import java.util.Objects;

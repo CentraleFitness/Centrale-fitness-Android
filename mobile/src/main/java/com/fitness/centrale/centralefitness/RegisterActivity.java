@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.fitness.centrale.centralefitness.drawer.HomeActivity;
+import com.fitness.centrale.centralefitness.HomeActivity;
 import com.fitness.centrale.centralefitness.requests.RegisterRequest;
 
 /**
