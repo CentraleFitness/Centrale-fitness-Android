@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fitness.centrale.centralefitness.drawer.HomeActivity;
 import com.fitness.centrale.centralefitness.requests.AuthWithCredsRequest;
 
 /**
@@ -36,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEdit.getText().toString();
                 ResponseObject obj = new AuthWithCredsRequest(login, password).prepareRequest();
                 if (!obj.isAnError()){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Prefs.setToken(obj.get(Constants.TOKEN));
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else{

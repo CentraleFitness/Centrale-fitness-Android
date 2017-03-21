@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fitness.centrale.centralefitness.drawer.HomeActivity;
 import com.fitness.centrale.centralefitness.requests.RegisterRequest;
 
 /**
@@ -18,6 +19,7 @@ import com.fitness.centrale.centralefitness.requests.RegisterRequest;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    TextView warning;
     TextView loginText;
     EditText login;
     TextView passwordText;
@@ -32,6 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void initComponents(){
+        warning = (TextView) findViewById(R.id.RegisterWarningLbl);
+
         loginText = (TextView) findViewById(R.id.RegisterLoginLbl);
         login = (EditText) findViewById(R.id.RegisterLogin);
 
@@ -71,8 +75,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String phoneStr = phone.getText().toString();
                 ResponseObject obj = new RegisterRequest(loginStr, passStr, emailStr, lastNameStr, firstNameStr, phoneStr).prepareRequest();
                 if (!obj.isAnError()){
-                    //TODO : Save le token
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    Prefs.setToken(obj.get(Constants.TOKEN));
+                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 

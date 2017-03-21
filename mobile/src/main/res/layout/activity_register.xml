@@ -12,11 +12,19 @@
         android:textSize="40dp" />
 
 
+    <TextView
+        android:id="@+id/RegisterWarningLbl"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/RegisterLoginLbl"
