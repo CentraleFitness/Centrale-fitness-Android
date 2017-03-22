@@ -51,7 +51,7 @@ public class PlayActivity extends AppCompatActivity{
 
         CustomGauge gauge = (CustomGauge) findViewById(R.id.gauge1);
         System.out.println("gauge value : " + gaugeValue);
-        gauge.setValue(200 + 60 * (int)gaugeValue);
+        gauge.setValue(200 + 6 * (int)(gaugeValue * 10));
         threadCanRun = true;
         new UpdateGaugeThread().start();
     }
@@ -69,13 +69,17 @@ public class PlayActivity extends AppCompatActivity{
             while (threadCanRun) {
                 ResponseObject obj = request.prepareRequest();
                 if (!obj.isAnError()) {
-                    gaugeValue = Double.valueOf(obj.get("instant Watt"));
+                    try {
+                        gaugeValue = Double.valueOf(obj.get("instant watt"));
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
                     System.out.println("value : " + gaugeValue);
                     final CustomGauge gauge = (CustomGauge) findViewById(R.id.gauge1);
                     gauge.post(new Runnable() {
                         @Override
                         public void run() {
-                            gauge.setValue(200 + 60 * (int)gaugeValue);
+                            gauge.setValue(200 + 6 * (int)(gaugeValue * 10));
                         }
                     });
 

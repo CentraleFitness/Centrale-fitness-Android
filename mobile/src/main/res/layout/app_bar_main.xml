@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/ourViolet"
-            app:popupTheme="@style/AppThemeNoActionBar" />
+            app:popupTheme="@style/AppThemeNoActionBar"
+            />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -29,6 +30,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/qrcode"
+        android:elevation="5dp"
         />
 
 </android.support.design.widget.CoordinatorLayout>

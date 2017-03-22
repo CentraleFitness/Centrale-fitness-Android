@@ -11,7 +11,6 @@
         <item name="android:colorPrimary">#8285ff</item>
         <item name="android:colorPrimaryDark">#ff966e</item>
         <item name="android:colorAccent">#FF4081</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <style name="AppThemeNoActionBar.NoActionBar">
@@ -20,11 +19,6 @@
     </style>
 
 
-    <!-- Style for the navigation drawer icon -->
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-        <item name="color">@color/ourViolet</item>
-    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
