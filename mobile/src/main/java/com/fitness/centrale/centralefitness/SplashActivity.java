@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.fitness.centrale.centralefitness.HomeActivity;
 import com.fitness.centrale.centralefitness.requests.AuthWithToken;
 
 import java.util.Objects;
@@ -30,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        setTheme(R.style.AppTheme);
+        setTheme(R.style.AppThemeNoActionBar);
 
         //TODO : Check connexion to server first
 

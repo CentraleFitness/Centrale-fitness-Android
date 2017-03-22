@@ -26,30 +26,11 @@ import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ZXingScannerView.ResultHandler {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
 
 
-    private ZXingScannerView mScannerView;
-    private boolean scannerOn = false;
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mScannerView.stopCamera();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode){
-            case KeyEvent.KEYCODE_BACK:
-                if (scannerOn){
-                    stopScanner();
-                }
-                return true;
-        }
-        return false;
-    }
 
     private void initContent(){
         setContentView(R.layout.activity_main);
@@ -60,16 +41,11 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mScannerView = new ZXingScannerView(HomeActivity.this);
-                setContentView(mScannerView);
-                mScannerView.setResultHandler(HomeActivity.this);
-                mScannerView.startCamera();
-                scannerOn = true;
-                //TODO : LANCER LE SCANNER DE QRCODE
-            }
-        });
+                Intent intent = new Intent(HomeActivity.this, ConnectActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
-
+            }});
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -162,17 +138,5 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void handleResult(Result result) {
-        initContent();
-        System.out.println("RESULT : " + result.getText());
-        mScannerView.stopCamera();
-        scannerOn = false;
-    }
 
-    private void stopScanner(){
-        initContent();
-        mScannerView.stopCamera();
-        scannerOn = false;
-    }
 }

@@ -8,7 +8,8 @@ public enum Paths {
 
     AUTH_WITH_CREDS(Constants.AUTHCREDS),
     AUTH_WITH_TOKEN(Constants.AUTHTOKEN),
-    REGISTER(Constants.REGISTER);
+    REGISTER(Constants.REGISTER),
+    INSTANTWATT(Constants.INSTANTWATT);
 
 
 

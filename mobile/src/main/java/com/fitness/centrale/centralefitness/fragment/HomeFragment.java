@@ -22,8 +22,6 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        CustomGauge gauge = (CustomGauge) view.findViewById(R.id.gauge1);
-        gauge.setValue(200 + 100 * 5);
 
         return view;
     }
