@@ -20,25 +20,43 @@ import com.fitness.centrale.centralefitness.fragment.OptionsFragment;
 import com.fitness.centrale.centralefitness.fragment.ProfileFragment;
 import com.fitness.centrale.centralefitness.fragment.StatsFragment;
 import com.fitness.centrale.centralefitness.fragment.SocialFragment;
+import com.google.zxing.Result;
+
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ZXingScannerView.ResultHandler {
+
+
+
+    private ZXingScannerView mScannerView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onPause() {
+        super.onPause();
+        mScannerView.stopCamera();
+    }
+
+
+
+    private void initContent(){
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.qrCodeButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                mScannerView = new ZXingScannerView(HomeActivity.this);
+                setContentView(mScannerView);
+                mScannerView.setResultHandler(HomeActivity.this);
+                mScannerView.startCamera();
+                //TODO : LANCER LE SCANNER DE QRCODE
             }
         });
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,7 +70,13 @@ public class HomeActivity extends AppCompatActivity
         HomeFragment frag = new HomeFragment();
         transaction.replace(R.id.layoutContent, frag);
         transaction.commit();
+        navigationView.setCheckedItem(0);
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initContent();
     }
 
     @Override
@@ -123,5 +147,11 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void handleResult(Result result) {
+        initContent();
+        System.out.println("RESULT : " + result.getText());
     }
 }
