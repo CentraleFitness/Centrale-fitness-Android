@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +31,7 @@ public class HomeActivity extends AppCompatActivity
 
 
     private ZXingScannerView mScannerView;
+    private boolean scannerOn = false;
 
     @Override
     protected void onPause() {
@@ -37,7 +39,17 @@ public class HomeActivity extends AppCompatActivity
         mScannerView.stopCamera();
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                if (scannerOn){
+                    stopScanner();
+                }
+                return true;
+        }
+        return false;
+    }
 
     private void initContent(){
         setContentView(R.layout.activity_main);
@@ -52,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
                 setContentView(mScannerView);
                 mScannerView.setResultHandler(HomeActivity.this);
                 mScannerView.startCamera();
+                scannerOn = true;
                 //TODO : LANCER LE SCANNER DE QRCODE
             }
         });
@@ -153,5 +166,13 @@ public class HomeActivity extends AppCompatActivity
     public void handleResult(Result result) {
         initContent();
         System.out.println("RESULT : " + result.getText());
+        mScannerView.stopCamera();
+        scannerOn = false;
+    }
+
+    private void stopScanner(){
+        initContent();
+        mScannerView.stopCamera();
+        scannerOn = false;
     }
 }
