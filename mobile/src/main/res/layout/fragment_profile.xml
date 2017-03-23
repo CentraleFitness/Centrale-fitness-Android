@@ -9,14 +9,14 @@
         android:layout_marginTop="80dp"
         android:layout_width="wrap_content"
         android:layout_height="196dp"
-        android:src="@drawable/top"/>
+        android:src="@drawable/mid"/>
 
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="188dp"
-        android:src="@drawable/mid"
+        android:src="@drawable/bottom"
         android:layout_weight="0.02" />
 
 </LinearLayout>

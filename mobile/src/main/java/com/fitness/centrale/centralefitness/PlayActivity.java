@@ -1,15 +1,14 @@
 package com.fitness.centrale.centralefitness;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.fitness.centrale.centralefitness.requests.InstantWattRequest;
-
 
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
@@ -50,9 +49,10 @@ public class PlayActivity extends AppCompatActivity{
 
 
         CustomGauge gauge = (CustomGauge) findViewById(R.id.gauge1);
-        System.out.println("gauge value : " + gaugeValue);
-        gauge.setValue(200 + 6 * (int)(gaugeValue * 10));
+        gauge.setValue((int)(gaugeValue * 100));
         threadCanRun = true;
+        final TextView txt = (TextView) findViewById(R.id.PlayValue);
+        txt.setText("0.OW");
         new UpdateGaugeThread().start();
     }
 
@@ -74,12 +74,18 @@ public class PlayActivity extends AppCompatActivity{
                     }catch (NullPointerException e){
                         e.printStackTrace();
                     }
-                    System.out.println("value : " + gaugeValue);
                     final CustomGauge gauge = (CustomGauge) findViewById(R.id.gauge1);
                     gauge.post(new Runnable() {
                         @Override
                         public void run() {
-                            gauge.setValue(200 + 6 * (int)(gaugeValue * 10));
+                            gauge.setValue((int)(gaugeValue * 100));
+                        }
+                    });
+                    final TextView txt = (TextView) findViewById(R.id.PlayValue);
+                    txt.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txt.setText(String.valueOf(gaugeValue) + "W");
                         }
                     });
 

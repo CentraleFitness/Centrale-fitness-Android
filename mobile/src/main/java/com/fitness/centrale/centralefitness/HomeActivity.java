@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.fitness.centrale.centralefitness.fragment.ChallengesFragment;
+import com.fitness.centrale.centralefitness.fragment.ElectricityFragment;
 import com.fitness.centrale.centralefitness.fragment.HomeFragment;
 import com.fitness.centrale.centralefitness.fragment.OptionsFragment;
 import com.fitness.centrale.centralefitness.fragment.ProfileFragment;
@@ -129,6 +131,14 @@ public class HomeActivity extends AppCompatActivity
             transaction.replace(R.id.layoutContent, frag);
         } else if (id == R.id.nav_options) {
             OptionsFragment frag = new OptionsFragment();
+            transaction.replace(R.id.layoutContent, frag);
+
+        }else if (id == R.id.nav_electricity){
+            ElectricityFragment frag = new ElectricityFragment();
+            transaction.replace(R.id.layoutContent, frag);
+
+        }else if (id == R.id.nav_challenges){
+            ChallengesFragment frag = new ChallengesFragment();
             transaction.replace(R.id.layoutContent, frag);
 
         }
