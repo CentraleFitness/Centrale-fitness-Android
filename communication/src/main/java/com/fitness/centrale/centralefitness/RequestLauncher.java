@@ -42,6 +42,7 @@ public class RequestLauncher extends Thread{
 
             con.setDoOutput(true);
             DataOutputStream wr;
+            System.out.println("Etape 1");
             try {
                 wr  = new DataOutputStream(con.getOutputStream());
             }catch (ConnectException e){

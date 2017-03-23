@@ -5,22 +5,49 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fitness.centrale.centralefitness.SplashActivity"
-    tools:deviceIds="wear">
+    android:background="@color/white"
+    tools:deviceIds="wear"
+    android:keepScreenOn="true">
+
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge1"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_below="@+id/gauge1"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        app:gaugeEndValue="100"
+        app:gaugePointEndColor="@color/ourOrange"
+        app:gaugePointStartColor="@color/ourOrangeClair"
+        app:gaugeStartAngle="135"
+        app:gaugeStartValue="0"
+        app:gaugeStrokeCap="ROUND"
+        app:gaugeStrokeColor="@color/ourViolet"
+        app:gaugeStrokeWidth="10dp"
+        app:gaugeSweepAngle="270"
+        android:layout_gravity="center"/>
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/wattValue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_world"
-        app:layout_box="all" />
+        android:text="10W"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="@color/black"/>
 
-    <TextView
-        android:id="@+id/clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:textColor="@android:color/white"
-        app:layout_box="all" />
+
+
+
+</FrameLayout>
 
 </android.support.wearable.view.BoxInsetLayout>
