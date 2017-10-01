@@ -3,11 +3,8 @@ package com.fitness.centrale.centralefitness;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,17 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.fitness.centrale.centralefitness.fragment.ChallengesFragment;
 import com.fitness.centrale.centralefitness.fragment.ElectricityFragment;
 import com.fitness.centrale.centralefitness.fragment.HomeFragment;
 import com.fitness.centrale.centralefitness.fragment.OptionsFragment;
 import com.fitness.centrale.centralefitness.fragment.ProfileFragment;
-import com.fitness.centrale.centralefitness.fragment.StatsFragment;
 import com.fitness.centrale.centralefitness.fragment.SocialFragment;
-import com.google.zxing.Result;
-
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import com.fitness.centrale.centralefitness.fragment.StatsFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

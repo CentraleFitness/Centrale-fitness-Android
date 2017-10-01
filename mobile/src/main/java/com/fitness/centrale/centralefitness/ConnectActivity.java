@@ -1,26 +1,22 @@
 package com.fitness.centrale.centralefitness;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.View;
 
 import com.google.zxing.Result;
+import com.google.zxing.integration.android.IntentIntegrator;
 
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
-public class ConnectActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class ConnectActivity extends AppCompatActivity  {
 
 
-    private ZXingScannerView mScannerView;
+
     private boolean scannerOn = false;
 
     @Override
     protected void onPause() {
         super.onPause();
-        mScannerView.stopCamera();
     }
 
     @Override
@@ -35,10 +31,8 @@ public class ConnectActivity extends AppCompatActivity implements ZXingScannerVi
         return false;
     }
 
-    @Override
     public void handleResult(Result result) {
         System.out.println("RESULT : " + result.getText());
-        mScannerView.stopCamera();
         scannerOn = false;
         //TODO : Send machine id to server before go to play activity
         Intent intent = new Intent(ConnectActivity.this, PlayActivity.class);
@@ -47,7 +41,6 @@ public class ConnectActivity extends AppCompatActivity implements ZXingScannerVi
     }
 
     private void stopScanner(){
-        mScannerView.stopCamera();
         scannerOn = false;
         Intent intent = new Intent(ConnectActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -60,12 +53,12 @@ public class ConnectActivity extends AppCompatActivity implements ZXingScannerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect);
 
+           IntentIntegrator intentIntegrator =  new IntentIntegrator(this);
+           intentIntegrator.setOrientationLocked(true);
+           intentIntegrator.setBarcodeImageEnabled(true);
+           intentIntegrator.initiateScan();
 
-                mScannerView = new ZXingScannerView(ConnectActivity.this);
-                setContentView(mScannerView);
-                mScannerView.setResultHandler(ConnectActivity.this);
-                mScannerView.startCamera();
-                scannerOn = true;
+        scannerOn = true;
     }
 
 }
