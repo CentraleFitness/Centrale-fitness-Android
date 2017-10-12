@@ -32,5 +32,6 @@ dependencies {
     compile 'com.android.support:design:25.3.0'
     compile 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
     compile 'com.journeyapps:zxing-android-embedded:3.5.0'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
     testCompile 'junit:junit:4.12'
 }
