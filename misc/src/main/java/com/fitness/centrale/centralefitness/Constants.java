@@ -10,7 +10,7 @@ public class Constants {
     /**
      * SERVER INFO
      */
-    public static String HOST = "160.85.126.171";
+    public static String HOST = "82.197.180.99";
     public static String PORT  = "8080";
     public static String SERVER = "http://" + HOST + ":" + PORT;
 
@@ -22,6 +22,8 @@ public class Constants {
     public static String AUTHCREDS = "/authentication";
     public static String AUTHTOKEN = "/authentication/token";
     public static String INSTANTWATT = "/user/watt/instant";
+    public static String GETPROFILE = "/userprofile";
+    public static String UPDATEPROFILE = "/user/update/profile";
 
 
 
@@ -35,5 +37,6 @@ public class Constants {
     public static String PHONE = "phone number";
     public static String FIRST_NAME = "first name";
     public static String LAST_NAME="last name";
+
 
 }

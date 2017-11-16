@@ -8,6 +8,7 @@
 
 
 
+
         <TextView
             android:background="@color/ourViolet"
             android:layout_width="match_parent"
@@ -16,26 +17,39 @@
             android:text="Modification des informations"
             android:textSize="20dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/black">
-        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mot de passe"
+        android:textSize="18dp"
+        android:gravity="center_horizontal"
+        />
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:layout_marginLeft="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Prénom : "/>
+            android:text="Ancien mot de passe : "/>
         <EditText
-            android:id="@+id/DialogProfileModifyInformationsFirstName"
+            android:id="@+id/DialogProfileModfifyConnexionOld"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
+            android:layout_weight="0.40"/>
     </LinearLayout>
 
     <LinearLayout
@@ -43,15 +57,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:layout_marginLeft="3dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Nom : "/>
+            android:text="Nouveau mot de passe : "/>
         <EditText
-            android:id="@+id/DialogProfileModifyInformationsLastName"
+            android:id="@+id/DialogProfileModfifyConnexionNew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
+            android:layout_weight="0.40"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,36 +75,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:layout_marginLeft="3dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Téléphone : "/>
+            android:text="Confirmer : "/>
         <EditText
-            android:id="@+id/DialogProfileModifyInformationsPhone"
+            android:id="@+id/DialogProfileModfifyConnexionConfirm"
             android:inputType="phone"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
+            android:layout_weight="0.40"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Email : "/>
-        <EditText
-            android:id="@+id/DialogProfileModifyInformationsEmail"
-            android:inputType="textEmailAddress"
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.15"/>
-    </LinearLayout>
 
 
 

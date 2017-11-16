@@ -1,4 +1,6 @@
-package com.fitness.centrale.centralefitness;
+package com.fitness.centrale.volleycommunication;
+
+import com.fitness.centrale.centralefitness.Constants;
 
 /**
  * Created by remy on 16/03/17.
@@ -10,7 +12,8 @@ public enum Paths {
     AUTH_WITH_TOKEN(Constants.AUTHTOKEN),
     REGISTER(Constants.REGISTER),
     INSTANTWATT(Constants.INSTANTWATT),
-    GETPROFILE(Constants.GETPROFILE);
+    GETPROFILE(Constants.GETPROFILE),
+    UPDATEPROFILE(Constants.UPDATEPROFILE);
 
 
 

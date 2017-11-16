@@ -10,7 +10,8 @@ public enum Paths {
     AUTH_WITH_TOKEN(Constants.AUTHTOKEN),
     REGISTER(Constants.REGISTER),
     INSTANTWATT(Constants.INSTANTWATT),
-    GETPROFILE(Constants.GETPROFILE);
+    GETPROFILE(Constants.GETPROFILE),
+    UPDATEPROFILE(Constants.UPDATEPROFILE);
 
 
 
