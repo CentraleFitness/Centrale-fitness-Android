@@ -157,7 +157,6 @@ public class ProfileFragment extends Fragment {
         });
 
         profilePicture.setImageResource(R.drawable.profile_photo);
-        gymPicture.setImageResource(R.drawable.sds);
 
         LinearLayout actualizeInfo = (LinearLayout) view.findViewById(R.id.ProfileActualizeInformations);
         LinearLayout actualizeConnexion = (LinearLayout) view.findViewById(R.id.ProfileChangeConnexionInformations);

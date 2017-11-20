@@ -20,6 +20,7 @@ import com.fitness.centrale.centralefitness.Constants;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -77,6 +78,14 @@ public class ModifyProfileConnexionDialog extends DialogFragment {
                             @Override
                             public void onResponse(JSONObject response) {
                                 System.out.println();
+                                try {
+                                    if (response.getString("code").equals("001")) {
+                                        Prefs.setToken(response.getString("token"));
+                                        getDialog().dismiss();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }, new Response.ErrorListener() {
 
