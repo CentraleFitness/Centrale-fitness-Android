@@ -22,8 +22,11 @@ public class Constants {
     public static String AUTHCREDS = "/authentication";
     public static String AUTHTOKEN = "/authentication/token";
     public static String INSTANTWATT = "/user/watt/instant";
-    public static String GETPROFILE = "/userprofile";
+    public static String GETPROFILE = "/user/get/profile";
     public static String UPDATEPROFILE = "/user/update/profile";
+    public static String UPDATEPROFILEPICTURE = "/user/update/picture";
+    public static String GETPROFILEPICTURE = "/user/get/picture";
+    public static String CHANGEPASSWORD = "/user/update/password";
 
 
 
@@ -37,6 +40,7 @@ public class Constants {
     public static String PHONE = "phone number";
     public static String FIRST_NAME = "first name";
     public static String LAST_NAME="last name";
+    public static String PICTURE = "picture";
 
 
 }

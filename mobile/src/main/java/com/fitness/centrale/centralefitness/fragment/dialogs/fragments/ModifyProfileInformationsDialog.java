@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.fitness.centrale.centralefitness.Constants;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
+import com.fitness.centrale.centralefitness.fragment.ProfileFragment;
 import com.fitness.centrale.volleycommunication.UpdateProfileRequest;
 
 import java.util.HashMap;
@@ -31,13 +32,15 @@ public class ModifyProfileInformationsDialog extends DialogFragment {
     String lastName;
     String phoneNumber;
     String email;
+    ProfileFragment frg;
 
     @SuppressLint("ValidFragment")
-    public ModifyProfileInformationsDialog(String firstName, String lastName, String phoneNumber, String email) {
+    public ModifyProfileInformationsDialog(String firstName, String lastName, String phoneNumber, String email, ProfileFragment profileFragment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        frg = profileFragment;
     }
 
     EditText firstNameEdit;
@@ -86,6 +89,7 @@ public class ModifyProfileInformationsDialog extends DialogFragment {
                         param.put(Constants.EMAIL, newEmail);
 
                         new UpdateProfileRequest(getContext(), param).sendRequest();
+                        frg.updateProfile();
 
 
                         //TODO : Envoyer la modif de profil

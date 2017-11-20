@@ -1,9 +1,15 @@
 package com.fitness.centrale.centralefitness.fragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.ImageUtility;
 import com.fitness.centrale.centralefitness.Paths;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
@@ -27,8 +34,12 @@ import com.fitness.centrale.centralefitness.fragment.dialogs.fragments.ModifyPro
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by remy on 21/03/17.
@@ -36,6 +47,8 @@ import java.util.Map;
 
 public class ProfileFragment extends Fragment {
 
+
+    private int PICK_IMAGE_REQUEST = 1;
 
     private String firstName = "";
     private String lastName = "";
@@ -66,6 +79,63 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    private void updateImage(final String b64img){
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+
+        Map<String, String> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.PICTURE, b64img);
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.UPDATEPROFILEPICTURE, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getString("code").equals("001")){
+                        ImageView imageView = (ImageView) getView().findViewById(R.id.ProfileProfilePicture);
+                        imageView.setImageBitmap(ImageUtility.base64ToImage(b64img));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleyUtility.fixDoubleRequests(request);
+
+        queue.add(request);
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                // Log.d(TAG, String.valueOf(bitmap));
+
+                updateImage(ImageUtility.bitmapToBase64(bitmap));
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,6 +146,16 @@ public class ProfileFragment extends Fragment {
         ImageView profilePicture = (ImageView) view.findViewById(R.id.ProfileProfilePicture);
         ImageView gymPicture = (ImageView) view.findViewById(R.id.ProfileBackgroundPicture);
 
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
+
         profilePicture.setImageResource(R.drawable.profile_photo);
         gymPicture.setImageResource(R.drawable.sds);
 
@@ -85,8 +165,10 @@ public class ProfileFragment extends Fragment {
         actualizeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment fragment = new ModifyProfileInformationsDialog(firstName, lastName, phoneNumber, email);
+                DialogFragment fragment = new ModifyProfileInformationsDialog(firstName, lastName, phoneNumber, email, ProfileFragment.this);
+
                 fragment.show(getFragmentManager(), "Modifier informations de profil");
+
             }
         });
 
@@ -94,7 +176,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogFragment fragment = new ModifyProfileConnexionDialog();
+
                 fragment.show(getFragmentManager(), "Modifier informations de connexion");
+
             }
         });
 
@@ -102,10 +186,36 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void getProfilePicture(){
+        RequestQueue queue = Volley.newRequestQueue(getContext());
 
+        Map<String, String> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GETPROFILEPICTURE, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.getString("code").equals("001")) {
+                        ImageView profile = (ImageView) getView().findViewById(R.id.ProfileProfilePicture);
+                        profile.setImageBitmap(ImageUtility.base64ToImage(response.getString(Constants.PICTURE)));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleyUtility.fixDoubleRequests(request);
+
+        queue.add(request);
+    }
+
+    public void updateProfile(){
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         Map<String, String> params = new HashMap<>();
@@ -125,5 +235,13 @@ public class ProfileFragment extends Fragment {
         VolleyUtility.fixDoubleRequests(request);
 
         queue.add(request);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        updateProfile();
+        getProfilePicture();
+
     }
 }
