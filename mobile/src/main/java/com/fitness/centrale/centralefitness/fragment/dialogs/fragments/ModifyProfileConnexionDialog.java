@@ -66,6 +66,19 @@ public class ModifyProfileConnexionDialog extends DialogFragment {
             public void onClick(View view) {
 
 
+                if (!newPassword.getText().toString().equals(confirmPassword.getText().toString())){
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    builder.setMessage("Vos mots de passe ne correspondent pas")
+                            .setTitle("Erreur");
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                    return;
+                }
+
                 RequestQueue queue = Volley.newRequestQueue(getContext());
 
                 Map<String, String> params = new HashMap<>();
