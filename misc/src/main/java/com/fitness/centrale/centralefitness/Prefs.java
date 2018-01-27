@@ -1,5 +1,6 @@
 package com.fitness.centrale.centralefitness;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,6 +13,7 @@ public class Prefs {
 
 
     public static SharedPreferences prefs;
+    private static String username;
 
     public static void initPreferencesManager(Context ctx){
         prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -35,5 +37,10 @@ public class Prefs {
 
     }
 
+    public static void setUsername(String username) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Constants.LOGIN, username);
+        editor.apply();
+    }
 }
 

@@ -1,97 +1,82 @@
 package com.fitness.centrale.centralefitness;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.fitness.centrale.centralefitness.HomeActivity;
-import com.fitness.centrale.centralefitness.requests.RegisterRequest;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
-/**
- * Created by remy on 16/03/17.
- */
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    TextView warning;
-    TextView loginText;
-    EditText login;
-    TextView passwordText;
-    EditText password;
-    TextView emailText;
-    EditText email;
-    EditText firstName;
-    EditText lastName;
-    EditText phone;
-    Button submit;
-    Button loginButton;
-
-
-    public void initComponents(){
-        warning = (TextView) findViewById(R.id.RegisterWarningLbl);
-
-        loginText = (TextView) findViewById(R.id.RegisterLoginLbl);
-        login = (EditText) findViewById(R.id.RegisterLogin);
-
-        passwordText = (TextView) findViewById(R.id.RegisterPasswordLbl);
-        password = (EditText) findViewById(R.id.RegisterPassword);
-        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
-
-        emailText = (TextView) findViewById(R.id.RegisterEmail);
-        email = (EditText) findViewById(R.id.RegisterEmail);
-        email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-
-        firstName = (EditText) findViewById(R.id.RegisterFirstName);
-        lastName = (EditText) findViewById(R.id.RegisterLastName);
-
-        phone = (EditText) findViewById(R.id.RegisterPhone);
-        phone.setInputType(InputType.TYPE_CLASS_PHONE);
-
-        submit = (Button) findViewById(R.id.RegisterSubmit);
-        loginButton  = (Button) findViewById(R.id.RegisterLoginButton);
-    }
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        initComponents();
 
-        submit.setOnClickListener(new View.OnClickListener() {
+
+        final EditText loginEdit = findViewById(R.id.registerLoginEdit);
+        final EditText emailEdit = findViewById(R.id.registerEmailEdit);
+        final EditText passwordEdit = findViewById(R.id.registerPasswordEdit);
+        final EditText confirmEdit = findViewById(R.id.registerPasswordConfirmEdit);
+        Button registerButton = findViewById(R.id.registerButton);
+
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String loginStr = login.getText().toString();
-                String passStr = password.getText().toString();
-                String emailStr = email.getText().toString();
-                String firstNameStr = firstName.getText().toString();
-                String lastNameStr = lastName.getText().toString();
-                String phoneStr = phone.getText().toString();
-                ResponseObject obj = new RegisterRequest(loginStr, passStr, emailStr, lastNameStr, firstNameStr, phoneStr).prepareRequest();
-                if (!obj.isAnError()){
-                    Prefs.setToken(obj.get(Constants.TOKEN));
-                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+            public void onClick(View view) {
 
-                }
+
+                RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+
+                final Map<String, String> params = new HashMap<>();
+                params.put(Constants.LOGIN, loginEdit.getText().toString());
+                params.put(Constants.PASSWORD, passwordEdit.getText().toString());
+                params.put(Constants.EMAIL, emailEdit.getText().toString());
+                params.put(Constants.CONFIRM_PASSWORD, confirmEdit.getText().toString());
+
+                JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.REGISTER, new JSONObject(params),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    System.out.println("Response code : " + response.getString("code"));
+                                    if (response.getString("code").equals("101")){
+                                        Prefs.setToken(response.getString(Constants.TOKEN));
+                                        Prefs.setUsername(params.get(Constants.LOGIN));
+
+                                        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                        startActivity(intent);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+                queue.add(request);
+
+
+
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-
-            }
-        });
     }
 }

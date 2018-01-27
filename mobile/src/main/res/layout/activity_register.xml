@@ -1,169 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context="com.fitness.centrale.centralefitness.RegisterActivity">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:gravity="center"
-        android:textSize="40dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="229dp"
+        android:layout_height="249dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="55dp"
+        android:src="@drawable/logo_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/RegisterWarningLbl"
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:id="@+id/RegisterLoginLbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login : "
-            android:textSize="25dp"
-            android:layout_weight="2"/>
-        <EditText
-            android:id="@+id/RegisterLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:id="@+id/RegisterPasswordLbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Password : "
-            android:layout_weight="1.9"
-            android:textSize="25dp"/>
-
-        <EditText
-            android:id="@+id/RegisterPassword"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="358dp"
+        android:src="@drawable/customer"
+        app:layout_constraintEnd_toStartOf="@+id/registerLoginEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    </LinearLayout>
+    <EditText
+        android:id="@+id/registerLoginEdit"
+        android:layout_width="248dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="46dp"
+        android:hint="Login"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:id="@+id/RegisterEmailLbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email : "
-            android:textSize="25dp"
-            android:layout_weight="2"/>
-
-        <EditText
-            android:id="@+id/RegisterEmail"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="First Name : "
-            android:textSize="25dp"
-            android:layout_weight="1.5"/>
-
-        <EditText
-            android:id="@+id/RegisterFirstName"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="29dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="34dp"
+        android:src="@drawable/customer"
+        app:layout_constraintEnd_toStartOf="@+id/registerEmailEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Last Name : "
-            android:textSize="25dp"
-            android:layout_weight="1.5"/>
-
-        <EditText
-            android:id="@+id/RegisterLastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+    <EditText
+        android:id="@+id/registerEmailEdit"
+        android:layout_width="248dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="20dp"
+        android:hint="Email"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerLoginEdit" />
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Phone Number : "
-            android:textSize="25dp"
-            android:layout_weight="1"/>
-
-        <EditText
-            android:id="@+id/RegisterPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="33dp"
+        android:src="@drawable/customer"
+        app:layout_constraintEnd_toStartOf="@+id/registerPasswordEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 
-    </LinearLayout>
+    <EditText
+        android:id="@+id/registerPasswordEdit"
+        android:layout_width="248dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="20dp"
+        android:hint="Mot de passe"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEmailEdit" />
+
+
+    <ImageView
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/customer"
+        app:layout_constraintEnd_toStartOf="@+id/registerPasswordConfirmEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+
+    <EditText
+        android:id="@+id/registerPasswordConfirmEdit"
+        android:layout_width="248dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="20dp"
+        android:hint="Confirmer mot de passe"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerPasswordEdit" />
+
+
     <Button
-        android:id="@+id/RegisterSubmit"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit"/>
-    <Button
-        android:id="@+id/RegisterLoginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Have an account ? Login"/>
+        android:id="@+id/registerButton"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/buttonradius"
+        android:text="INSCRIPTION"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerPasswordConfirmEdit" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

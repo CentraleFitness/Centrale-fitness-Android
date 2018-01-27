@@ -1,147 +1,221 @@
 package com.fitness.centrale.centralefitness;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 
-import com.fitness.centrale.centralefitness.fragment.ChallengesFragment;
-import com.fitness.centrale.centralefitness.fragment.ElectricityFragment;
-import com.fitness.centrale.centralefitness.fragment.HomeFragment;
-import com.fitness.centrale.centralefitness.fragment.OptionsFragment;
-import com.fitness.centrale.centralefitness.fragment.ProfileFragment;
-import com.fitness.centrale.centralefitness.fragment.SocialFragment;
-import com.fitness.centrale.centralefitness.fragment.StatsFragment;
-
-public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+import com.fitness.centrale.centralefitness.customcomponent.BottomNavigationViewHelper;
+import com.fitness.centrale.centralefitness.fragments.BadgeFragment;
+import com.fitness.centrale.centralefitness.fragments.NotifFragment;
+import com.fitness.centrale.centralefitness.fragments.PlusFragment;
+import com.fitness.centrale.centralefitness.fragments.ProfileFragment;
+import com.fitness.centrale.centralefitness.fragments.PromoFragment;
 
 
+public class HomeActivity extends FragmentActivity {
 
 
-    private void initContent(){
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    final int PAGE_NUMBER = 5;
+    ViewPager mpager;
+    ScreenSlidePagerAdapter adapter;
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.qrCodeButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ConnectActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
 
-            }});
+    private static ProfileFragment profileFragment = null;
+    private static PromoFragment promoFragment = null;
+    private static BadgeFragment badgeFragment = null;
+    private static NotifFragment notifFragment = null;
+    private static PlusFragment plusFragment = null;
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        HomeFragment frag = new HomeFragment();
-        transaction.replace(R.id.layoutContent, frag);
-        transaction.commit();
-        navigationView.setCheckedItem(0);
+    private static ProfileFragment getProfileFragment(){
+
+        if (profileFragment == null){
+            profileFragment = ProfileFragment.newInstance(0, "Profile");
+        }
+        return profileFragment;
     }
+
+    private static PromoFragment getPromoFragment(){
+
+        if (promoFragment == null){
+            promoFragment = PromoFragment.newInstance(0, "Profile");
+        }
+        return promoFragment;
+    }
+    private static BadgeFragment getBadgeFragment(){
+
+        if (badgeFragment == null){
+            badgeFragment = BadgeFragment.newInstance(0, "Profile");
+        }
+        return badgeFragment;
+    }
+    private static NotifFragment getNotifFragment(){
+
+        if (notifFragment == null){
+            notifFragment = NotifFragment.newInstance(0, "Profile");
+        }
+        return notifFragment;
+    }
+    private static PlusFragment getPlusFragment(){
+
+        if (plusFragment == null){
+            plusFragment = PlusFragment.newInstance(0, "Profile");
+        }
+        return plusFragment;
+    }
+
+
+
+
+
+    private TextView mTextMessage;
+    private FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_profile:
+                    onClickOnButton(0);
+                    return true;
+                case R.id.navigation_promo:
+                    onClickOnButton(1);
+
+                    return true;
+                case R.id.navigation_location:
+                    onClickOnButton(2);
+
+                    return true;
+                case R.id.navigation_notifications:
+                    onClickOnButton(3);
+
+                    return true;
+                case R.id.navigation_plus:
+                    onClickOnButton(4);
+
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initContent();
+
+
+        setContentView(R.layout.activity_home);
+
+
+        mpager = (ViewPager) findViewById(R.id.mainFragment);
+        adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+
+
+        mpager.setAdapter(adapter);
+        mpager.setCurrentItem(0);
+
+        mpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                onClickOnButton(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+
+    public void button1(View view) {
+        onClickOnButton(0);
+    }
+
+    public void button2(View view) {
+        onClickOnButton(1);
+    }
+
+    public void button3(View view) {
+        onClickOnButton(2);
+    }
+
+    public void button4(View view) {
+        onClickOnButton(3);
+    }
+
+    public void button5(View view) {
+        onClickOnButton(4);
+    }
+
+    public void onClickOnButton(int pos) {
+        mpager.setCurrentItem(pos);
+
+
+        //Passer les images en selectionnées ou non (a voir plus tard)
+        /*for (int i = 0; i < PAGE_NUMBER; i++) {
+            footerImages[i].setImageResource(footerImagesUnselected[i]);
+            if (footerTextes[i] != null) {
+                footerTextes[i].setTextColor(getResources().getColor(R.color.white));
+            }
+        }
+        footerImages[pos].setImageResource(footerImagesSelected[pos]);
+        if (footerTextes[pos] != null) {
+            footerTextes[pos].setTextColor(getResources().getColor(R.color.ourBlue));
+        }*/
+    }
+
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return getProfileFragment();
+                case 1:
+                    return getPromoFragment();
+                case 2:
+                    return getBadgeFragment();
+                case 3:
+                    return getNotifFragment();
+                case 4:
+                    return getPlusFragment();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_NUMBER;
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        getMenuInflater().inflate(R.menu.main, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Prefs.removeToken();
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        if (id == R.id.nav_home) {
-            HomeFragment frag = new HomeFragment();
-            transaction.replace(R.id.layoutContent, frag);
-            // Handle the camera action
-        } else if (id == R.id.nav_stats) {
-            StatsFragment frag = new StatsFragment();
-            transaction.replace(R.id.layoutContent, frag);
-        } else if (id == R.id.nav_social) {
-            SocialFragment frag = new SocialFragment();
-            transaction.replace(R.id.layoutContent, frag);
-
-        } else if (id == R.id.nav_profile) {
-            ProfileFragment frag = new ProfileFragment();
-            transaction.replace(R.id.layoutContent, frag);
-        } else if (id == R.id.nav_options) {
-            OptionsFragment frag = new OptionsFragment();
-            transaction.replace(R.id.layoutContent, frag);
-
-        }else if (id == R.id.nav_electricity){
-            ElectricityFragment frag = new ElectricityFragment();
-            transaction.replace(R.id.layoutContent, frag);
-
-        }else if (id == R.id.nav_challenges){
-            ChallengesFragment frag = new ChallengesFragment();
-            transaction.replace(R.id.layoutContent, frag);
-
-        }
-        transaction.commit();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
 
 }
+

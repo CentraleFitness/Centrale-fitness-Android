@@ -2,12 +2,14 @@
 
     <!-- Base application theme. -->
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:colorPrimary">#8285ff</item>
         <item name="android:colorPrimaryDark">#ff966e</item>
         <item name="android:colorAccent">#FF4081</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">#8285ff</item>
         <item name="android:colorPrimaryDark">#ff966e</item>
         <item name="android:colorAccent">#FF4081</item>
@@ -23,6 +25,5 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 
 </resources>
