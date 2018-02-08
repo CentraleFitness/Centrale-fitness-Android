@@ -6,11 +6,11 @@ package com.fitness.centrale.centralefitness.store;
 
 public class UserObject {
 
-    public String firstName ;
-    public String lastName ;
-    public String email ;
-    public String login ;
-    public String phone ;
+    public String firstName = "" ;
+    public String lastName ="";
+    public String email ="";
+    public String login ="";
+    public String phone ="";
 
     public UserObject(){
 

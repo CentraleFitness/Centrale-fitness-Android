@@ -35,6 +35,7 @@ public class Constants {
      */
     public static String LOGIN = "login";
     public static String PASSWORD = "password";
+    public static String NEW_PASSWORD = "new password";
     public static String CONFIRM_PASSWORD = "confirmation";
     public static String TOKEN  ="token";
     public static String EMAIL = "email address";
