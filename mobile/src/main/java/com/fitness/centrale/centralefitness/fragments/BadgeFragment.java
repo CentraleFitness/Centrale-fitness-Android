@@ -20,7 +20,7 @@ public class BadgeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.badge_fragment, container, false);
+        return inflater.inflate(R.layout.session_fragment, container, false);
     }
 
     //Ici, remplacer les int et autres par les vrais arguments de la map

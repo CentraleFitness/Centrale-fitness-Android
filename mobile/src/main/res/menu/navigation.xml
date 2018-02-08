@@ -3,25 +3,25 @@
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+        android:icon="@drawable/profile"
         android:title="Profil" />
 
     <item
         android:id="@+id/navigation_promo"
-        android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+        android:icon="@drawable/challenge"
         android:title="Challenges" />
 
     <item
         android:id="@+id/navigation_location"
-        android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+        android:icon="@drawable/lightning"
         android:title="Session" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+        android:icon="@drawable/social"
         android:title="Social" />
     <item
     android:id="@+id/navigation_plus"
-    android:icon="@drawable/ic_lightbulb_outline_black_24dp"
+    android:icon="@drawable/stats"
     android:title="Stats" />
 </menu>

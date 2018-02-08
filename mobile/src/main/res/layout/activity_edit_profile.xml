@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/EditProfileBack"
-            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/EditProfileSubmit"
-            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="355dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -40,15 +40,16 @@
             android:layout_height="wrap_content"
             android:text="Options"
             android:textColor="#FFFFFF"
-            android:layout_marginLeft="155dp"
-            android:layout_marginTop="10dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:textSize="32sp"/>
 
     </RelativeLayout>
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="614dp"
+    android:layout_height="625dp"
     android:background="#F6F1F1">
 
     <LinearLayout
