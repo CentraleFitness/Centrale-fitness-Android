@@ -40,9 +40,11 @@ public class SplashScreen extends AppCompatActivity {
 
                                 Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
                                 startActivity(intent);
+                                finish();
                             }else{
                                 Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

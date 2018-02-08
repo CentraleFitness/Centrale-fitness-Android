@@ -1,6 +1,7 @@
 package com.fitness.centrale.centralefitness;
 
 import android.app.ActionBar;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.fitness.centrale.centralefitness.customcomponent.BottomNavigationViewHelper;

@@ -9,21 +9,8 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorPrimary">#8285ff</item>
-        <item name="android:colorPrimaryDark">#ff966e</item>
-        <item name="android:colorAccent">#FF4081</item>
-    </style>
-
-    <style name="AppThemeNoActionBar.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 
 
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
