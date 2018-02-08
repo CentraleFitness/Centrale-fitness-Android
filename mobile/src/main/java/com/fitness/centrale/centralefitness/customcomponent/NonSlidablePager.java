@@ -45,6 +45,7 @@ public class NonSlidablePager extends ViewPager {
             Field scroller = viewpager.getDeclaredField("mScroller");
             scroller.setAccessible(true);
             scroller.set(this, new MyScroller(getContext()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

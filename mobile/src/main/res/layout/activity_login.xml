@@ -30,9 +30,10 @@
         android:layout_height="77dp"
         android:layout_marginTop="22dp"
         android:text="Central Fitness"
+
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="50dp"
+        android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
@@ -46,17 +47,19 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="40dp"
         android:src="@drawable/customer"
-        app:layout_constraintEnd_toStartOf="@+id/editText6"
+        app:layout_constraintEnd_toStartOf="@+id/loginEditPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/loginEditLogin"
         android:layout_width="244dp"
         android:layout_height="47dp"
         android:layout_marginEnd="70dp"
         android:layout_marginTop="27dp"
         android:hint="Login"
+        android:inputType="textNoSuggestions"
+        android:imeOptions="actionNext"
         android:shadowColor="#FFFFFF"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
@@ -75,17 +78,19 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="35dp"
         android:src="@drawable/customer"
-        app:layout_constraintEnd_toStartOf="@+id/editText5"
+        app:layout_constraintEnd_toStartOf="@+id/loginEditLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/loginEditPassword"
         android:layout_width="247dp"
         android:layout_height="38dp"
         android:layout_marginEnd="71dp"
         android:layout_marginTop="32dp"
         android:hint="Mot de passe"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
         android:shadowColor="#FFFFFF"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
@@ -93,7 +98,7 @@
         android:textColorLink="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEditLogin" />
 
 
     <Button
@@ -108,7 +113,7 @@
         android:text="Connexion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEditPassword" />
 
     <TextView
         android:id="@+id/notregisterText"

@@ -16,6 +16,7 @@ public class Prefs {
     private static String username;
 
     public static void initPreferencesManager(Context ctx){
+        if (prefs ==null)
         prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     }
 

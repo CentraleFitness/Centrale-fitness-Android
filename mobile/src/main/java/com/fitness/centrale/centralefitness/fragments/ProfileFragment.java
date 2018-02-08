@@ -24,11 +24,9 @@ public class ProfileFragment extends Fragment {
     }
 
     //Ici, remplacer les int et autres par les vrais arguments de la map
-    public static ProfileFragment newInstance(int someInt, String someTitle) {
+    public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
-        args.putInt("someInt", someInt);
-        args.putString("someTitle", someTitle);
         fragment.setArguments(args);
         return fragment;
     }

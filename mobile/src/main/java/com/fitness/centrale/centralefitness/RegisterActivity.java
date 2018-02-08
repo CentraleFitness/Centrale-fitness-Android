@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        Prefs.initPreferencesManager(getBaseContext());
 
         final EditText loginEdit = findViewById(R.id.registerLoginEdit);
         final EditText emailEdit = findViewById(R.id.registerEmailEdit);
@@ -46,6 +47,9 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put(Constants.PASSWORD, passwordEdit.getText().toString());
                 params.put(Constants.EMAIL, emailEdit.getText().toString());
                 params.put(Constants.CONFIRM_PASSWORD, confirmEdit.getText().toString());
+                params.put(Constants.FIRST_NAME, "");
+                params.put(Constants.LAST_NAME, "");
+                params.put(Constants.PHONE, "");
 
                 JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.REGISTER, new JSONObject(params),
                         new Response.Listener<JSONObject>() {

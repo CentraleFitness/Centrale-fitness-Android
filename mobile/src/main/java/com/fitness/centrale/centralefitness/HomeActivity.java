@@ -1,17 +1,17 @@
 package com.fitness.centrale.centralefitness;
 
+import android.app.ActionBar;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.fitness.centrale.centralefitness.customcomponent.BottomNavigationViewHelper;
@@ -22,7 +22,7 @@ import com.fitness.centrale.centralefitness.fragments.ProfileFragment;
 import com.fitness.centrale.centralefitness.fragments.PromoFragment;
 
 
-public class HomeActivity extends FragmentActivity {
+public class HomeActivity extends AppCompatActivity {
 
 
     final int PAGE_NUMBER = 5;
@@ -40,7 +40,7 @@ public class HomeActivity extends FragmentActivity {
     private static ProfileFragment getProfileFragment(){
 
         if (profileFragment == null){
-            profileFragment = ProfileFragment.newInstance(0, "Profile");
+            profileFragment = ProfileFragment.newInstance();
         }
         return profileFragment;
     }
@@ -113,10 +113,12 @@ public class HomeActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_home);
 
+
+
+
+        Prefs.initPreferencesManager(getBaseContext());
 
         mpager = (ViewPager) findViewById(R.id.mainFragment);
         adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
