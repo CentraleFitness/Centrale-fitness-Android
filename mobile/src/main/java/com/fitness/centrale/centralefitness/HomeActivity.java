@@ -1,8 +1,5 @@
 package com.fitness.centrale.centralefitness;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,11 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.fitness.centrale.centralefitness.customcomponent.BottomNavigationViewHelper;
-import com.fitness.centrale.centralefitness.fragments.BadgeFragment;
+import com.fitness.centrale.centralefitness.fragments.SessionFragment;
 import com.fitness.centrale.centralefitness.fragments.NotifFragment;
 import com.fitness.centrale.centralefitness.fragments.PlusFragment;
 import com.fitness.centrale.centralefitness.fragments.ProfileFragment;
@@ -34,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private static ProfileFragment profileFragment = null;
     private static PromoFragment promoFragment = null;
-    private static BadgeFragment badgeFragment = null;
+    private static SessionFragment badgeFragment = null;
     private static NotifFragment notifFragment = null;
     private static PlusFragment plusFragment = null;
 
@@ -54,10 +50,10 @@ public class HomeActivity extends AppCompatActivity {
         }
         return promoFragment;
     }
-    private static BadgeFragment getBadgeFragment(){
+    private static SessionFragment getBadgeFragment(){
 
         if (badgeFragment == null){
-            badgeFragment = BadgeFragment.newInstance(0, "Profile");
+            badgeFragment = SessionFragment.newInstance(0, "Profile");
         }
         return badgeFragment;
     }
@@ -111,6 +107,8 @@ public class HomeActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    public static int SELECTED;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

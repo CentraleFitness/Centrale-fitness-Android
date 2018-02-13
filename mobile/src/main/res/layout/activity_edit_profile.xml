@@ -13,7 +13,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/background_gradient">
 
         <ImageView
@@ -49,31 +50,34 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="625dp"
+    android:layout_height="0dp"
+    android:layout_weight="10"
     android:background="#F6F1F1">
 
     <LinearLayout
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_width="350dp"
-        android:layout_height="510dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_gravity="center"
         android:background="@drawable/border_radius_component"
         android:elevation="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
 
         <RelativeLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/red_back_circle"
-            android:layout_marginLeft="30dp">
+            android:background="@drawable/red_back_circle">
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -99,15 +103,14 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
             <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/red_back_circle"
-                android:layout_marginLeft="30dp">
+                android:background="@drawable/red_back_circle">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -132,15 +135,14 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
             <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/red_back_circle"
-                android:layout_marginLeft="30dp">
+                android:background="@drawable/red_back_circle">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -165,15 +167,14 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
             <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/red_back_circle"
-                android:layout_marginLeft="30dp">
+                android:background="@drawable/red_back_circle">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -198,15 +199,14 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
             <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/red_back_circle"
-                android:layout_marginLeft="30dp">
+                android:background="@drawable/red_back_circle">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -231,15 +231,14 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
             <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/red_back_circle"
-                android:layout_marginLeft="30dp">
+                android:background="@drawable/red_back_circle">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -264,15 +263,14 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
             <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/red_back_circle"
-                android:layout_marginLeft="30dp">
+                android:background="@drawable/red_back_circle">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"

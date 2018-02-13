@@ -5,7 +5,8 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/background_gradient">
 
 
@@ -25,20 +26,24 @@
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
         android:background="#FFFFFF"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="450dp">
+            android:layout_height="0dp"
+            android:layout_weight="6">
 
             <LinearLayout
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_width="375dp"
-                android:layout_height="420dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="40dp"
                 android:elevation="10dp"
                 android:background="@drawable/beige_border_radius_component">
 
@@ -60,9 +65,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <Button android:text="Toto"
+        <Button android:text="Démarrer"
+            android:id="@+id/sessionStart"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
