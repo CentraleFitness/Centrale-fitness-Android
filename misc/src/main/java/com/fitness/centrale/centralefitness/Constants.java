@@ -27,7 +27,7 @@ public class Constants {
     public static String UPDATEPROFILEPICTURE = "/user/update/picture";
     public static String GETPROFILEPICTURE = "/user/get/picture";
     public static String CHANGEPASSWORD = "/user/update/password";
-
+    public static String USER_PAIR_START = "/user/pair/start";
 
 
     /*
@@ -43,6 +43,7 @@ public class Constants {
     public static String FIRST_NAME = "first name";
     public static String LAST_NAME="last name";
     public static String PICTURE = "picture";
+    public static String SESSIONID= "session id";
 
 
 }

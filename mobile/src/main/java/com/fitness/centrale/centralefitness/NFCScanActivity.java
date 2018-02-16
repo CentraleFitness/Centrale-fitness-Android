@@ -15,7 +15,19 @@ import android.provider.Settings;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.centralefitness.store.Store;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class NFCScanActivity extends Activity  {
@@ -201,9 +213,41 @@ public class NFCScanActivity extends Activity  {
 
         String finalText = builder.toString();
 
-        Intent intent = new Intent(this, SessionActivity.class);
-        startActivity(intent);
-        finish();
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        final Map<String, String> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.SESSIONID, finalText.replace("\n", ""));
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.USER_PAIR_START, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println("Response code : " + response.getString("code"));
+                            if (response.getString("code").equals("001")){
+                                Intent intent = new Intent(NFCScanActivity.this, SessionActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
+
+
+
+
 
     }
 
