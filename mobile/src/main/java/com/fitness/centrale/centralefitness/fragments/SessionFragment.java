@@ -29,6 +29,14 @@ public class SessionFragment extends Fragment {
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+
+        System.out.println("On resume le fragment");
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 

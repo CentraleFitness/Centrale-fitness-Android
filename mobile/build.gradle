@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 android {
     compileSdkVersion 27
     buildToolsVersion '26.0.2'
@@ -20,14 +26,13 @@ android {
 }
 
 dependencies {
+    testCompile 'junit:junit:4.12'
+
     implementation 'com.android.support:support-v4:27.0.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    wearApp project(':wear')
-    compile project(':misc')
-    compile project(':nfc')
     compile 'com.google.android.gms:play-services-wearable:11.8.0'
     compile 'com.android.support:appcompat-v7:27.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -37,5 +42,10 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.5.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.google.android.gms:play-services-nearby:11.8.0'
-    testCompile 'junit:junit:4.12'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    wearApp project(':wear')
+    compile project(':misc')
+    compile project(':nfc')
+
 }

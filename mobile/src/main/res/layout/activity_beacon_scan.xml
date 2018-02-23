@@ -10,7 +10,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/profile"
+        android:src="@drawable/nfc_tag"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Hold a tag against the back of your device"
+        android:text="Posez votre téléphone contre le socle du module pour lancer la session"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginLeft="20dp"

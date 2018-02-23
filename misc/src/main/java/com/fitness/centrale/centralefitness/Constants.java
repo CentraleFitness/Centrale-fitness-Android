@@ -10,7 +10,7 @@ public class Constants {
     /**
      * SERVER INFO
      */
-    public static String HOST = "192.168.0.105";
+    public static String HOST = "192.168.0.102";
     public static String PORT  = "8080";
     public static String SERVER = "http://" + HOST + ":" + PORT;
 
@@ -28,6 +28,8 @@ public class Constants {
     public static String GETPROFILEPICTURE = "/user/get/picture";
     public static String CHANGEPASSWORD = "/user/update/password";
     public static String USER_PAIR_START = "/user/pair/start";
+    public static String GET_INSTANT_PRODUCTION = "/user/get/instantproduction";
+    public static String USER_PAIR_STOP = "/user/pair/stop";
 
 
     /*

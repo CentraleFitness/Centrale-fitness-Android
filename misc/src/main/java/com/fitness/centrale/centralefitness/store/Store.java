@@ -39,6 +39,25 @@ public class Store {
     END USER
      */
 
+    /*
+     * LAST SESSION
+     */
+    private LastSessionObject sessionObject;
+
+
+    public void setSession(final int sessionAverage){
+        this.sessionObject = new LastSessionObject(sessionAverage);
+    }
+
+    public LastSessionObject getLastSessionObject(){
+        if (sessionObject == null) {
+            sessionObject = new LastSessionObject();
+        }
+        return sessionObject;
+    }
+    /*
+    END LAST SESSION
+     */
 
 
 
