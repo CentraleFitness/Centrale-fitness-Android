@@ -7,6 +7,8 @@
         <item name="android:colorPrimaryDark">#ff966e</item>
         <item name="android:colorAccent">#FF4081</item>
         <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowContentTransitions">true</item>
+
     </style>
 
 

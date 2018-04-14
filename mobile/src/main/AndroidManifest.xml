@@ -21,13 +21,17 @@
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyAIi0GXu5BSGaPWrg7WEdcLBOMOtTDy-Cg" />
 
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SplashScreen"
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,18 +39,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".NFCScanActivity"
+        <activity
+            android:name=".EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NFCScanActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tec_list" />
         </activity>
-        <activity android:name=".SessionActivity"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".SessionActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".newdesign.ProfileActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+            </intent-filter>
 
         </activity>
+        <activity android:name=".newdesign.SocialActivity" />
+        <activity android:name=".newdesign.SessionActivity"></activity>
     </application>
 
 </manifest>
