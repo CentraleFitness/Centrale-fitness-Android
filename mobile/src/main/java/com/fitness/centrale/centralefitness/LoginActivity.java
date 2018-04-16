@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,8 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                                         Prefs.setToken(response.getString(Constants.TOKEN));
                                         Prefs.setUsername(params.get(Constants.LOGIN));
 
-                                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                                         startActivity(intent);
+                                    }else{
+                                        System.out.println("Mauvaise combinaison");
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

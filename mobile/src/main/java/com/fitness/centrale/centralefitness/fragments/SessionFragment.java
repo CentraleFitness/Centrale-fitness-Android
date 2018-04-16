@@ -47,7 +47,6 @@ public class SessionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), NFCScanActivity.class);
-
                 startActivity(intent);
             }
         });

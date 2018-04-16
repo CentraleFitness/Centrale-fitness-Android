@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
 import com.fitness.centrale.centralefitness.store.Store;
 import com.fitness.centrale.centralefitness.store.UserObject;
 
@@ -41,7 +42,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void goBack(){
-        Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
+        Intent intent = new Intent(EditProfileActivity.this, ProfileActivity.class);
         startActivity(intent);
         finish();
 

@@ -50,6 +50,75 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"></LinearLayout>
+        android:layout_weight="7"
+        android:orientation="vertical">
+
+
+        <com.fitness.centrale.centralefitness.customcomponent.NonSlidablePager
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_margin="10dp"
+
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_settings"
+                android:background="@color/black"
+                />
+            <ImageView
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_settings"
+                android:background="@color/black"
+                />
+            <ImageView
+                android:id="@+id/sessionStartBtn"
+                android:layout_weight="1.5"
+                android:layout_margin="10dp"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_settings"
+                android:background="@color/black"
+                />
+            <ImageView
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_settings"
+                android:background="@color/black"
+                />
+            <ImageView
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_settings"
+                android:background="@color/black"
+                />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
 
 </LinearLayout>

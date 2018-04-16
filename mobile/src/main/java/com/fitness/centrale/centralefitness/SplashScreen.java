@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -124,7 +125,7 @@ public class SplashScreen extends AppCompatActivity {
                                 System.out.println("Response code : " + response.getString("code"));
                                 if (response.getString("code").equals("201")){
 
-                                    Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+                                    Intent intent = new Intent(SplashScreen.this, ProfileActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }else{
