@@ -28,7 +28,7 @@ public class SocialActivity extends AppCompatActivity {
                 Pair<View, String> p1 = Pair.create((View)sessionBtn, ViewCompat.getTransitionName(sessionBtn));
                 Pair<View, String> p2 = Pair.create((View)socialBtn, ViewCompat.getTransitionName(socialBtn));
 
-                Intent intent = new Intent(SocialActivity.this, SessionActivity.class);
+                Intent intent = new Intent(SocialActivity.this, CenterActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SocialActivity.this, p1, p2);
                 startActivity(intent, options.toBundle());
 

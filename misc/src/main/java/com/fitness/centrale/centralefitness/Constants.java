@@ -10,7 +10,7 @@ public class Constants {
     /**
      * SERVER INFO
      */
-    public static String HOST = "192.168.0.102";
+    public static String HOST = "192.168.0.103";
     public static String PORT  = "8080";
     public static String SERVER = "http://" + HOST + ":" + PORT;
 

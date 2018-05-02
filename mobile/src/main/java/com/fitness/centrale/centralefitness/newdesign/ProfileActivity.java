@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Pair<View, String> p1 = Pair.create((View)session, ViewCompat.getTransitionName(session));
                 Pair<View, String> p2 = Pair.create((View)center, ViewCompat.getTransitionName(center));
 
-                Intent intent = new Intent(ProfileActivity.this, SessionActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, CenterActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(ProfileActivity.this, p1, p2);
                 startActivity(intent, options.toBundle());
 
