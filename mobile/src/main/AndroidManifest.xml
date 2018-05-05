@@ -52,15 +52,13 @@
         <activity
             android:name=".SessionActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".newdesign.ProfileActivity" >
+        <activity android:name=".newdesign.ProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
             </intent-filter>
-
         </activity>
         <activity android:name=".newdesign.SocialActivity" />
-        <activity android:name=".newdesign.CenterActivity"></activity>
+        <activity android:name=".newdesign.CenterActivity" />
     </application>
 
 </manifest>

@@ -1,1 +1,1 @@
-include ':mobile', ':wear', ':nfc', ":misc"
+include ':mobile', ':nfc', ':wear', ":misc"

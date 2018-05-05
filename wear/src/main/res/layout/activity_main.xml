@@ -10,44 +10,44 @@
     android:keepScreenOn="true">
 
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <pl.pawelkleczkowski.customgauge.CustomGauge
-        android:id="@+id/gauge1"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_below="@+id/gauge1"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        app:gaugeEndValue="100"
-        app:gaugePointEndColor="@color/ourOrange"
-        app:gaugePointStartColor="@color/ourOrangeClair"
-        app:gaugeStartAngle="135"
-        app:gaugeStartValue="0"
-        app:gaugeStrokeCap="ROUND"
-        app:gaugeStrokeColor="@color/ourViolet"
-        app:gaugeStrokeWidth="10dp"
-        app:gaugeSweepAngle="270"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/wattValue"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="10W"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:textColor="@color/black"/>
+        android:layout_height="match_parent">
+
+
+        <pl.pawelkleczkowski.customgauge.CustomGauge
+            android:id="@+id/gauge1"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_below="@+id/gauge1"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            app:gaugeEndValue="100"
+            app:gaugePointEndColor="@color/ourOrange"
+            app:gaugePointStartColor="@color/ourOrangeClair"
+            app:gaugeStartAngle="135"
+            app:gaugeStartValue="0"
+            app:gaugeStrokeCap="ROUND"
+            app:gaugeStrokeColor="@color/ourViolet"
+            app:gaugeStrokeWidth="10dp"
+            app:gaugeSweepAngle="270"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/wattValue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="10W"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:textColor="@color/black"/>
 
 
 
 
-</FrameLayout>
+    </FrameLayout>
 
 </android.support.wearable.view.BoxInsetLayout>
