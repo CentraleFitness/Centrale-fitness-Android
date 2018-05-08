@@ -1,27 +1,21 @@
 package com.fitness.centrale.centralefitness.newdesign;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.fitness.centrale.centralefitness.HomeActivity;
 import com.fitness.centrale.centralefitness.NFCScanActivity;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.fragments.ChallengeFragment;
-import com.fitness.centrale.centralefitness.fragments.EventsFragment;
-import com.fitness.centrale.centralefitness.fragments.ProfileFragment;
+import com.fitness.centrale.centralefitness.fragments.event.EventsFragment;
 import com.fitness.centrale.centralefitness.fragments.ProgramsFragment;
 import com.fitness.centrale.centralefitness.fragments.StatsFragment;
 
@@ -154,18 +148,6 @@ public class CenterActivity extends AppCompatActivity {
     public void onClickOnButton(int pos) {
         mpager.setCurrentItem(pos, false);
 
-
-        //Passer les images en selectionnées ou non (a voir plus tard)
-        /*for (int i = 0; i < PAGE_NUMBER; i++) {
-            footerImages[i].setImageResource(footerImagesUnselected[i]);
-            if (footerTextes[i] != null) {
-                footerTextes[i].setTextColor(getResources().getColor(R.color.white));
-            }
-        }
-        footerImages[pos].setImageResource(footerImagesSelected[pos]);
-        if (footerTextes[pos] != null) {
-            footerTextes[pos].setTextColor(getResources().getColor(R.color.ourBlue));
-        }*/
     }
 
     private static EventsFragment eventsFragment = null;

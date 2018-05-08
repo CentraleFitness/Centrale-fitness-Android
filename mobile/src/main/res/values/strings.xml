@@ -8,6 +8,8 @@
     <string name="action_settings">Déconnexion</string>
     <string name="title_activity_home">Centrale Fitness</string>
 
+    <string name="registered_events">Evenements inscrits</string>
+    <string name="all_events">Tous les événements</string>
 
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

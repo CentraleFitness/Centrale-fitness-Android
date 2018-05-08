@@ -61,4 +61,6 @@ public class NonSlidablePager extends ViewPager {
             super.startScroll(startX, startY, dx, dy, 350 /*1 secs*/);
         }
     }
+
+
 }
