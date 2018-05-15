@@ -88,7 +88,9 @@ public class AllEventsFragment extends Fragment {
 
                             JSONArray subArray = events.getJSONArray(index);
 
-                            itemsIdsList.add(new BasicEventObject(subArray.getString(1), subArray.getString(0)));
+                            itemsIdsList.add(new BasicEventObject(subArray.getString(1), subArray.getString(0), getContext()));
+
+
 
                             index++;
 
