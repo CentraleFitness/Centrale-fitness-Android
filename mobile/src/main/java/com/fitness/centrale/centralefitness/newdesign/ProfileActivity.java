@@ -47,6 +47,8 @@ public class ProfileActivity extends AppCompatActivity {
         final ImageView center = findViewById(R.id.profileButton);
 
 
+
+
         session.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

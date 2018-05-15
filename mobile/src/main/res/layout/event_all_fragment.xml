@@ -8,12 +8,13 @@
     android:orientation="vertical">
 
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/allFragmentRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:text="ALL FRAGMENT"
-        android:gravity="center"/>
+        android:layout_height="match_parent">
 
+
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

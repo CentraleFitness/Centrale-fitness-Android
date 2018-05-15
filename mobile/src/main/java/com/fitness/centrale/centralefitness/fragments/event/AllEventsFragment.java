@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +21,13 @@ import com.fitness.centrale.centralefitness.ImageUtility;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.VolleyUtility;
+import com.google.gson.JsonArray;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,20 +45,32 @@ public class AllEventsFragment extends Fragment {
     }
 
 
+    private ArrayList<BasicEventObject> itemsIdsList;
+    private View view;
+    private RecyclerView recyclerView;
 
 
+    public void setListAdapter(){
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        recyclerView = view.findViewById(R.id.allFragmentRecyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList));
+
+    }
+
+    public void refreshEvents(){
 
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
 
+
         Map<String, Object> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getToken());
+        itemsIdsList = new ArrayList<BasicEventObject>();
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_IDS, new JSONObject(params), new Response.Listener<JSONObject>() {
@@ -63,7 +80,22 @@ public class AllEventsFragment extends Fragment {
                     System.out.println(response.getString("code"));
                     if (response.getString("code").equals("001")){
 
-                        System.out.println();
+
+                        JSONArray events = (JSONArray) response.get("events");
+                        int index  = 0;
+
+                        while (index != events.length()){
+
+                            JSONArray subArray = events.getJSONArray(index);
+
+                            itemsIdsList.add(new BasicEventObject(subArray.getString(1), subArray.getString(0)));
+
+                            index++;
+
+                        }
+
+                        setListAdapter();
+
 
                     }
                 } catch (JSONException e) {
@@ -80,6 +112,16 @@ public class AllEventsFragment extends Fragment {
         VolleyUtility.fixDoubleRequests(request);
 
         queue.add(request);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.view = view;
+
+        this.refreshEvents();
 
 
     }
