@@ -32,6 +32,7 @@ public class Constants {
     public static String GET_INSTANT_PRODUCTION = "/user/get/instantproduction";
     public static String USER_PAIR_STOP = "/user/pair/stop";
     public static String GET_EVENTS_IDS = "/get/events";
+    public static String GET_EVENTS_PREVIEW = "/get/eventpreview";
 
 
     /*
@@ -50,6 +51,7 @@ public class Constants {
     public static String SESSIONID= "session id";
     public static String START="start";
     public static String END="end";
+    public static String EVENTID="eventid";
 
 
 }
