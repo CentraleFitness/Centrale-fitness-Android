@@ -85,8 +85,10 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_settings"
-                android:background="@color/black"
+                android:src="@drawable/trophy"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:elevation="6dp"
                 />
             <ImageView
                 android:id="@+id/eventButton"
@@ -95,8 +97,10 @@
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_settings"
-                android:background="@color/black"
+                android:src="@drawable/fireworks"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:elevation="6dp"
                 />
             <ImageView
                 android:id="@+id/sessionStartBtn"
@@ -105,8 +109,10 @@
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_settings"
-                android:background="@color/black"
+                android:src="@drawable/link"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:elevation="6dp"
                 />
 
             <ImageView
@@ -116,16 +122,21 @@
 
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@color/black"
-                android:src="@drawable/ic_settings" />
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:elevation="6dp"
+                android:src="@drawable/analytics"
+                />
             <ImageView
                 android:id="@+id/programsButton"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_settings"
-                android:background="@color/black"
+                android:src="@drawable/controls"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:elevation="6dp"
                 />
 
 

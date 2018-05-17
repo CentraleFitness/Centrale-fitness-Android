@@ -28,6 +28,7 @@ import com.fitness.centrale.centralefitness.VolleyUtility;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -84,6 +85,7 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
                         Date endDate = new Date(Long.valueOf(response.getString("end date")));
                         final Boolean registered = Boolean.valueOf(response.getString("user_registered"));
                         final String picture = response.getString("picture");
+                        final String description = response.getString("description");
 
                         new B64ToImageTask(picture, eventPicture).execute();
 
@@ -99,17 +101,25 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
                         event.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(context, EventDetailsActivity.class);
+                                Intent intent = new Intent(parent, EventDetailsActivity.class);
                                 intent.putExtra("name", myObject.name);
                                 intent.putExtra("id", myObject.id);
                                 intent.putExtra("startDate", startDateStr);
                                 intent.putExtra("endDate", endDateStr);
                                 intent.putExtra("registered", registered);
-                                intent.putExtra("picture", eventPictureBitmap);
+                                intent.putExtra("description", description);
+
+                                ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+                                eventPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+                                byte[] byteArray = bStream.toByteArray();
+
+                                intent.putExtra("picture", byteArray);
+
+
 
                                 Pair<View, String> p1 = Pair.create((View)event, "eventOpening");
-                                Pair<View, String> p2 = Pair.create((View)eventPicture, "eventPictureAnimation");
-
+                             //   Pair<View, String> p2 = Pair.create((View)eventPicture, "eventPictureAnimation");
+                                Pair<View, String> p3 = Pair.create((View)title, "eventTitleTransition");
 
                                 ActivityOptionsCompat options = ActivityOptionsCompat.
                                         makeSceneTransitionAnimation(parent, p1);
