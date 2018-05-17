@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,16 +50,25 @@ public class AllEventsFragment extends Fragment {
     private ArrayList<BasicEventObject> itemsIdsList;
     private View view;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     public void setListAdapter(){
 
 
         recyclerView = view.findViewById(R.id.allFragmentRecyclerView);
+        swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshEvents();
+            }
+        });
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList));
+        recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList, getContext(), getActivity()));
 
     }
 
@@ -70,7 +81,7 @@ public class AllEventsFragment extends Fragment {
 
         Map<String, Object> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getToken());
-        itemsIdsList = new ArrayList<BasicEventObject>();
+        itemsIdsList = new ArrayList<>();
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_IDS, new JSONObject(params), new Response.Listener<JSONObject>() {
@@ -97,6 +108,8 @@ public class AllEventsFragment extends Fragment {
                         }
 
                         setListAdapter();
+
+                        swipeRefreshLayout.setRefreshing(false);
 
 
                     }

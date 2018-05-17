@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/AppThemeNoActionBar"
+    android:background="#F9F1F1"
     tools:context=".newdesign.ProfileActivity">
 
     <RelativeLayout

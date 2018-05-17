@@ -59,6 +59,7 @@
         </activity>
         <activity android:name=".newdesign.SocialActivity" />
         <activity android:name=".newdesign.CenterActivity" />
+        <activity android:name=".EventDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F9F1F1"
     android:theme="@style/AppThemeNoActionBar"
     tools:context=".newdesign.ProfileActivity">
 
@@ -64,6 +65,7 @@
 
         <com.fitness.centrale.centralefitness.customcomponent.NonSlidablePager
             android:id="@+id/centerPager"
+            android:background="#F9F1F1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"/>

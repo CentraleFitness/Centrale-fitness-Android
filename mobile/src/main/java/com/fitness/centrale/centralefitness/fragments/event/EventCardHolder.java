@@ -1,7 +1,16 @@
 package com.fitness.centrale.centralefitness.fragments.event;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -10,29 +19,49 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.EventDetailsActivity;
+import com.fitness.centrale.centralefitness.ImageUtility;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.VolleyUtility;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventCardHolder extends RecyclerView.ViewHolder {
+public class EventCardHolder  extends RecyclerView.ViewHolder   {
 
+    private Context context;
+    private Activity parent;
+
+    private CardView event;
     private TextView title;
+    private TextView startDateView;
+    private TextView endDateView;
+    private ImageView eventPicture;
+    private TextView registeredText;
+    private Bitmap eventPictureBitmap;
 
-    public EventCardHolder(View itemView) {
+    public EventCardHolder(View itemView, Context context, Activity parent) {
         super(itemView);
+        this.context = context;
+        this.parent = parent;
 
+        event = itemView.findViewById(R.id.cardViewEvent);
         title = itemView.findViewById(R.id.cardEventTitle);
+        startDateView = itemView.findViewById(R.id.startDateText);
+        endDateView = itemView.findViewById(R.id.endDateText);
+        eventPicture = itemView.findViewById(R.id.eventPicture);
+        registeredText = itemView.findViewById(R.id.registeredEventText);
     }
 
-    public void bind(BasicEventObject myObject){
+
+
+    public void bind(final BasicEventObject myObject){
         title.setText(myObject.name);
 
 
@@ -51,6 +80,45 @@ public class EventCardHolder extends RecyclerView.ViewHolder {
                     System.out.println(response.getString("code"));
                     if (response.getString("code").equals("001")){
 
+                        Date startDate = new Date(Long.valueOf(response.getString("start date")));
+                        Date endDate = new Date(Long.valueOf(response.getString("end date")));
+                        final Boolean registered = Boolean.valueOf(response.getString("user_registered"));
+                        final String picture = response.getString("picture");
+
+                        new B64ToImageTask(picture, eventPicture).execute();
+
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        final String startDateStr = format.format(startDate);
+                        final String endDateStr = format.format(endDate);
+
+                        startDateView.setText(startDateStr);
+                        endDateView.setText(endDateStr);
+
+
+
+                        event.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(context, EventDetailsActivity.class);
+                                intent.putExtra("name", myObject.name);
+                                intent.putExtra("id", myObject.id);
+                                intent.putExtra("startDate", startDateStr);
+                                intent.putExtra("endDate", endDateStr);
+                                intent.putExtra("registered", registered);
+                                intent.putExtra("picture", eventPictureBitmap);
+
+                                Pair<View, String> p1 = Pair.create((View)event, "eventOpening");
+                                Pair<View, String> p2 = Pair.create((View)eventPicture, "eventPictureAnimation");
+
+
+                                ActivityOptionsCompat options = ActivityOptionsCompat.
+                                        makeSceneTransitionAnimation(parent, p1);
+
+                                context.startActivity(intent, options.toBundle());
+                            }
+                        });
+
+                        registeredText.setText(registered ? "Inscrit" : "Non inscrit");
 
 
                     }
@@ -69,7 +137,41 @@ public class EventCardHolder extends RecyclerView.ViewHolder {
 
         queue.add(request);
 
+    }
 
+
+
+    private class B64ToImageTask extends AsyncTask{
+
+        final String pictureB64;
+        final ImageView imageView;
+
+        public B64ToImageTask(final String pictureB64, final ImageView imageView){
+            this.pictureB64 = pictureB64;
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+           Bitmap image =  ImageUtility.base64ToImage(pictureB64.split(",")[1]);
+
+            return image;
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+            eventPicture.setImageBitmap((Bitmap) result);
+            eventPictureBitmap = (Bitmap) result;
+        }
 
     }
+
+
+
+
+
+
 }
+
+
+
