@@ -124,10 +124,7 @@ public class SplashScreen extends AppCompatActivity {
                             try {
                                 System.out.println("Response code : " + response.getString("code"));
                                 if (response.getString("code").equals("201")){
-
-                                    Intent intent = new Intent(SplashScreen.this, ProfileActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    sendAffiliationRequest();
                                 }else{
                                     Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                                     startActivity(intent);
@@ -148,6 +145,54 @@ public class SplashScreen extends AppCompatActivity {
 
             return "true";
         }
+    }
+
+
+
+    private void sendAffiliationRequest(){
+
+
+        RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+
+
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_AFFILIATION, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.getString("code"));
+                    if (response.getString("code").equals("001")){
+
+
+                        Intent intent = new Intent(SplashScreen.this, ProfileActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    }else{
+
+                        Intent intent = new Intent(SplashScreen.this, AffiliationActivity.class);
+                        startActivity(intent);
+                        finish();
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleyUtility.fixDoubleRequests(request);
+
+        queue.add(request);
+
     }
 
 }

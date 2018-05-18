@@ -33,6 +33,9 @@ public class Constants {
     public static String USER_PAIR_STOP = "/user/pair/stop";
     public static String GET_EVENTS_IDS = "/get/events";
     public static String GET_EVENTS_PREVIEW = "/get/eventpreview";
+    public static String GET_AFFILIATION = "/get/affiliation";
+    public static String AFFILIATE="/affiliate";
+
 
 
     /*
@@ -52,6 +55,8 @@ public class Constants {
     public static String START="start";
     public static String END="end";
     public static String EVENTID="eventid";
+    public static String SPORTCENTERID="sport center id";
+    public static String AFFILIATIONTOKEN="affiliation token";
 
 
 }
