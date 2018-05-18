@@ -10,8 +10,8 @@ public class Constants {
     /**
      * SERVER INFO
      */
-    public static String HOST = "192.168.0.103";
-    //public static String HOST = "163.5.84.201";
+    //public static String HOST = "192.168.0.103";
+    public static String HOST = "163.5.84.201";
     public static String PORT  = "8080";
     public static String SERVER = "http://" + HOST + ":" + PORT;
 
@@ -35,6 +35,7 @@ public class Constants {
     public static String GET_EVENTS_PREVIEW = "/get/eventpreview";
     public static String GET_AFFILIATION = "/get/affiliation";
     public static String AFFILIATE="/affiliate";
+    public static String REGISTER_EVENT="/event/registration";
 
 
 
