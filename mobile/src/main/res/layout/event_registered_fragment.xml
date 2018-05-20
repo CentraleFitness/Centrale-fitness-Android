@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/allEventSwypeRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,11 +8,13 @@
     android:orientation="vertical">
 
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/registeredFragmentRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:text="REGISTERED FRAGMENT"
-        android:gravity="center"/>
+        android:layout_height="match_parent">
 
-</LinearLayout>
+
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.v4.widget.SwipeRefreshLayout>

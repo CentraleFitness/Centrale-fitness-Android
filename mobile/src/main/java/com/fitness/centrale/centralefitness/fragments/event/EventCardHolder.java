@@ -163,15 +163,22 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-           Bitmap image =  ImageUtility.base64ToImage(pictureB64.split(",")[1]);
+            String []splitted = pictureB64.split(",");
+            if (splitted.length == 2){
+                return ImageUtility.base64ToImage(splitted[1]);
+            }
 
-            return image;
+
+
+            return null;
         }
 
         @Override
         protected void onPostExecute(Object result) {
-            eventPicture.setImageBitmap((Bitmap) result);
-            eventPictureBitmap = (Bitmap) result;
+            if (result != null) {
+                eventPicture.setImageBitmap((Bitmap) result);
+                eventPictureBitmap = (Bitmap) result;
+            }
         }
 
     }

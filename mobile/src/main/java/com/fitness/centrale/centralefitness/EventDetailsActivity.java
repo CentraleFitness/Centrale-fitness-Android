@@ -80,7 +80,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 params.put(Constants.TOKEN, Prefs.getToken());
                 params.put(Constants.EVENTID, getIntent().getStringExtra("id"));
 
-                JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GETPROFILE, new JSONObject(params),
+                JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.REGISTER_EVENT, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

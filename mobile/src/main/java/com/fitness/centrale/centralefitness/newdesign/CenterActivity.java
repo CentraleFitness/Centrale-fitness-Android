@@ -3,6 +3,7 @@ package com.fitness.centrale.centralefitness.newdesign;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
@@ -53,7 +54,9 @@ public class CenterActivity extends AppCompatActivity {
                 Intent intent = new Intent(CenterActivity.this, ProfileActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(CenterActivity.this, p1, p2);
                 startActivity(intent, options.toBundle());
-                mShouldFinish = true;
+                supportFinishAfterTransition();
+
+
 
             }
         });
@@ -67,7 +70,7 @@ public class CenterActivity extends AppCompatActivity {
                 Intent intent = new Intent(CenterActivity.this, SocialActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(CenterActivity.this, p1, p2);
                 startActivity(intent, options.toBundle());
-                mShouldFinish = true;
+                supportFinishAfterTransition();
             }
         });
 
@@ -137,11 +140,11 @@ public class CenterActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public void onStop() {
         super.onStop();
-        if(mShouldFinish)
-            finish();
+
     }
 
 
@@ -187,7 +190,7 @@ public class CenterActivity extends AppCompatActivity {
         return  programsFragment;
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+    private class ScreenSlidePagerAdapter extends FragmentPagerAdapter {
         public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
         }

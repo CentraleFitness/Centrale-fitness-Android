@@ -37,14 +37,17 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private int PICK_IMAGE_REQUEST = 1;
+    ImageView session;
+    ImageView center;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        final ImageView session = findViewById(R.id.sessionButton);
-        final ImageView center = findViewById(R.id.profileButton);
+         session = findViewById(R.id.sessionButton);
+         center = findViewById(R.id.profileButton);
 
 
 
@@ -62,7 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
 
 
 
@@ -156,7 +158,6 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
-
 
 
     private void updateImage(final String b64img){

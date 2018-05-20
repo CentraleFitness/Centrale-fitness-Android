@@ -58,6 +58,7 @@ public class Constants {
     public static String EVENTID="eventid";
     public static String SPORTCENTERID="sport center id";
     public static String AFFILIATIONTOKEN="affiliation token";
+    public static String ISREG="isreg";
 
 
 }

@@ -34,7 +34,13 @@ public class EventsFragment extends Fragment {
         return inflater.inflate(R.layout.event_fragment, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+
+        System.out.println();
+    }
 
     LinearLayout leftTab = null;
     TextView leftTabTitle = null;
@@ -74,6 +80,8 @@ public class EventsFragment extends Fragment {
 
 
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -133,6 +141,8 @@ public class EventsFragment extends Fragment {
 
 
     }
+
+
 
     //Ici, remplacer les int et autres par les vrais arguments de la map
     public static EventsFragment newInstance() {
