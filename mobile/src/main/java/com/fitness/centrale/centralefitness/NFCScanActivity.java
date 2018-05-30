@@ -1,6 +1,7 @@
 package com.fitness.centrale.centralefitness;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NdefMessage;
@@ -9,6 +10,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
@@ -231,6 +233,15 @@ public class NFCScanActivity extends Activity  {
                                 Intent intent = new Intent(NFCScanActivity.this, SessionActivity.class);
                                 startActivity(intent);
                                 finish();
+                            }else{
+                                AlertDialog.Builder builder;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    builder = new AlertDialog.Builder(getApplicationContext(), android.R.style.Theme_Material_Dialog_Alert);
+                                } else {
+                                    builder = new AlertDialog.Builder(getApplicationContext());
+                                }
+                                builder.setTitle("Tag NFC non valide")
+                                        .setMessage("Ce module est invalide").show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
