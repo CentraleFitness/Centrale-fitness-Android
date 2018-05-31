@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    tools:context=".EventDetailsActivity">
+
+
+    <LinearLayout
+
+        android:transitionName="statsOpening"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loginroundbackground"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/statsDetailsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Session du 20/03/2018"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="23dp"/>
+
+        <ImageView
+            android:id="@+id/statsDetailsMachineLogo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/bikelogo"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/statsDetailsDuration"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:text="Durée : 120minutes"
+            android:layout_weight=".5"/>
+
+        <TextView
+            android:id="@+id/statsDetailsMaxProd"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+
+            android:layout_weight=".5"
+            android:text="Production Maximale : 10 Watt"/>
+
+        <TextView
+            android:id="@+id/statsDetailsAverageProd"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+
+            android:layout_weight=".5"
+            android:text="Production moyenne : 5 Watt"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Vision globale"/>
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/statsChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"/>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

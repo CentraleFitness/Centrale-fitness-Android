@@ -42,6 +42,9 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
     private Activity parent;
 
     private TextView title;
+    private TextView duration;
+    private ImageView picture;
+    private View cardView;
 
 
     public StatCardHolder(View itemView, Context context, Activity parent) {
@@ -49,14 +52,40 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
         this.context = context;
         this.parent = parent;
 
-        title = itemView.findViewById(R.id.cardEventTitle);
+        title = itemView.findViewById(R.id.cardStatDate);
+        picture = itemView.findViewById(R.id.statPicture);
+        duration = itemView.findViewById(R.id.cardStatDuration);
+        cardView = itemView.findViewById(R.id.cardViewStat);
+
 
     }
 
 
 
     public void bind(final StatsFragment.StatObject myObject){
-        title.setText(myObject.name);
+        title.setText(myObject.date);
+        picture.setImageDrawable(context.getDrawable(myObject.device.machineLogo));
+        duration.setText(String.valueOf(myObject.duration) + " minutes");
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(parent, SessionDetailsActivity.class);
+
+                intent.putExtra("date", myObject.date);
+                intent.putExtra("machine", myObject.device.machineName);
+                intent.putExtra("duration", myObject.duration);
+
+                Pair<View, String> p1 = Pair.create(cardView, "statsOpening");
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(parent, p1);
+
+                context.startActivity(intent, options.toBundle());
+
+            }
+        });
 
 
 

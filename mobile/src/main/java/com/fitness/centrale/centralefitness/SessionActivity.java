@@ -30,6 +30,7 @@ import java.util.Map;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
@@ -182,6 +183,7 @@ public class SessionActivity extends AppCompatActivity {
                                     data.setLines(lines);
 
                                     chart.setLineChartData(data);
+
 
 
 

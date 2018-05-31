@@ -18,6 +18,8 @@ import com.fitness.centrale.centralefitness.fragments.stats.StatsCardsAdapter;
 
 import java.util.ArrayList;
 
+import javax.crypto.Mac;
+
 
 /**
  * Created by Psyycker on 19/11/2017.
@@ -26,12 +28,26 @@ import java.util.ArrayList;
 public class StatsFragment extends Fragment {
 
 
+    public enum MachineTypes{
+        BIKE("bike", R.drawable.bikelogo),
+        ELLIPTICAL("elliptical", R.drawable.elliptiquelogo);
+
+
+        public final String machineName;
+        public final int machineLogo;
+
+        MachineTypes(String machine, int machineLogo) {
+            this.machineName = machine;
+            this.machineLogo = machineLogo;
+        }
+    }
+
 
     public class StatObject{
 
         public String date;
-        public String duration;
-        public String device;
+        public int duration;
+        public MachineTypes device;
 
 
     }
@@ -67,10 +83,27 @@ public class StatsFragment extends Fragment {
         itemsList = new ArrayList<>();
 
         StatObject obj = new StatObject();
+        obj.date = "12/03/2018";
+        obj.device = MachineTypes.BIKE;
+        obj.duration = 120;
+
         itemsList.add(obj);
+
+         obj = new StatObject();
+        obj.date = "13/03/2018";
+        obj.device = MachineTypes.BIKE;
+        obj.duration = 140;
+
         itemsList.add(obj);
+
+        obj = new StatObject();
+        obj.date = "14/03/2018";
+        obj.device = MachineTypes.ELLIPTICAL;
+        obj.duration = 90;
+
         itemsList.add(obj);
-        itemsList.add(obj);
+
+
 
         setListAdapter();
 

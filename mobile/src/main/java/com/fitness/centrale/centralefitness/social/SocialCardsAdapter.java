@@ -1,4 +1,4 @@
-package com.fitness.centrale.centralefitness.fragments.stats;
+package com.fitness.centrale.centralefitness.social;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,19 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fitness.centrale.centralefitness.R;
-import com.fitness.centrale.centralefitness.fragments.StatsFragment;
 import com.fitness.centrale.centralefitness.fragments.event.BasicEventObject;
 import com.fitness.centrale.centralefitness.fragments.event.EventCardHolder;
 
 import java.util.List;
 
-public class StatsCardsAdapter extends RecyclerView.Adapter<StatCardHolder> {
+public class SocialCardsAdapter extends RecyclerView.Adapter<EventCardHolder> {
 
-    List<StatsFragment.StatObject> eventsIds;
+    List<BasicEventObject> eventsIds;
     Context context;
     Activity parent;
 
-    public StatsCardsAdapter(List<StatsFragment.StatObject> eventsIds, Context context, Activity parent){
+    public SocialCardsAdapter(List<BasicEventObject> eventsIds, Context context, Activity parent){
         this.eventsIds = eventsIds;
         this.context = context;
         this.parent = parent;
@@ -29,13 +28,13 @@ public class StatsCardsAdapter extends RecyclerView.Adapter<StatCardHolder> {
 
     @NonNull
     @Override
-    public StatCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stat_card,parent,false);
-        return new StatCardHolder(view, context, this.parent);    }
+    public EventCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card,parent,false);
+        return new EventCardHolder(view, context, this.parent);    }
 
     @Override
-    public void onBindViewHolder(@NonNull StatCardHolder holder, int position) {
-        StatsFragment.StatObject myObject = eventsIds.get(position);
+    public void onBindViewHolder(@NonNull EventCardHolder holder, int position) {
+        BasicEventObject myObject = eventsIds.get(position);
         holder.bind(myObject);
     }
 
