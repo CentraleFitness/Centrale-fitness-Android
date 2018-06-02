@@ -12,15 +12,16 @@ import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.fragments.event.BasicEventObject;
 import com.fitness.centrale.centralefitness.fragments.event.EventCardHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SocialCardsAdapter extends RecyclerView.Adapter<EventCardHolder> {
+public class SocialCardsAdapter extends RecyclerView.Adapter<SocialCardHolder> {
 
-    List<BasicEventObject> eventsIds;
+    List<BasicSocialObject> eventsIds;
     Context context;
     Activity parent;
 
-    public SocialCardsAdapter(List<BasicEventObject> eventsIds, Context context, Activity parent){
+    public SocialCardsAdapter(ArrayList<BasicSocialObject> eventsIds, Context context, Activity parent){
         this.eventsIds = eventsIds;
         this.context = context;
         this.parent = parent;
@@ -28,13 +29,14 @@ public class SocialCardsAdapter extends RecyclerView.Adapter<EventCardHolder> {
 
     @NonNull
     @Override
-    public EventCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card,parent,false);
-        return new EventCardHolder(view, context, this.parent);    }
+    public SocialCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.social_card,parent,false);
+        return new SocialCardHolder(view, context, this.parent);
+    }
 
     @Override
-    public void onBindViewHolder(@NonNull EventCardHolder holder, int position) {
-        BasicEventObject myObject = eventsIds.get(position);
+    public void onBindViewHolder(@NonNull SocialCardHolder holder, int position) {
+        BasicSocialObject myObject = eventsIds.get(position);
         holder.bind(myObject);
     }
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
@@ -19,6 +18,7 @@ import com.fitness.centrale.centralefitness.fragments.ChallengeFragment;
 import com.fitness.centrale.centralefitness.fragments.event.EventsFragment;
 import com.fitness.centrale.centralefitness.fragments.ProgramsFragment;
 import com.fitness.centrale.centralefitness.fragments.StatsFragment;
+import com.fitness.centrale.centralefitness.social.SocialActivity;
 
 public class CenterActivity extends AppCompatActivity {
 
