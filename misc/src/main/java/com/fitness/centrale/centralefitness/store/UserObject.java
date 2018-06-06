@@ -11,6 +11,7 @@ public class UserObject {
     public String email ="";
     public String login ="";
     public String phone ="";
+    public String gymId = "";
 
     public UserObject(){
 

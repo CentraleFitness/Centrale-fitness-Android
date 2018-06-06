@@ -41,6 +41,45 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView center;
 
 
+    public void getGymId(){
+
+        if (!Store.getStore().getUserObject().gymId.equals("")){
+            return;
+        }
+
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        final Map<String, String> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_AFFILIATION, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println("Response code : " + response.getString("code"));
+                            if (response.getString("code").equals("001")){
+
+                                System.out.println();
+                                Store.getStore().getUserObject().gymId = response.getString(Constants.SPORTCENTERID);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +130,9 @@ public class ProfileActivity extends AppCompatActivity {
                                         response.getString("login"),
                                         response.getString("phone number"));
                                 loginView.setText(Store.getStore().getUserObject().login);
+
+                                getGymId();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

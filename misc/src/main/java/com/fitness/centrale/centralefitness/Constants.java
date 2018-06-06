@@ -36,6 +36,7 @@ public class Constants {
     public static String GET_AFFILIATION = "/get/affiliation";
     public static String AFFILIATE="/affiliate";
     public static String REGISTER_EVENT="/event/registration";
+    public static String GET_POSTS="/get/posts";
 
 
 
@@ -59,6 +60,7 @@ public class Constants {
     public static String SPORTCENTERID="sport center id";
     public static String AFFILIATIONTOKEN="affiliation token";
     public static String ISREG="isreg";
+    public static String TARGETID="target id";
 
 
 }

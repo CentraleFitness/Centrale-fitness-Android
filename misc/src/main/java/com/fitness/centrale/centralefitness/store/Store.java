@@ -26,7 +26,11 @@ public class Store {
 
     public void setUser(final String firstName, final String lastName, final String email, final String login, final String phone){
         userObject = new UserObject(firstName, lastName, email, login, phone);
-        System.out.println();
+
+    }
+
+    public void updateUser(final UserObject object){
+        userObject = object;
     }
 
     public UserObject getUserObject(){
@@ -58,6 +62,7 @@ public class Store {
     /*
     END LAST SESSION
      */
+
 
 
 
