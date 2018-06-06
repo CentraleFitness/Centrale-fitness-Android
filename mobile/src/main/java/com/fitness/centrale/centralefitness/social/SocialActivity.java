@@ -69,19 +69,17 @@ public class SocialActivity extends AppCompatActivity {
 
 
         itemsIdsList = new ArrayList<>();
-        BasicSocialObject obj = new BasicSocialObject("0", this);
+        BasicSocialObject obj = new BasicSocialObject("0", this, BasicSocialObject.PostType.CLASSIC);
         itemsIdsList.add(obj);
 
 
-        obj = new BasicSocialObject("1", this);
+        obj = new BasicSocialObject("1", this, BasicSocialObject.PostType.CLASSIC);
         itemsIdsList.add(obj);
-
-
-        obj = new BasicSocialObject("2", this);
+        obj = new BasicSocialObject("2", this, BasicSocialObject.PostType.EVENT);
         itemsIdsList.add(obj);
-        obj = new BasicSocialObject("3", this);
+        obj = new BasicSocialObject("3", this, BasicSocialObject.PostType.CLASSIC);
         itemsIdsList.add(obj);
-        obj = new BasicSocialObject("4", this);
+        obj = new BasicSocialObject("4", this, BasicSocialObject.PostType.EVENT);
         itemsIdsList.add(obj);
 
         setAdapter();
