@@ -20,7 +20,7 @@ public class BasicSocialObject {
 
     public enum PostType{
 
-        CLASSIC("CLASSIC"),
+        PUBLICATION("PUBLICATION"),
         EVENT("EVENT");
 
         public final  String value;

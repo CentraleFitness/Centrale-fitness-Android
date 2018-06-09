@@ -38,7 +38,7 @@ public class SocialCardsAdapter extends RecyclerView.Adapter<SocialCardHolder> {
         BasicSocialObject obj = socialIds.get(viewIndex);
 
         switch (obj.type){
-            case CLASSIC:
+            case PUBLICATION:
                 layout = R.layout.social_card;
                 break;
             case EVENT:

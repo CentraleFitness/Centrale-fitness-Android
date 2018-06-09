@@ -37,6 +37,7 @@ public class Constants {
     public static String AFFILIATE="/affiliate";
     public static String REGISTER_EVENT="/event/registration";
     public static String GET_POSTS="/get/posts";
+    public static String GET_POST_CONTENT="/get/postcontent";
 
 
 
@@ -61,6 +62,11 @@ public class Constants {
     public static String AFFILIATIONTOKEN="affiliation token";
     public static String ISREG="isreg";
     public static String TARGETID="target id";
+    public static String POSTID="post id";
+    public static String POSTTYPE="post type";
+    public static String POSTICON="post icon";
+    public static String POSTDATE="post date";
+    public static String POSTCONTENT="post content";
 
 
 }

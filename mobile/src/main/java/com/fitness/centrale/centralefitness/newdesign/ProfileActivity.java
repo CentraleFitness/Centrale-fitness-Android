@@ -61,7 +61,6 @@ public class ProfileActivity extends AppCompatActivity {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
 
-                                System.out.println();
                                 Store.getStore().getUserObject().gymId = response.getString(Constants.SPORTCENTERID);
 
                             }

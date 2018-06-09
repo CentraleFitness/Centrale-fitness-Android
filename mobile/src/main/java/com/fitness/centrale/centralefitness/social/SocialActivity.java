@@ -20,11 +20,10 @@ import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
-import com.fitness.centrale.centralefitness.fragments.event.BasicEventObject;
-import com.fitness.centrale.centralefitness.fragments.event.EventCardsAdapter;
 import com.fitness.centrale.centralefitness.newdesign.CenterActivity;
 import com.fitness.centrale.centralefitness.store.Store;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -84,6 +83,8 @@ public class SocialActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
+        itemsIdsList = new ArrayList<>();
+
         final Map<String, Object> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getToken());
         params.put(Constants.TARGETID, Store.getStore().getUserObject().gymId);
@@ -97,6 +98,22 @@ public class SocialActivity extends AppCompatActivity {
                         try {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
+
+                                JSONArray postsArray = response.getJSONArray("posts");
+
+                                for (int index = 0; index < postsArray.length(); index++){
+
+                                    JSONObject object = postsArray.getJSONObject(0);
+
+                                    BasicSocialObject.PostType type = BasicSocialObject.PostType.valueOf(object.getString("post type"));
+                                    String postId = object.getString("post id");
+
+                                    BasicSocialObject socialObject = new BasicSocialObject(postId, SocialActivity.this, type);
+                                    itemsIdsList.add(socialObject);
+
+                                }
+
+                                setAdapter();
 
 
 
@@ -116,22 +133,6 @@ public class SocialActivity extends AppCompatActivity {
 
 
 
-
-        itemsIdsList = new ArrayList<>();
-        BasicSocialObject obj = new BasicSocialObject("0", this, BasicSocialObject.PostType.CLASSIC);
-        itemsIdsList.add(obj);
-
-
-        obj = new BasicSocialObject("1", this, BasicSocialObject.PostType.CLASSIC);
-        itemsIdsList.add(obj);
-        obj = new BasicSocialObject("2", this, BasicSocialObject.PostType.EVENT);
-        itemsIdsList.add(obj);
-        obj = new BasicSocialObject("3", this, BasicSocialObject.PostType.CLASSIC);
-        itemsIdsList.add(obj);
-        obj = new BasicSocialObject("4", this, BasicSocialObject.PostType.EVENT);
-        itemsIdsList.add(obj);
-
-        setAdapter();
 
 
 
