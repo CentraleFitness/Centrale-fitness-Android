@@ -11,12 +11,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.fragments.event.BasicEventObject;
 import com.fitness.centrale.centralefitness.fragments.event.EventCardsAdapter;
 import com.fitness.centrale.centralefitness.fragments.stats.StatsCardsAdapter;
+import com.fitness.centrale.centralefitness.social.BasicSocialObject;
+import com.fitness.centrale.centralefitness.social.SocialActivity;
+import com.fitness.centrale.centralefitness.store.Store;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.crypto.Mac;
 
@@ -48,6 +65,7 @@ public class StatsFragment extends Fragment {
         public String date;
         public int duration;
         public MachineTypes device;
+        public String id;
 
 
     }
@@ -82,30 +100,62 @@ public class StatsFragment extends Fragment {
 
         itemsList = new ArrayList<>();
 
-        StatObject obj = new StatObject();
-        obj.date = "12/03/2018";
-        obj.device = MachineTypes.BIKE;
-        obj.duration = 120;
-
-        itemsList.add(obj);
-
-         obj = new StatObject();
-        obj.date = "13/03/2018";
-        obj.device = MachineTypes.BIKE;
-        obj.duration = 140;
-
-        itemsList.add(obj);
-
-        obj = new StatObject();
-        obj.date = "14/03/2018";
-        obj.device = MachineTypes.ELLIPTICAL;
-        obj.duration = 90;
-
-        itemsList.add(obj);
 
 
+        RequestQueue queue = Volley.newRequestQueue(getContext());
 
-        setListAdapter();
+        itemsList = new ArrayList<>();
+
+        final Map<String, Object> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.START, 0);
+        params.put(Constants.END, 10);
+
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_STATS_SESSIONS, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println("Response code : " + response.getString("code"));
+                            if (response.getString("code").equals("001")){
+
+                                JSONArray postsArray = response.getJSONArray("session id").getJSONArray(0);
+
+
+                                for (int index = 0; index < postsArray.length(); index++){
+
+                                    String id = postsArray.getString(index);
+
+                                    StatObject object = new StatObject();
+                                    object.id = id;
+                                    object.device = MachineTypes.BIKE;
+                                    object.date = "12/03/2018";
+                                    object.duration = 120;
+                                    itemsList.add(object);
+
+
+
+                                }
+
+                                setListAdapter();
+
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
+
+
 
     }
 
@@ -131,8 +181,6 @@ public class StatsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.view = view;
         refreshStats();
-
-
 
         super.onViewCreated(view, savedInstanceState);
 

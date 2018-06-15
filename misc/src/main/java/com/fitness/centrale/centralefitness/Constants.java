@@ -38,6 +38,9 @@ public class Constants {
     public static String REGISTER_EVENT="/event/registration";
     public static String GET_POSTS="/get/posts";
     public static String GET_POST_CONTENT="/get/postcontent";
+    public static String GET_STATS_SESSIONS="/get/sportsessions";
+    public static String GET_STATS_SESSION="/get/sportsession";
+    public static String GET_STATS_DETAILS="/get/sportsessionstats";
 
 
 

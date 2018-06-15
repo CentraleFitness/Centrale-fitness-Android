@@ -103,7 +103,7 @@ public class SocialActivity extends AppCompatActivity {
 
                                 for (int index = 0; index < postsArray.length(); index++){
 
-                                    JSONObject object = postsArray.getJSONObject(0);
+                                    JSONObject object = postsArray.getJSONObject(index);
 
                                     BasicSocialObject.PostType type = BasicSocialObject.PostType.valueOf(object.getString("post type"));
                                     String postId = object.getString("post id");

@@ -27,11 +27,13 @@ import com.fitness.centrale.centralefitness.VolleyUtility;
 import com.fitness.centrale.centralefitness.fragments.StatsFragment;
 import com.fitness.centrale.centralefitness.fragments.event.BasicEventObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +65,8 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
 
 
     public void bind(final StatsFragment.StatObject myObject){
+
+       /*
         title.setText(myObject.date);
         picture.setImageDrawable(context.getDrawable(myObject.device.machineLogo));
         duration.setText(String.valueOf(myObject.duration) + " minutes");
@@ -85,7 +89,74 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
                 context.startActivity(intent, options.toBundle());
 
             }
-        });
+        });*/
+
+
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+        final Map<String, Object> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.SESSIONID, myObject.id);
+
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_STATS_SESSION, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println("Response code : " + response.getString("code"));
+                            if (response.getString("code").equals("001")){
+
+                                final long dateLong = response.getLong("date");
+                                final Date dateObj = new Date(dateLong);
+
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+                                final String date = format.format(dateObj);
+                                final long duration = response.getLong("duration");
+                                String type = response.getString("type");
+
+
+                                title.setText(String.valueOf(date));
+                                picture.setImageDrawable(context.getDrawable(StatsFragment.MachineTypes.BIKE.machineLogo));
+                                StatCardHolder.this.duration.setText(String.valueOf(duration) + " minutes");
+
+                                cardView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        Intent intent = new Intent(parent, SessionDetailsActivity.class);
+
+                                        intent.putExtra("date", date);
+                                        intent.putExtra("machine", StatsFragment.MachineTypes.BIKE.machineName);
+                                        intent.putExtra("duration", duration);
+                                        intent.putExtra("id", myObject.id);
+
+                                        Pair<View, String> p1 = Pair.create(cardView, "statsOpening");
+
+                                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                                makeSceneTransitionAnimation(parent, p1);
+
+                                        context.startActivity(intent, options.toBundle());
+
+                                    }
+                                });
+
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
 
 
 
