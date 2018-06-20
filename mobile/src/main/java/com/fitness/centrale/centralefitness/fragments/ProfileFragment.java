@@ -20,7 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
-import com.fitness.centrale.centralefitness.EditProfileActivity;
+import com.fitness.centrale.centralefitness.activities.EditProfileActivity;
 import com.fitness.centrale.centralefitness.ImageUtility;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;

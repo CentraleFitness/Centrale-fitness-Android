@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/allEventSwypeRefresh"
+    android:id="@+id/allProgramsSwypeRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +9,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/registeredFragmentRecyclerView"
+        android:id="@+id/allProgramsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

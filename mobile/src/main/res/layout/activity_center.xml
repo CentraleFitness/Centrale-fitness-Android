@@ -63,7 +63,7 @@
         android:orientation="vertical">
 
 
-        <com.fitness.centrale.centralefitness.customcomponent.NonSlidablePager
+        <android.support.v4.view.ViewPager
             android:id="@+id/centerPager"
             android:background="#F9F1F1"
             android:layout_width="match_parent"

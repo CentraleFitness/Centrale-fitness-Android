@@ -11,6 +11,9 @@
     <string name="registered_events">Evenements inscrits</string>
     <string name="all_events">Tous les événements</string>
 
+    <string name="favorite_programs">Programmes favoris</string>
+    <string name="all_programs">Tous les programmes</string>
+
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>
         <item>Fixtures</item>

@@ -1,4 +1,4 @@
-package com.fitness.centrale.centralefitness;
+package com.fitness.centrale.centralefitness.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.Prefs;
+import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
 
 import org.json.JSONException;

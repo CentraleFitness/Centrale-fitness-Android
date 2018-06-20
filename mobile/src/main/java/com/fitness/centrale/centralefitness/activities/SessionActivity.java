@@ -1,4 +1,4 @@
-package com.fitness.centrale.centralefitness;
+package com.fitness.centrale.centralefitness.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +13,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.Prefs;
+import com.fitness.centrale.centralefitness.R;
+import com.fitness.centrale.centralefitness.VolleyUtility;
 import com.fitness.centrale.centralefitness.store.Store;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,7 +34,6 @@ import java.util.Map;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 

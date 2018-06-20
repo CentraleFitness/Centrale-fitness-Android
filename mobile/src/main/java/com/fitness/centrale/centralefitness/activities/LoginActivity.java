@@ -1,14 +1,9 @@
-package com.fitness.centrale.centralefitness;
+package com.fitness.centrale.centralefitness.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,15 +13,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.fitness.centrale.centralefitness.fragments.event.EventCardHolder;
+import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.Prefs;
+import com.fitness.centrale.centralefitness.R;
+import com.fitness.centrale.centralefitness.VolleyUtility;
 import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

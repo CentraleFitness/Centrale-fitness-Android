@@ -1,17 +1,15 @@
-package com.fitness.centrale.centralefitness.fragments.event;
+package com.fitness.centrale.centralefitness.fragments.programs;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,11 +17,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
-import com.fitness.centrale.centralefitness.ImageUtility;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.VolleyUtility;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,16 +34,21 @@ import java.util.Map;
  * Created by Psyycker on 19/11/2017.
  */
 
-public class AllEventsFragment extends Fragment {
+public class FavoriteProgramFragment extends Fragment {
+
+    private ArrayList<BasicProgramObject> itemsIdsList;
+    private View view;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        view = inflater.inflate(R.layout.programs_favorite_fragment, container, false);
 
-        View view = inflater.inflate(R.layout.event_all_fragment, container, false);
-
-        recyclerView = view.findViewById(R.id.allFragmentRecyclerView);
+        recyclerView = view.findViewById(R.id.registeredFragmentRecyclerView);
         swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -58,41 +59,38 @@ public class AllEventsFragment extends Fragment {
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
         itemsIdsList = new ArrayList<>();
-        recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList, getContext(), getActivity()));
+        recyclerView.setAdapter(new ProgramCardsAdapter(itemsIdsList, getContext(), getActivity()));
 
         return view;
     }
 
 
-    private ArrayList<BasicEventObject> itemsIdsList;
-    private View view;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-
 
     public void setListAdapter(){
 
-
-        /*recyclerView = view.findViewById(R.id.allFragmentRecyclerView);
+/*
+        recyclerView = view.findViewById(R.id.registeredFragmentRecyclerView);
         swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshEvents();
             }
-        });*/
+        });
 
 
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
 
-        recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList, getContext(), getActivity()));
+        recyclerView.setAdapter(new ProgramCardsAdapter(itemsIdsList, getContext(), getActivity()));
 
     }
 
     public void refreshEvents(){
 
-
+/*
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
 
@@ -102,6 +100,7 @@ public class AllEventsFragment extends Fragment {
         itemsIdsList = new ArrayList<>();
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
+        params.put(Constants.ISREG, true);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_IDS, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -117,7 +116,8 @@ public class AllEventsFragment extends Fragment {
 
                             JSONArray subArray = events.getJSONArray(index);
 
-                            itemsIdsList.add(new BasicEventObject(subArray.getString(1), subArray.getString(0), getContext()));
+                            if (subArray.getBoolean(2))
+                                itemsIdsList.add(new BasicProgramObject(subArray.getString(1), subArray.getString(0), getContext()));
 
 
 
@@ -144,24 +144,30 @@ public class AllEventsFragment extends Fragment {
 
         VolleyUtility.fixDoubleRequests(request);
 
-        queue.add(request);
+        queue.add(request);*/
+
+
+
 
     }
+
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         this.view = view;
 
         this.refreshEvents();
 
-
     }
 
     //Ici, remplacer les int et autres par les vrais arguments de la map
-    public static AllEventsFragment newInstance() {
-        AllEventsFragment fragment = new AllEventsFragment();
+    public static FavoriteProgramFragment newInstance() {
+        FavoriteProgramFragment fragment = new FavoriteProgramFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

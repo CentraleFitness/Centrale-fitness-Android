@@ -50,13 +50,8 @@ public class RegisteredEventsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.event_registered_fragment, container, false);
-    }
 
-
-
-    public void setListAdapter(){
-
+        view = inflater.inflate(R.layout.event_registered_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.registeredFragmentRecyclerView);
         swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
@@ -69,6 +64,30 @@ public class RegisteredEventsFragment extends Fragment {
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        itemsIdsList = new ArrayList<>();
+        recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList, getContext(), getActivity()));
+
+
+        return view;
+    }
+
+
+
+    public void setListAdapter(){
+
+
+        /*recyclerView = view.findViewById(R.id.registeredFragmentRecyclerView);
+        swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshEvents();
+            }
+        });
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
 
         recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList, getContext(), getActivity()));
 

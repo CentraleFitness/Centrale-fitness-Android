@@ -1,17 +1,13 @@
-package com.fitness.centrale.centralefitness;
+package com.fitness.centrale.centralefitness.activities;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,15 +15,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
-import com.fitness.centrale.centralefitness.fragments.event.EventCardHolder;
+import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.Prefs;
+import com.fitness.centrale.centralefitness.R;
+import com.fitness.centrale.centralefitness.VolleyUtility;
 import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

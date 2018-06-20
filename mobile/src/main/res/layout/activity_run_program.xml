@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.programs.run.program.RunProgramActivity"
+    android:orientation="vertical">
+
+
+
+
+    <ImageView
+        android:id="@+id/activityLogo"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/bikelogo"
+        />
+
+    <TextView
+        android:id="@+id/activityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="27sp"
+        android:text="Activity"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/timeCounter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:text="10:00"
+        android:gravity="center"
+        android:textSize="40sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/skipButton"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:background="@color/ourRed"
+
+            >
+            <TextView
+                android:id="@+id/skipText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="PASSER"
+                android:textColor="@color/white"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

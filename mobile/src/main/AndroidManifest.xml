@@ -23,16 +23,16 @@
             android:value="AIzaSyAIi0GXu5BSGaPWrg7WEdcLBOMOtTDy-Cg" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".activities.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,17 +41,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".activities.EditProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NFCScanActivity"
+            android:name=".activities.NFCScanActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tec_list" />
         </activity>
         <activity
-            android:name=".SessionActivity"
+            android:name=".activities.SessionActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".newdesign.ProfileActivity">
             <intent-filter>
@@ -60,9 +60,12 @@
         </activity>
         <activity android:name=".social.SocialActivity" />
         <activity android:name=".newdesign.CenterActivity" />
-        <activity android:name=".EventDetailsActivity" />
-        <activity android:name=".AffiliationActivity" />
-        <activity android:name=".fragments.stats.SessionDetailsActivity"></activity>
+        <activity android:name=".activities.EventDetailsActivity" />
+        <activity android:name=".activities.AffiliationActivity" />
+        <activity android:name=".fragments.stats.SessionDetailsActivity" />
+        <activity android:name=".activities.programs.ProgramDetailsActivity" />
+        <activity android:name=".activities.programs.run.program.RunProgramActivity" />
+        <activity android:name=".activities.programs.run.program.ProgramEndingActivity"></activity>
     </application>
 
 </manifest>

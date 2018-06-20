@@ -1,4 +1,4 @@
-package com.fitness.centrale.centralefitness;
+package com.fitness.centrale.centralefitness.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,7 +22,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.fitness.centrale.centralefitness.store.Store;
+import com.fitness.centrale.centralefitness.Constants;
+import com.fitness.centrale.centralefitness.NdefMessageParser;
+import com.fitness.centrale.centralefitness.ParsedNdefRecord;
+import com.fitness.centrale.centralefitness.Prefs;
+import com.fitness.centrale.centralefitness.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

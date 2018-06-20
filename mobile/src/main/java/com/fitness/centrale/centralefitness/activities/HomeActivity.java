@@ -1,4 +1,4 @@
-package com.fitness.centrale.centralefitness;
+package com.fitness.centrale.centralefitness.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fitness.centrale.centralefitness.Prefs;
+import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.customcomponent.BottomNavigationViewHelper;
 import com.fitness.centrale.centralefitness.fragments.SessionFragment;
 import com.fitness.centrale.centralefitness.fragments.NotifFragment;
