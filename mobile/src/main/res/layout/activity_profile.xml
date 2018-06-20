@@ -14,13 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/white"
         android:elevation="4dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/top_bar"
-            android:elevation="4dp"/>
+
 
         <ImageView
             android:id="@+id/profileButton"
@@ -61,6 +58,7 @@
             android:gravity="center_horizontal">
 
             <LinearLayout
+                android:id="@+id/topProfileLyt"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight=".6"

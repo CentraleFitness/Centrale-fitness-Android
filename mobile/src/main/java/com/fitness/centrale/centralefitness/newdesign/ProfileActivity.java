@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -39,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     private int PICK_IMAGE_REQUEST = 1;
     ImageView session;
     ImageView center;
+    LinearLayout topProfileLyt;
 
 
     public void getGymId(){
@@ -86,6 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
 
          session = findViewById(R.id.sessionButton);
          center = findViewById(R.id.profileButton);
+         topProfileLyt = findViewById(R.id.topProfileLyt);
 
 
 
@@ -157,7 +160,9 @@ public class ProfileActivity extends AppCompatActivity {
                         try {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
-                                profilePicture.setImageBitmap(ImageUtility.base64ToImage(response.getString(Constants.PICTURE)));
+                                Bitmap bitmap = ImageUtility.base64ToImage(response.getString(Constants.PICTURE));
+                                profilePicture.setImageBitmap(bitmap);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
