@@ -78,7 +78,13 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
         title.setText("Session du " + date);
         machineLogo.setImageDrawable(getDrawable(type.machineLogo));
-        this.duration.setText("Durée : " + duration + " minutes");
+
+        Map<String, Integer> time = StatCardHolder.millisecondToMinuteSeconds(duration);
+        if (time.get("minutes") == 0) {
+            this.duration.setText("Durée : " + time.get("seconds") + " secondes");
+        }else{
+            this.duration.setText("Durée : " + time.get("minutes") + "min" + time.get("seconds"));
+        }
 
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -94,7 +100,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             System.out.println("Response code : " + response.getString("code"));
-                            if (response.getString("code").equals("001")){
+                           // if (response.getString("code").equals("001")){
 
                                 System.out.println();
 
@@ -143,7 +149,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
                                 chart.setDescription(desc);
                                 chart.setData(lineData);
 
-                            }
+                           // }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class StatCardHolder extends RecyclerView.ViewHolder   {
 
@@ -52,34 +53,37 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
 
     }
 
+    public static Map<String, Integer> millisecondToMinuteSeconds(Long millisec){
 
+
+        long initialTimeseconds = TimeUnit.MILLISECONDS.toSeconds(millisec);
+
+        if (initialTimeseconds < 60){
+            Map<String, Integer> map = new HashMap<>();
+            map.put("minutes", 0);
+            map.put("seconds", (int)initialTimeseconds);
+
+            return map;
+
+        }
+
+        double time = (double)(initialTimeseconds / 60);
+        double seconds = (Math.floor((time % 1) * 10) / 10) * 60;
+
+
+        int minutes = (int) Math.floor(time);
+        int finalseconds = (int) seconds;
+
+        Map<String, Integer> result = new HashMap<>();
+        result.put("minutes", minutes);
+        result.put("seconds", finalseconds);
+
+        return result;
+    }
 
     public void bind(final StatsFragment.StatObject myObject){
 
-       /*
-        title.setText(myObject.date);
-        picture.setImageDrawable(context.getDrawable(myObject.device.machineLogo));
-        duration.setText(String.valueOf(myObject.duration) + " minutes");
 
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(parent, SessionDetailsActivity.class);
-
-                intent.putExtra("date", myObject.date);
-                intent.putExtra("machine", myObject.device.machineName);
-                intent.putExtra("duration", myObject.duration);
-
-                Pair<View, String> p1 = Pair.create(cardView, "statsOpening");
-
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(parent, p1);
-
-                context.startActivity(intent, options.toBundle());
-
-            }
-        });*/
 
 
 
@@ -103,13 +107,24 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
 
                                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
                                 final String date = format.format(dateObj);
-                                final long duration = response.getLong("duration");
+
+                                final Long duration = response.getLong("duration");
+
+                                Map<String, Integer> time = millisecondToMinuteSeconds(duration);
+
+
+
+
                                 String type = response.getString("type");
 
 
                                 title.setText(String.valueOf(date));
                                 picture.setImageDrawable(context.getDrawable(StatsFragment.MachineTypes.BIKE.machineLogo));
-                                StatCardHolder.this.duration.setText(String.valueOf(duration) + " minutes");
+
+                                if (time.get("minutes") == 0){
+                                    StatCardHolder.this.duration.setText(time.get("seconds") + " secondes");
+                                }else
+                                StatCardHolder.this.duration.setText(time.get("minutes") + "min " + time.get("seconds"));
 
                                 cardView.setOnClickListener(new View.OnClickListener() {
                                     @Override

@@ -86,16 +86,16 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
 
                                 postContent.setText(content);
-                                int lines = postContent.getLineCount();
+                                //int lines = postContent.getLineCount();
 
-                                ViewGroup.LayoutParams params = lyt.getLayoutParams();
+                                //ViewGroup.LayoutParams params = lyt.getLayoutParams();
 
-                                int size = 100 + (lines * 17);
+                                //int size = 100 + (lines * 23);
 
-                                Resources r = parent.getResources();
-                                params.height = Math.round(TypedValue.applyDimension(
-                                        TypedValue.COMPLEX_UNIT_DIP, size,r.getDisplayMetrics())); //size;
-                                lyt.setLayoutParams(params);
+                                //Resources r = parent.getResources();
+                                //params.height = Math.round(TypedValue.applyDimension(
+                                //        TypedValue.COMPLEX_UNIT_DIP, size,r.getDisplayMetrics())); //size;
+                                //lyt.setLayoutParams(params);
 
                                 SocialCardHolder.this.postDate.setText(dateStr);
                                 System.out.println();
