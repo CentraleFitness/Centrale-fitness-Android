@@ -39,7 +39,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_margin="3dp"
-                android:text="30 minutes"/>
+                android:text="21 minutes"/>
 
         </LinearLayout>
         <LinearLayout
@@ -72,7 +72,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:gravity="center"
-                android:text="3,4/5"/>
+                android:text="3,5/5"/>
 
         </LinearLayout>
 
