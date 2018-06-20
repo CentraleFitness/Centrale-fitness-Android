@@ -133,7 +133,7 @@ public class AllProgramsFragment extends Fragment {
 
         BasicProgramObject obj = new BasicProgramObject("1234", "Programme simple", getContext());
         itemsIdsList.add(obj);
-        itemsIdsList.add(new BasicProgramObject("1245", "Second Programme", getContext()));
+        //itemsIdsList.add(new BasicProgramObject("1245", "Second Programme", getContext()));
 
         setListAdapter();
         swipeRefreshLayout.setRefreshing(false);
