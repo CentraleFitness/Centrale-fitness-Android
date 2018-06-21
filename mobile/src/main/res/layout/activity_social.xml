@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:theme="@style/AppThemeNoActionBar"
     android:background="#F9F1F1"
-    tools:context=".newdesign.ProfileActivity">
+    tools:context=".activities.profile.ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

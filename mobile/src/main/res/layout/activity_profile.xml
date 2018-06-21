@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:theme="@style/AppThemeNoActionBar"
     android:background="#F9F1F1"
-    tools:context=".newdesign.ProfileActivity"
+    tools:context=".activities.profile.ProfileActivity"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
@@ -194,10 +194,26 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"></LinearLayout>
+    android:layout_weight="1"
+    >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/miniSocialView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/border_radius_component"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 
-            
+
+
+</LinearLayout>
+
+
+
 
         </LinearLayout>
 

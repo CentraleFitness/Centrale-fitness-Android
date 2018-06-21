@@ -143,7 +143,7 @@ public class SocialActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new SocialCardsAdapter(itemsIdsList,getBaseContext(), this));
+        recyclerView.setAdapter(new SocialCardsAdapter(itemsIdsList,getBaseContext(), this, false));
 
     }
 }

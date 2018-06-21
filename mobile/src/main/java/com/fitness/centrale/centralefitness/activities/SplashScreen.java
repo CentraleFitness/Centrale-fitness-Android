@@ -17,7 +17,7 @@ import com.fitness.centrale.centralefitness.Constants;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.VolleyUtility;
-import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
+import com.fitness.centrale.centralefitness.activities.profile.ProfileActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

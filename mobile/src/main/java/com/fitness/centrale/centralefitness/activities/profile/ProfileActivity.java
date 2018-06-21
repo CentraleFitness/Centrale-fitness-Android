@@ -1,4 +1,4 @@
-package com.fitness.centrale.centralefitness.newdesign;
+package com.fitness.centrale.centralefitness.activities.profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +10,8 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,19 +23,25 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
-import com.fitness.centrale.centralefitness.activities.EditProfileActivity;
 import com.fitness.centrale.centralefitness.ImageUtility;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.VolleyUtility;
+import com.fitness.centrale.centralefitness.activities.EditProfileActivity;
 import com.fitness.centrale.centralefitness.activities.dialogs.DisconnectDialog;
+import com.fitness.centrale.centralefitness.newdesign.CenterActivity;
+import com.fitness.centrale.centralefitness.social.BasicSocialObject;
+import com.fitness.centrale.centralefitness.social.SocialActivity;
+import com.fitness.centrale.centralefitness.social.SocialCardsAdapter;
 import com.fitness.centrale.centralefitness.store.Store;
 import com.vansuita.gaussianblur.GaussianBlur;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +52,10 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView session;
     ImageView center;
     LinearLayout topProfileLyt;
+
+    private ArrayList<BasicSocialObject> itemsIdsList;
+    private View view;
+    private RecyclerView recyclerView;
 
 
     public void getGymId(){
@@ -67,6 +79,8 @@ public class ProfileActivity extends AppCompatActivity {
                             if (response.getString("code").equals("001")){
 
                                 Store.getStore().getUserObject().gymId = response.getString(Constants.SPORTCENTERID);
+
+                                refreshPosts();
 
                             }
                         } catch (JSONException e) {
@@ -218,7 +232,83 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
+        recyclerView = findViewById(R.id.miniSocialView);
 
+
+
+
+
+
+
+    }
+
+    private void refreshPosts(){
+
+
+
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        itemsIdsList = new ArrayList<>();
+
+        final Map<String, Object> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TARGETID, Store.getStore().getUserObject().gymId);
+        params.put(Constants.START, 0);
+        params.put(Constants.END, 5);
+
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_POSTS, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println("Response code : " + response.getString("code"));
+                            if (response.getString("code").equals("001")){
+
+                                JSONArray postsArray = response.getJSONArray("posts");
+
+                                for (int index = 0; index < postsArray.length(); index++){
+
+                                    JSONObject object = postsArray.getJSONObject(index);
+
+                                    BasicSocialObject.PostType type = BasicSocialObject.PostType.valueOf(object.getString("post type"));
+                                    String postId = object.getString("post id");
+
+                                    BasicSocialObject socialObject = new BasicSocialObject(postId, ProfileActivity.this, type);
+                                    itemsIdsList.add(socialObject);
+
+                                }
+
+                                setAdapter();
+
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
+
+
+
+
+
+
+    }
+
+    private void setAdapter(){
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(new SocialCardsAdapter(itemsIdsList,getBaseContext(), this, true));
 
     }
 
@@ -236,7 +326,12 @@ public class ProfileActivity extends AppCompatActivity {
                 try {
                     if (response.getString("code").equals("001")){
                         ImageView imageView = (ImageView) findViewById(R.id.profileProfilePicture);
-                        imageView.setImageBitmap(ImageUtility.base64ToImage(b64img));
+                        Bitmap bitmap = ImageUtility.base64ToImage(b64img);
+                        imageView.setImageBitmap(bitmap);
+
+                        Bitmap gaussianRender =  GaussianBlur.with(ProfileActivity.this).render(bitmap);
+                        BitmapDrawable drawable = new BitmapDrawable(getResources(), gaussianRender);
+                        topProfileLyt.setBackground(drawable);
 
                     }
                 } catch (JSONException e) {
@@ -257,6 +352,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+
+    public Bitmap getResizedBitmap(Bitmap image, int bitmapWidth, int bitmapHeight) {
+        return Bitmap.createScaledBitmap(image, bitmapWidth, bitmapHeight, true);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -270,7 +370,9 @@ public class ProfileActivity extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
 
-                updateImage(ImageUtility.bitmapToBase64(bitmap));
+
+
+                updateImage(ImageUtility.bitmapToBase64(getResizedBitmap(bitmap, 960, 540)));
 
 
             } catch (IOException e) {

@@ -3,6 +3,7 @@ package com.fitness.centrale.centralefitness.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +18,8 @@ import com.fitness.centrale.centralefitness.Constants;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.VolleyUtility;
-import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
+import com.fitness.centrale.centralefitness.activities.dialogs.ErrorDialog;
+import com.fitness.centrale.centralefitness.activities.profile.ProfileActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +74,62 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void login(){
+
+
+        if (login.getText().toString().equals("") || password.getText().toString().equals("")){
+
+            new ErrorDialog().setType(ErrorDialog.ErrorType.EMPTY_FIELDS).show(getFragmentManager(), "errorDialog");
+            return;
+        }
+
+
+
+        RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+
+        final Map<String, String> params = new HashMap<>();
+        params.put(Constants.LOGIN, login.getText().toString());
+        params.put(Constants.PASSWORD, password.getText().toString());
+
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.AUTHCREDS, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println("Response code : " + response.getString("code"));
+                            if (response.getString("code").equals("201")){
+                                Prefs.setToken(response.getString(Constants.TOKEN));
+                                Prefs.setUsername(params.get(Constants.LOGIN));
+
+                                sendAffiliationRequest(response.getString(Constants.TOKEN));
+
+
+                            }else if (response.getString("code").equals("501")){
+                                new ErrorDialog().setType(ErrorDialog.ErrorType.BAD_CREDS).show(getFragmentManager(), "errorDialog");
+                                return;
+
+
+
+                            }else{
+                                System.out.println("Mauvaise combinaison");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
+
+    }
+    EditText login;
+    EditText password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,59 +140,26 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Button loginButton = findViewById(R.id.loginButton);
-        final EditText login = findViewById(R.id.loginEditLogin);
-        final EditText password = findViewById(R.id.loginEditPassword);
+         login = findViewById(R.id.loginEditLogin);
+         password = findViewById(R.id.loginEditPassword);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                RequestQueue queue = Volley.newRequestQueue(getBaseContext());
-
-                final Map<String, String> params = new HashMap<>();
-                params.put(Constants.LOGIN, login.getText().toString());
-                params.put(Constants.PASSWORD, password.getText().toString());
-
-                JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.AUTHCREDS, new JSONObject(params),
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    System.out.println("Response code : " + response.getString("code"));
-                                    if (response.getString("code").equals("201")){
-                                        Prefs.setToken(response.getString(Constants.TOKEN));
-                                        Prefs.setUsername(params.get(Constants.LOGIN));
-
-
-
-
-                                        sendAffiliationRequest(response.getString(Constants.TOKEN));
-
-
-
-
-
-
-                                    }else{
-                                        System.out.println("Mauvaise combinaison");
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        });
-                queue.add(request);
+                login();
 
 
             }
         });
 
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                login();
+                return false;
+            }
+        });
 
         TextView notRegistered = findViewById(R.id.notregisterText);
 

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.fitness.centrale.centralefitness.activities.NFCScanActivity;
 import com.fitness.centrale.centralefitness.R;
+import com.fitness.centrale.centralefitness.activities.profile.ProfileActivity;
 import com.fitness.centrale.centralefitness.fragments.ChallengeFragment;
 import com.fitness.centrale.centralefitness.fragments.event.EventsFragment;
 import com.fitness.centrale.centralefitness.fragments.StatsFragment;

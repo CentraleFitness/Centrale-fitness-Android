@@ -19,11 +19,13 @@ public class SocialCardsAdapter extends RecyclerView.Adapter<SocialCardHolder> {
     Context context;
     AppCompatActivity parent;
     int viewIndex;
+    boolean minimify;
 
-    public SocialCardsAdapter(ArrayList<BasicSocialObject> socialIds, Context context, AppCompatActivity parent){
+    public SocialCardsAdapter(ArrayList<BasicSocialObject> socialIds, Context context, AppCompatActivity parent, boolean minimify){
         this.socialIds = socialIds;
         this.context = context;
         this.parent = parent;
+        this.minimify = minimify;
         viewIndex = 0;
 
     }
@@ -39,10 +41,17 @@ public class SocialCardsAdapter extends RecyclerView.Adapter<SocialCardHolder> {
 
         switch (obj.type){
             case PUBLICATION:
+                if (!minimify)
                 layout = R.layout.social_card;
+                else
+                    layout = R.layout.social_card_minimified;
                 break;
             case EVENT:
+                if (!minimify)
                 layout = R.layout.social_event_card;
+                else{
+                    layout = R.layout.social_event_card;
+                }
                 break;
             default:
                 layout = R.layout.social_card;

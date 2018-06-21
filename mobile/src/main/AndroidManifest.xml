@@ -26,9 +26,6 @@
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.HomeActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -53,7 +50,7 @@
         <activity
             android:name=".activities.SessionActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".newdesign.ProfileActivity">
+        <activity android:name=".activities.profile.ProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

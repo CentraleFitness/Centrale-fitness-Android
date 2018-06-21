@@ -17,7 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
-import com.fitness.centrale.centralefitness.newdesign.ProfileActivity;
+import com.fitness.centrale.centralefitness.activities.profile.ProfileActivity;
 import com.fitness.centrale.centralefitness.store.Store;
 import com.fitness.centrale.centralefitness.store.UserObject;
 
@@ -68,8 +68,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
 
-                                Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
-                                startActivity(intent);
+                                EditProfileActivity.super.onBackPressed();
                                 finish();
 
                             }
