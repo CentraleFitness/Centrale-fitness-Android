@@ -81,7 +81,7 @@ public class StatsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.StatFragmentRecyclerView);
         //swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
-/*        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+       /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshStats();
@@ -164,10 +164,26 @@ public class StatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        view = inflater.inflate(R.layout.stats_fragment, container, false);
+
+        itemsList = new ArrayList<>();
+
+        recyclerView = view.findViewById(R.id.StatFragmentRecyclerView);
+        //swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
+        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshStats();
+            }
+        });*/
 
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        return inflater.inflate(R.layout.stats_fragment, container, false);
+        recyclerView.setAdapter(new StatsCardsAdapter(itemsList, getContext(), getActivity()));
+
+
+        return view;
 
 
     }

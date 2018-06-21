@@ -234,6 +234,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.miniSocialView);
 
+        itemsIdsList = new ArrayList<>();
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(new SocialCardsAdapter(itemsIdsList,getBaseContext(), this, true));
+
 
 
 
