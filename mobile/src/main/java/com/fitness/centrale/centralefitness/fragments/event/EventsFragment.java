@@ -44,9 +44,11 @@ public class EventsFragment extends Fragment {
 
         mpager = view.findViewById(R.id.eventPager);
 
-        adapter = new EventsFragment.ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
+        adapter = new EventsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
 
         mpager.setAdapter(adapter);
+
+
 
 
 

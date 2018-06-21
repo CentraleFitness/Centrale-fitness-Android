@@ -97,7 +97,7 @@ public class ProgramsFragment extends Fragment {
 
         mpager = (ViewPager) view.findViewById(R.id.eventPager);
 
-            adapter = new ProgramsFragment.ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
+            adapter = new ProgramsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
 
             mpager.setAdapter(adapter);
 
