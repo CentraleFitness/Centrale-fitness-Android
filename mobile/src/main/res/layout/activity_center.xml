@@ -12,10 +12,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight=".7"
         android:background="@color/white"
-        android:elevation="4dp"
-        >
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/profileButton"
@@ -35,7 +34,6 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
 
             android:transitionName="sessionmove"
             android:src="@drawable/sessionicon" />

@@ -12,10 +12,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight=".7"
         android:background="@color/white"
-        android:elevation="4dp"
-        >
+        android:elevation="4dp">
 
 
         <ImageView
@@ -36,7 +35,6 @@
             android:transitionName="socialmove"
             android:id="@+id/socialButton"
             android:layout_width="50dp"
-            android:layout_marginBottom="10dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"

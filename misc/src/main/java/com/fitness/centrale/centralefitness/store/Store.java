@@ -29,6 +29,10 @@ public class Store {
 
     }
 
+    public void removeUser(){
+        userObject = null;
+    }
+
     public void updateUser(final UserObject object){
         userObject = object;
     }

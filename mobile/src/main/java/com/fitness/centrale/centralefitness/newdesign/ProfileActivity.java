@@ -2,6 +2,7 @@ package com.fitness.centrale.centralefitness.newdesign;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -25,7 +26,9 @@ import com.fitness.centrale.centralefitness.ImageUtility;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
 import com.fitness.centrale.centralefitness.VolleyUtility;
+import com.fitness.centrale.centralefitness.activities.dialogs.DisconnectDialog;
 import com.fitness.centrale.centralefitness.store.Store;
+import com.vansuita.gaussianblur.GaussianBlur;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -163,6 +166,11 @@ public class ProfileActivity extends AppCompatActivity {
                                 Bitmap bitmap = ImageUtility.base64ToImage(response.getString(Constants.PICTURE));
                                 profilePicture.setImageBitmap(bitmap);
 
+                                Bitmap gaussianRender =  GaussianBlur.with(ProfileActivity.this).render(bitmap);
+                                BitmapDrawable drawable = new BitmapDrawable(getResources(), gaussianRender);
+
+                                topProfileLyt.setBackground(drawable);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -197,6 +205,15 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
                 startActivity(intent);
                 ProfileActivity.this.finish();
+            }
+        });
+
+        LinearLayout disconnect = findViewById(R.id.ProfileDisconnect);
+
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DisconnectDialog().show(getFragmentManager(), "Disconnect");
             }
         });
 
