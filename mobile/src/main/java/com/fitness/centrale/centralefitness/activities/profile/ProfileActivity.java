@@ -379,7 +379,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-                updateImage(ImageUtility.bitmapToBase64(getResizedBitmap(bitmap, 960, 540)));
+                updateImage(ImageUtility.bitmapToBase64(getResizedBitmap(bitmap, 480, 270)));
 
 
             } catch (IOException e) {

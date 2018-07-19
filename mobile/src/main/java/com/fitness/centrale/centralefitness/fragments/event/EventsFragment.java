@@ -27,6 +27,8 @@ public class EventsFragment extends Fragment {
     final int PAGE_NUMBER = 2;
     ViewPager mpager;
     EventsFragment.ScreenSlidePagerAdapter adapter;
+    private int position = 0;
+
 
     @Nullable
     @Override
@@ -39,7 +41,11 @@ public class EventsFragment extends Fragment {
         rightTab = view.findViewById(R.id.EventAllTab);
         rightTabTitle = view.findViewById(R.id.event_all_tab_text);
 
-        setLeftTabSelected();
+        if (position == 0){
+            setLeftTabSelected();
+        }else{
+            setRightTabSelected();
+        }
 
 
         mpager = view.findViewById(R.id.eventPager);
@@ -47,6 +53,7 @@ public class EventsFragment extends Fragment {
         adapter = new EventsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
 
         mpager.setAdapter(adapter);
+        mpager.setCurrentItem(position);
 
 
 
@@ -119,22 +126,13 @@ public class EventsFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-
-
-
-
     }
-
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
     }
-
 
 
     //Ici, remplacer les int et autres par les vrais arguments de la map
@@ -148,6 +146,7 @@ public class EventsFragment extends Fragment {
 
 
     public void onClickOnButton(int pos) {
+        position = pos;
         mpager.setCurrentItem(pos, false);
 
     }

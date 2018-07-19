@@ -56,7 +56,8 @@ public class CenterActivity extends FragmentActivity {
                 Intent intent = new Intent(CenterActivity.this, ProfileActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(CenterActivity.this, p1, p2);
                 startActivity(intent, options.toBundle());
-                supportFinishAfterTransition();
+                mShouldFinish = true;
+                //supportFinishAfterTransition();
 
 
 
@@ -72,7 +73,8 @@ public class CenterActivity extends FragmentActivity {
                 Intent intent = new Intent(CenterActivity.this, SocialActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(CenterActivity.this, p1, p2);
                 startActivity(intent, options.toBundle());
-                supportFinishAfterTransition();
+                mShouldFinish = true;
+                //supportFinishAfterTransition();
             }
         });
 
@@ -119,7 +121,7 @@ public class CenterActivity extends FragmentActivity {
 
 
         mpager.setAdapter(adapter);
-        mpager.setCurrentItem(3);
+        mpager.setCurrentItem(0);
 
 
 
@@ -131,6 +133,9 @@ public class CenterActivity extends FragmentActivity {
     @Override
     public void onStop() {
         super.onStop();
+        if (mShouldFinish){
+            finish();
+        }
 
     }
 

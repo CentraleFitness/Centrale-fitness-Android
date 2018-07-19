@@ -25,6 +25,7 @@ public class ProgramsFragment extends Fragment {
     final int PAGE_NUMBER = 2;
     ViewPager mpager;
     ProgramsFragment.ScreenSlidePagerAdapter adapter;
+    private static int position = 0;
 
     @Nullable
     @Override
@@ -92,35 +93,23 @@ public class ProgramsFragment extends Fragment {
         rightTab = view.findViewById(R.id.EventAllTab);
         rightTabTitle = view.findViewById(R.id.event_all_tab_text);
 
-        setLeftTabSelected();
+        if (position == 0){
+            setLeftTabSelected();
+        }else{
+            setRightTabSelected();
+        }
 
 
-        mpager = (ViewPager) view.findViewById(R.id.eventPager);
+        mpager = (ViewPager) view.findViewById(R.id.programPager);
 
-            adapter = new ProgramsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
+        adapter = new ProgramsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
 
-            mpager.setAdapter(adapter);
+        mpager.setAdapter(adapter);
+        mpager.setCurrentItem(position);
+        System.out.println();
+
 
         //mpager.setCurrentItem(0);
-
-        mpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                onClickOnButton(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-
 
 
 
@@ -141,6 +130,9 @@ public class ProgramsFragment extends Fragment {
         });
 
 
+
+
+
     }
 
 
@@ -156,6 +148,7 @@ public class ProgramsFragment extends Fragment {
 
 
     public void onClickOnButton(int pos) {
+        position = pos;
         mpager.setCurrentItem(pos, false);
 
     }
@@ -190,7 +183,6 @@ public class ProgramsFragment extends Fragment {
                     return getFavoriteProgramFragment();
                 case 1:
                     return getAllEventFragment();
-
                 default:
                     return null;
             }

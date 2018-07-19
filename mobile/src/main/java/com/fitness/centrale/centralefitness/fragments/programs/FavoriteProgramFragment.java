@@ -11,23 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.fitness.centrale.centralefitness.Constants;
-import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
-import com.fitness.centrale.centralefitness.VolleyUtility;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -53,7 +39,7 @@ public class FavoriteProgramFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshEvents();
+                refreshPrograms();
             }
         });
 
@@ -71,24 +57,24 @@ public class FavoriteProgramFragment extends Fragment {
 
     public void setListAdapter(){
 
-/*
+
         recyclerView = view.findViewById(R.id.registeredFragmentRecyclerView);
-        swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
+        /*swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshEvents();
+                refreshPrograms();
             }
-        });
+        });*/
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         recyclerView.setAdapter(new ProgramCardsAdapter(itemsIdsList, getContext(), getActivity()));
 
     }
 
-    public void refreshEvents(){
+    public void refreshPrograms(){
 
 /*
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -146,7 +132,8 @@ public class FavoriteProgramFragment extends Fragment {
 
         queue.add(request);*/
 
-
+        itemsIdsList = new ArrayList<>();
+        setListAdapter();
 
 
     }
@@ -161,7 +148,7 @@ public class FavoriteProgramFragment extends Fragment {
 
         this.view = view;
 
-        this.refreshEvents();
+        this.refreshPrograms();
 
     }
 
