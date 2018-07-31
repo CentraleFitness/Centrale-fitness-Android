@@ -1,6 +1,7 @@
 package com.fitness.centrale.centralefitness.social;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
@@ -20,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.centralefitness.Constants;
 import com.fitness.centrale.centralefitness.Prefs;
 import com.fitness.centrale.centralefitness.R;
+import com.fitness.centrale.centralefitness.activities.dialogs.NewPostDialog;
 import com.fitness.centrale.centralefitness.newdesign.CenterActivity;
 import com.fitness.centrale.centralefitness.store.Store;
 
@@ -38,6 +41,7 @@ public class SocialActivity extends AppCompatActivity {
     private View view;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton newPostButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class SocialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_social);
 
         recyclerView = findViewById(R.id.socialRecyclerView);
+        newPostButton = findViewById(R.id.newPostButton);
         swipeRefreshLayout = findViewById(R.id.SocialRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -52,6 +57,17 @@ public class SocialActivity extends AppCompatActivity {
 
                 //refreshEvents();
                 swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        newPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewPostDialog dialog = new NewPostDialog();
+
+
+
+                dialog.show(getSupportFragmentManager(), "New Post");
             }
         });
 
