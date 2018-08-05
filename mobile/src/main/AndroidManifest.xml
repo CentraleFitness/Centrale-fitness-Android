@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fitness.centrale.centralefitness">
+    package="com.fitness.centrale.mobile">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -55,8 +55,8 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".social.SocialActivity" />
-        <activity android:name=".newdesign.CenterActivity" />
+        <activity android:name=".activities.social.SocialActivity" />
+        <activity android:name=".activities.CenterActivity" />
         <activity android:name=".activities.EventDetailsActivity" />
         <activity android:name=".activities.AffiliationActivity" />
         <activity android:name=".fragments.stats.SessionDetailsActivity" />

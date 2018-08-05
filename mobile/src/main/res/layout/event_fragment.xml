@@ -64,7 +64,7 @@
         android:layout_height="0dp"
         android:layout_weight="6">
 
-        <com.fitness.centrale.centralefitness.customcomponent.NonSlidablePager
+        <com.fitness.centrale.mobile.customcomponent.NonSlidablePager
             android:id="@+id/eventPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient">
 
-    <com.fitness.centrale.centralefitness.customcomponent.NonSlidablePager
+    <com.fitness.centrale.mobile.customcomponent.NonSlidablePager
         android:id="@+id/mainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
