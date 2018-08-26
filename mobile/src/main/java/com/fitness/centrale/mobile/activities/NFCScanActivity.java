@@ -3,6 +3,7 @@ package com.fitness.centrale.mobile.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -10,8 +11,10 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.widget.TextView;
@@ -22,7 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.nfc.NdefMessageParser;
 import com.fitness.centrale.nfc.ParsedNdefRecord;
 import com.fitness.centrale.misc.Prefs;
@@ -266,20 +271,62 @@ public class NFCScanActivity extends Activity  {
 
     }
 
+    private void setPaired(){
+        final Handler handler = new Handler();
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //NFCScanActivity.this.text.setText("Vous êtes maintenant prêt à débuter votre session ! Bon courage !");
+
+                                new android.os.Handler().postDelayed(
+                                        new Runnable() {
+                                            public void run() {
+                                                Intent intent = new Intent(NFCScanActivity.this, SessionActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        },
+                                        500);
+                            }
+                        });
+
+
+                    }
+                },
+                500);
+    }
 
 
     TextView text;
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon_scan);
 
+        if (Store.getStore().getDemoObject().demo){
+            AlertDialogBuilder.createAlertDialog(this, "Apparage auprès du module",
+                    "C'est ici que se fait l'apparaige de l'application au module.\n" +
+                            "Il vous suffi de rapprocher votre téléphone du module afin de le connecter à ce dernier.\n" +
+                            "Etant donné que vous êtes en beta, je vais vous connecter moi même!", "Ok",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            setPaired();
+                        }
+                    }).show();
+            return;
+        }
 
 
-        text = (TextView) findViewById(R.id.text);
+        text = findViewById(R.id.pairDesc);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (nfcAdapter == null) {

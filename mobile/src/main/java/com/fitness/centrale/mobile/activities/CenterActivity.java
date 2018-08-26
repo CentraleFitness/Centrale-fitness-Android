@@ -85,7 +85,13 @@ public class CenterActivity extends FragmentActivity {
                                                                                                     "Cinquième bouton : Les programmes personnalisés",
                                                                                                     "Les programmes personnalisés sont des programmes faits par les autres utilisateurs ou par la" +
                                                                                                             "salle de sport permettant de suivre une marche à suivre durant votre passage dans la salle de sport.\n" +
-                                                                                                            "Vous avez également la possibilité de créer vos propres programmes personnalisés.", "Ok").show();
+                                                                                                            "Vous avez également la possibilité de créer vos propres programmes personnalisés.", "Ok", new DialogInterface.OnClickListener() {
+                                                                                                        @Override
+                                                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                                                            dialog.dismiss();
+                                                                                                            Store.getStore().getDemoObject().enterInSessionPage = true;
+                                                                                                        }
+                                                                                                    }).show();
                                                                                         }
                                                                                     }).show();
                                                                         }

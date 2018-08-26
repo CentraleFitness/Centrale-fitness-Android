@@ -1,5 +1,6 @@
 package com.fitness.centrale.mobile.activities.social;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -18,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.mobile.R;
@@ -47,6 +49,20 @@ public class SocialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
 
+        if (Store.getStore().getDemoObject().demo && !Store.getStore().getDemoObject().enterInSocial){
+            AlertDialogBuilder.createAlertDialog(this, "Page social",
+                    "La page social vous permet de consulter le fil d'actualité propre à votre salle de sport.\n" +
+                            "Vous avez la possibilité de voir ce que disent vos camarades de salle ainsi que votre salle de sport.\n" +
+                            "Enfin, vous avez vous même la possibilité de poster quelque chose sur le mur afin de vous exprimer!", "Ok",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            Store.getStore().getDemoObject().enterInSocial = true;
+                        }
+                    }).show();
+        }
+
         recyclerView = findViewById(R.id.socialRecyclerView);
         newPostButton = findViewById(R.id.newPostButton);
         swipeRefreshLayout = findViewById(R.id.SocialRefresh);
@@ -63,17 +79,11 @@ public class SocialActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 NewPostDialog dialog = new NewPostDialog();
-
-
-
                 dialog.show(getSupportFragmentManager(), "New Post");
             }
         });
 
         refreshPosts();
-
-
-
         final ImageView sessionBtn = findViewById(R.id.sessionButton);
         final ImageView socialBtn = findViewById(R.id.socialButton);
 
