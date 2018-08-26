@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 
 import org.json.JSONException;
@@ -45,18 +46,23 @@ public class EventDetailsActivity extends AppCompatActivity {
         eventPicture = findViewById(R.id.eventPicture);
 
 
-        byte[] byteArray = getIntent().getByteArrayExtra("picture");
+        if (Store.getStore().getDemoObject().demo){
+            eventPicture.setImageDrawable(getDrawable(R.drawable.roundlogo));
+        }else {
+            byte[] byteArray = getIntent().getByteArrayExtra("picture");
+            eventPictureBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            eventPicture.setImageBitmap(eventPictureBitmap);
+        }
+
         title = findViewById(R.id.eventTitle);
         title.setText(getIntent().getStringExtra("name"));
 
 
-        TextView txt = findViewById(R.id.registerButtonEventText);
+        final TextView txt = findViewById(R.id.registerButtonEventText);
         final boolean registered = getIntent().getBooleanExtra("registered", false);
         if (registered)
             txt.setText("INSCRIT");
 
-        eventPictureBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        eventPicture.setImageBitmap(eventPictureBitmap);
 
         description = findViewById(R.id.eventDescription);
 
@@ -72,6 +78,14 @@ public class EventDetailsActivity extends AppCompatActivity {
         lyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (Store.getStore().getDemoObject().demo){
+
+                    Store.getStore().getDemoObject().getEventById(getIntent().getStringExtra("id")).registered = true;
+
+                    txt.setText("INSCRIT");
+                    return;
+                }
 
                 if (registered)
                     return;

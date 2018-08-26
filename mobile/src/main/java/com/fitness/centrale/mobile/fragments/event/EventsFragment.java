@@ -45,21 +45,12 @@ public class EventsFragment extends Fragment {
             setRightTabSelected();
         }
 
-
         mpager = view.findViewById(R.id.eventPager);
 
         adapter = new EventsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
 
         mpager.setAdapter(adapter);
         mpager.setCurrentItem(position);
-
-
-
-
-
-
-
-
 
         leftTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +67,6 @@ public class EventsFragment extends Fragment {
                 onClickOnButton(1);
             }
         });
-
-
-
 
         return view;
     }

@@ -18,6 +18,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.store.DemoObject;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.misc.VolleyUtility;
 
@@ -39,7 +41,6 @@ public class AllEventsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 
         View view = inflater.inflate(R.layout.event_all_fragment, container, false);
 
@@ -70,24 +71,27 @@ public class AllEventsFragment extends Fragment {
     public void setListAdapter(){
 
 
-        /*recyclerView = view.findViewById(R.id.allFragmentRecyclerView);
-        swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshPrograms();
-            }
-        });*/
-
-
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         recyclerView.setAdapter(new EventCardsAdapter(itemsIdsList, getContext(), getActivity()));
 
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void refreshEvents(){
 
+        itemsIdsList = new ArrayList<>();
+
+        if (Store.getStore().getDemoObject().demo){
+
+            for (DemoObject.Event event : Store.getStore().getDemoObject().eventList){
+                BasicEventObject obj = new BasicEventObject(event.id, event.name, getContext());
+                obj.event = event;
+                itemsIdsList.add(obj);
+            }
+
+            setListAdapter();
+
+            return;
+        }
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
@@ -95,7 +99,6 @@ public class AllEventsFragment extends Fragment {
 
         Map<String, Object> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getToken());
-        itemsIdsList = new ArrayList<>();
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_IDS, new JSONObject(params), new Response.Listener<JSONObject>() {

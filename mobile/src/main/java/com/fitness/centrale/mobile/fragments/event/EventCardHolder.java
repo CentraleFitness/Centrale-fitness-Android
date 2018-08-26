@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.activities.EventDetailsActivity;
 import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.misc.Prefs;
@@ -61,10 +62,79 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
     }
 
 
+    public void setContent(final Date startDate,
+                           final Date endDate,
+                           final Boolean registered,
+                           final String picture,
+                           final String description,
+                           final String id,
+                           final String name){
+
+        if (Store.getStore().getDemoObject().demo){
+            eventPicture.setImageDrawable(context.getDrawable(R.drawable.roundlogo));
+        }else
+            new B64ToImageTask(picture, eventPicture).execute();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        final String startDateStr = format.format(startDate);
+        final String endDateStr = format.format(endDate);
+
+        startDateView.setText(startDateStr);
+        endDateView.setText(endDateStr);
+
+
+
+        event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(parent, EventDetailsActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("id", id);
+                intent.putExtra("startDate", startDateStr);
+                intent.putExtra("endDate", endDateStr);
+                intent.putExtra("registered", registered);
+                intent.putExtra("description", description);
+
+                ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+                if (!Store.getStore().getDemoObject().demo) {
+                    eventPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+                    byte[] byteArray = bStream.toByteArray();
+                    intent.putExtra("picture", byteArray);
+                }
+
+
+
+                Pair<View, String> p1 = Pair.create((View)event, "eventOpening");
+                //   Pair<View, String> p2 = Pair.create((View)eventPicture, "eventPictureAnimation");
+                Pair<View, String> p3 = Pair.create((View)title, "eventTitleTransition");
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(parent, p1);
+
+                context.startActivity(intent, options.toBundle());
+            }
+        });
+
+        registeredText.setText(registered ? "Inscrit" : "Non inscrit");
+
+    }
 
     public void bind(final BasicEventObject myObject){
-        title.setText(myObject.name);
 
+        if (Store.getStore().getDemoObject().demo){
+
+            title.setText(myObject.event.name);
+            setContent(myObject.event.startDate,
+                    myObject.event.endDate,
+                    myObject.event.registered,
+                    myObject.event.picture,
+                    myObject.event.description,
+                    myObject.event.id,
+                    myObject.event.name);
+            return;
+        }
+
+        title.setText(myObject.name);
 
 
         RequestQueue queue = Volley.newRequestQueue(myObject.context);
@@ -87,48 +157,7 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
                         final String picture = response.getString("picture");
                         final String description = response.getString("description");
 
-                        new B64ToImageTask(picture, eventPicture).execute();
-
-                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                        final String startDateStr = format.format(startDate);
-                        final String endDateStr = format.format(endDate);
-
-                        startDateView.setText(startDateStr);
-                        endDateView.setText(endDateStr);
-
-
-
-                        event.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(parent, EventDetailsActivity.class);
-                                intent.putExtra("name", myObject.name);
-                                intent.putExtra("id", myObject.id);
-                                intent.putExtra("startDate", startDateStr);
-                                intent.putExtra("endDate", endDateStr);
-                                intent.putExtra("registered", registered);
-                                intent.putExtra("description", description);
-
-                                ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-                                eventPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                                byte[] byteArray = bStream.toByteArray();
-
-                                intent.putExtra("picture", byteArray);
-
-
-
-                                Pair<View, String> p1 = Pair.create((View)event, "eventOpening");
-                             //   Pair<View, String> p2 = Pair.create((View)eventPicture, "eventPictureAnimation");
-                                Pair<View, String> p3 = Pair.create((View)title, "eventTitleTransition");
-
-                                ActivityOptionsCompat options = ActivityOptionsCompat.
-                                        makeSceneTransitionAnimation(parent, p1);
-
-                                context.startActivity(intent, options.toBundle());
-                            }
-                        });
-
-                        registeredText.setText(registered ? "Inscrit" : "Non inscrit");
+                        setContent(startDate, endDate, registered, picture, description, myObject.id, myObject.name);
 
 
                     }
