@@ -18,6 +18,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.store.DemoObject;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.fragments.stats.StatsCardsAdapter;
 
@@ -27,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 
@@ -59,6 +62,9 @@ public class StatsFragment extends Fragment {
         public MachineTypes device;
         public String id;
 
+        //Used only for demo mode
+        public LinkedList<Float> values;
+
 
     }
 
@@ -72,19 +78,20 @@ public class StatsFragment extends Fragment {
 
 
         recyclerView = view.findViewById(R.id.StatFragmentRecyclerView);
-        //swipeRefreshLayout = view.findViewById(R.id.allEventSwypeRefresh);
-       /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout = view.findViewById(R.id.refreshSwiper);
+       swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshStats();
             }
-        });*/
+        });
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         recyclerView.setAdapter(new StatsCardsAdapter(itemsList, getContext(), getActivity()));
 
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 
@@ -92,6 +99,22 @@ public class StatsFragment extends Fragment {
 
         itemsList = new ArrayList<>();
 
+        if (Store.getStore().getDemoObject().demo){
+
+            for (DemoObject.Session session : Store.getStore().getDemoObject().sessionList){
+
+                StatObject object = new StatObject();
+                object.date = session.date;
+                object.device = MachineTypes.valueOf(session.machineType.toUpperCase());
+                object.duration = 120;
+                object.values = session.values;
+                itemsList.add(object);
+
+            }
+
+            setListAdapter();
+            return;
+        }
 
 
         RequestQueue queue = Volley.newRequestQueue(getContext());

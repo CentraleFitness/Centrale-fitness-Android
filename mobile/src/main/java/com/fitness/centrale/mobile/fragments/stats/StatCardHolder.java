@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.fragments.StatsFragment;
 
@@ -84,6 +85,49 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
     public void bind(final StatsFragment.StatObject myObject){
 
 
+        if (Store.getStore().getDemoObject().demo){
+
+            final long dateLong = new Date(myObject.date).getTime();
+            final Date dateObj = new Date(dateLong);
+
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+            final String date = format.format(dateObj);
+
+            final Long duration = Long.valueOf(myObject.duration);
+
+            Map<String, Integer> time = millisecondToMinuteSeconds(duration);
+
+            title.setText(String.valueOf(date));
+            picture.setImageDrawable(context.getDrawable(StatsFragment.MachineTypes.BIKE.machineLogo));
+
+            if (time.get("minutes") == 0){
+                StatCardHolder.this.duration.setText(time.get("seconds") + " secondes");
+            }else
+                StatCardHolder.this.duration.setText(time.get("minutes") + "min " + time.get("seconds"));
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(parent, SessionDetailsActivity.class);
+
+                    intent.putExtra("date", date);
+                    intent.putExtra("machine", StatsFragment.MachineTypes.BIKE.machineName);
+                    intent.putExtra("duration", duration);
+                    intent.putExtra("id", myObject.id);
+
+                    Pair<View, String> p1 = Pair.create(cardView, "statsOpening");
+
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(parent, p1);
+
+                    context.startActivity(intent, options.toBundle());
+
+                }
+            });
+
+            return;
+        }
 
 
 
