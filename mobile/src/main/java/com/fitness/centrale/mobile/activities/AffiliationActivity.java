@@ -8,6 +8,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.misc.VolleyUtility;
 import com.fitness.centrale.mobile.activities.profile.ProfileActivity;
@@ -31,6 +34,7 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
 
 
     private QRCodeReaderView qrCodeReaderView;
+    private LinearLayout discoverButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
         setContentView(R.layout.activity_affiliation);
 
 
+        discoverButton = findViewById(R.id.discoverButton);
         qrCodeReaderView = findViewById(R.id.qrcodeView);
         qrCodeReaderView.setOnQRCodeReadListener(this);
 
@@ -62,6 +67,20 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
 
 
             // Permission is not granted
+        }
+
+        if (Constants.DEMO_AVAILABLE){
+            discoverButton.setVisibility(View.VISIBLE);
+            discoverButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Store.getStore().setMisc(true);
+                    Intent intent = new Intent(AffiliationActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+            });
         }
 
 

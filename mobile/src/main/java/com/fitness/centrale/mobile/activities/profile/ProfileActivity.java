@@ -1,5 +1,6 @@
 package com.fitness.centrale.mobile.activities.profile;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.misc.Prefs;
@@ -51,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView session;
     ImageView center;
     LinearLayout topProfileLyt;
+    TextView presentationText;
 
     private ArrayList<BasicSocialObject> itemsIdsList;
     private View view;
@@ -94,7 +98,6 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
         queue.add(request);
-
     }
 
     @Override
@@ -105,6 +108,30 @@ public class ProfileActivity extends AppCompatActivity {
          session = findViewById(R.id.sessionButton);
          center = findViewById(R.id.profileButton);
          topProfileLyt = findViewById(R.id.topProfileLyt);
+         presentationText = findViewById(R.id.presentationText);
+
+         if (Store.getStore().getDemoObject().demo && !Store.getStore().getDemoObject().enterInDemo){
+             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+             builder.setTitle("Bienvenue dans la beta Centrale Fitness !")
+                     .setMessage("Durant cette session, toutes les données utilisées seront fausses.\n" +
+                             "Néanmoins, l'expérience Central Fitness que vous allez essayer est elle parfaitement authentique.\n" +
+                             "Les actions que vous allez effectuer durant cette phase de test ne seront pas sauvegardées une fois l'application quittée.\n" +
+                             "Nous vous souhaitons une agréable expérience durant cette phase de test et vous remercions pour les commentaires !")
+                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialog, int which) {
+                             dialog.dismiss();
+                             AlertDialogBuilder.createAlertDialog(ProfileActivity.this,
+                                     "Page de profil",
+                                     "La page de profil permet de visualiser sa photo de profil, son identifiant ainsi que les détails de la dernière session.\n" +
+                                             "Vous pouvez également accéder via les petites icones en haut à la modification de votre profil ou à la deconnexion de votre compte.",
+                                     "Ok").show();
+                         }
+                     });
+             AlertDialog dialog = builder.create();
+             dialog.show();
+             Store.getStore().getDemoObject().enterInDemo = true;
+         }
 
 
 
@@ -262,6 +289,7 @@ public class ProfileActivity extends AppCompatActivity {
         params.put(Constants.START, 0);
         params.put(Constants.END, 5);
 
+        //TODO Remplacer par la récupération de la dernière activité
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_POSTS, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -315,6 +343,14 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(new SocialCardsAdapter(itemsIdsList,getBaseContext(), this, true));
+        if (itemsIdsList.size() > 0){
+            presentationText.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }else{
+            presentationText.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+
+        }
 
     }
 

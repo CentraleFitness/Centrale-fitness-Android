@@ -68,6 +68,27 @@ public class Store {
      */
 
 
+    /*
+        MISC
+     */
+
+    private DemoObject demoObject;
+
+    public void setMisc(boolean demo){
+        this.demoObject = new DemoObject();
+        this.demoObject.demo = demo;
+    }
+
+    public DemoObject getDemoObject() {
+        if (demoObject == null){
+            demoObject = new DemoObject();
+        }
+        return demoObject;
+    }
+
+    /*
+    END MISC
+     */
 
 
 }

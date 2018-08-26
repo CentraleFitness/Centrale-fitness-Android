@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorPrimary">#8285ff</item>
+        <item name="android:colorPrimaryDark">#ff966e</item>
+        <item name="android:colorAccent">#FF4081</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowContentTransitions">true</item>
+
+    </style>
+</resources>

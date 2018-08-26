@@ -8,6 +8,11 @@ public class Constants {
 
 
     /**
+     * Misc values
+     */
+    public static boolean DEMO_AVAILABLE = true;
+
+    /**
      * SERVER INFO
      */
     public static String HOST = "psyycker.fr.nf";

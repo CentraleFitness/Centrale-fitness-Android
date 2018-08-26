@@ -1,5 +1,6 @@
 package com.fitness.centrale.mobile.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.fitness.centrale.misc.AlertDialogBuilder;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.activities.profile.ProfileActivity;
 import com.fitness.centrale.mobile.fragments.ChallengeFragment;
@@ -44,6 +47,56 @@ public class CenterActivity extends FragmentActivity {
         final ImageView programsButton = findViewById(R.id.programsButton);
 
 
+        if (Store.getStore().getDemoObject().demo && !Store.getStore().getDemoObject().enterInSessionPage){
+            AlertDialogBuilder.createAlertDialog(this, "Page principale",
+                    "Cette page est la page principale de Centrale Fitness.\n" +
+                            "Ici vous pourrez lancer une session, vous inscrire à des défis ou évenements ou consulter vos statistiques!", "Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            AlertDialogBuilder.createAlertDialog(CenterActivity.this,
+                                    "Premier bouton : Page de challenges",
+                                    "La page de challenge est la page dans laquelle vous pouvez créer des défis à accomplir tout seul ou les transformer en" +
+                                            "challenges afin de les partager avec les autres membres de la salle de sport.",
+                                    "Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            AlertDialogBuilder.createAlertDialog(CenterActivity.this, "Second bouton : Page d'événements",
+                                                    "La page d'événements permet de s'inscrire à des événements organisés par la salle de sport!", "Ok",
+                                                    new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                            AlertDialogBuilder.createAlertDialog(CenterActivity.this, "Troisième bouton : Lancer une session",
+                                                                    "Le bouton central permet le lancement de l'appairage de l'application avec un module Central Fitness." +
+                                                                            "\nUne fois appairé, la session de sport peut enfin démarrer!", "Ok",
+                                                                    new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                            dialog.dismiss();
+                                                                            AlertDialogBuilder.createAlertDialog(CenterActivity.this, "Quatrième bouton : Les statistiques",
+                                                                                    "La page de statistiques vous permet de voir les détails de vos dernières sessions.", "Ok",
+                                                                                    new DialogInterface.OnClickListener() {
+                                                                                        @Override
+                                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                                            dialog.dismiss();
+                                                                                            AlertDialogBuilder.createAlertDialog(CenterActivity.this,
+                                                                                                    "Cinquième bouton : Les programmes personnalisés",
+                                                                                                    "Les programmes personnalisés sont des programmes faits par les autres utilisateurs ou par la" +
+                                                                                                            "salle de sport permettant de suivre une marche à suivre durant votre passage dans la salle de sport.\n" +
+                                                                                                            "Vous avez également la possibilité de créer vos propres programmes personnalisés.", "Ok").show();
+                                                                                        }
+                                                                                    }).show();
+                                                                        }
+                                                                    }).show();
+                                                        }
+                                                    }).show();
+                                        }
+                                    }).show();
+                        }
+                    }).show();
+        }
 
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
