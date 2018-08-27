@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.misc.store.DemoObject;
@@ -127,6 +128,10 @@ public class SessionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+
+        AlertDialogBuilder.createAlertDialog(this, "Votre session sportive",
+                "Ici vous pourrez constater votre production d'énergie en temps réel dans votre salle de sport et voir" +
+                        "de courts diagrammes. N'hésitez pas à laisser des suggestion (page de profil) si vous avez de meilleures idées d'ergonomie!", "Ok").show();
 
         gauge = findViewById(R.id.gauge1);
         gauge.setEndValue(maxGaugeValue);

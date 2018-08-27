@@ -33,9 +33,9 @@ public class DemoObject {
     }
 
     public boolean demo = false ;
-    public boolean enterInDemo = true;
-    public boolean enterInSessionPage = true;
-    public boolean enterInSocial = true;
+    public boolean enterInDemo = false;
+    public boolean enterInSessionPage = false;
+    public boolean enterInSocial = false;
     public List<Session> sessionList = new LinkedList<>();
     public List<Event> eventList = new LinkedList<>();
     public List<Post> postsList = new LinkedList<>();
@@ -64,7 +64,7 @@ public class DemoObject {
 
 
         Post post1 = new Post();
-        post1.content = "Coucou";
+        post1.content = "Eclatez vous dans votre salle de sport aujourd'hui !";
         post1.poster = "Centrale Fitness";
 
         postsList.add(post1);
