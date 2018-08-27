@@ -31,6 +31,7 @@ import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.misc.VolleyUtility;
 import com.fitness.centrale.mobile.activities.EditProfileActivity;
+import com.fitness.centrale.mobile.activities.FeedBackActivity;
 import com.fitness.centrale.mobile.activities.dialogs.DisconnectDialog;
 import com.fitness.centrale.mobile.activities.CenterActivity;
 import com.fitness.centrale.mobile.activities.social.BasicSocialObject;
@@ -118,7 +119,8 @@ public class ProfileActivity extends AppCompatActivity {
          comment.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-
+                Intent intent = new Intent(ProfileActivity.this, FeedBackActivity.class);
+                startActivity(intent);
              }
          });
 

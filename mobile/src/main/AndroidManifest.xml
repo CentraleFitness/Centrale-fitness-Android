@@ -63,6 +63,7 @@
         <activity android:name=".fragments.stats.SessionDetailsActivity" />
         <activity android:name=".activities.programs.ProgramDetailsActivity" />
         <activity android:name=".activities.programs.run.program.RunProgramActivity" />
+        <activity android:name=".activities.FeedBackActivity"/>
         <activity android:name=".activities.programs.run.program.ProgramEndingActivity"></activity>
     </application>
 
