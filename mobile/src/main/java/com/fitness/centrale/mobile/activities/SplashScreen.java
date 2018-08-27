@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,6 +71,13 @@ public class SplashScreen extends AppCompatActivity {
 
         Prefs.initPreferencesManager(getBaseContext());
 
+        PackageManager manager = getPackageManager();
+        try {
+            PackageInfo infos = manager.getPackageInfo(this.getPackageName(), 0);
+            Constants.VERSION = infos.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
         tryToConnect();

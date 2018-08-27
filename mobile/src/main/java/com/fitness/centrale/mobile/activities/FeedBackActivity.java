@@ -53,10 +53,16 @@ public class FeedBackActivity extends AppCompatActivity {
     }
 
     private void sendFeedback(){
+
+        if (email.getText().toString().equals("") || content.getText().toString().equals("")){
+            AlertDialogBuilder.createAlertDialog(this, "Erreur", "Veuillez entrer une adresse mail et un feedback.", "Ok").show();
+            return;
+        }
+
         RequestQueue queue = Volley.newRequestQueue(FeedBackActivity.this);
 
         final Map<String, String> params = new HashMap<>();
-        params.put(Constants.EMAIL, email.getText().toString());
+        params.put("email", email.getText().toString());
         params.put("content", content.getText().toString());
         params.put("version", Constants.VERSION);
         params.put("date", new Date().toString());
