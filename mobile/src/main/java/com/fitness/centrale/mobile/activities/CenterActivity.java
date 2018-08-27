@@ -2,6 +2,8 @@ package com.fitness.centrale.mobile.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +29,11 @@ import com.fitness.centrale.mobile.activities.social.SocialActivity;
 public class CenterActivity extends FragmentActivity {
 
 
+    ImageView challengeButton;
+    ImageView eventButton;
+    ImageView statsButton;
+    ImageView programsButton;
+
     final int PAGE_NUMBER = 4;
     ViewPager mpager;
     PagerAdapter adapter;
@@ -41,10 +48,10 @@ public class CenterActivity extends FragmentActivity {
         final ImageView sessionBtn = findViewById(R.id.sessionButton);
         final ImageView socialBtn = findViewById(R.id.socialButton);
         final ImageView sessionStartBtn = findViewById(R.id.sessionStartBtn);
-        final ImageView challengeButton = findViewById(R.id.challengesButton);
-        final ImageView eventButton = findViewById(R.id.eventButton);
-        final ImageView statsButton = findViewById(R.id.statsButton);
-        final ImageView programsButton = findViewById(R.id.programsButton);
+        challengeButton = findViewById(R.id.challengesButton);
+        eventButton = findViewById(R.id.eventButton);
+        statsButton = findViewById(R.id.statsButton);
+        programsButton = findViewById(R.id.programsButton);
 
 
         if (Store.getStore().getDemoObject().demo && !Store.getStore().getDemoObject().enterInSessionPage){
@@ -148,6 +155,7 @@ public class CenterActivity extends FragmentActivity {
         challengeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setButtonsTint(0);
                 onClickOnButton(0);
             }
         });
@@ -155,6 +163,8 @@ public class CenterActivity extends FragmentActivity {
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setButtonsTint(1);
+
                 onClickOnButton(1);
             }
         });
@@ -162,6 +172,7 @@ public class CenterActivity extends FragmentActivity {
         statsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setButtonsTint(2);
                 onClickOnButton(2);
             }
         });
@@ -169,6 +180,7 @@ public class CenterActivity extends FragmentActivity {
         programsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setButtonsTint(3);
                 onClickOnButton(3);
             }
         });
@@ -180,11 +192,39 @@ public class CenterActivity extends FragmentActivity {
 
         mpager.setAdapter(adapter);
         mpager.setCurrentItem(0);
+        setButtonsTint(0);
 
+    }
 
+    public void setButtonsTint(final int position){
+        switch (position){
+            case 0:
+                challengeButton.setColorFilter(null);
+                eventButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                statsButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                programsButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                break;
+            case 1:
+                challengeButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                eventButton.setColorFilter(null);
+                statsButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                programsButton.setColorFilter(Color.argb(255, 192, 192, 192));
 
+                break;
+            case 2:
+                challengeButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                eventButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                statsButton.setColorFilter(null);
+                programsButton.setColorFilter(Color.argb(255, 192, 192, 192));
 
-
+                break;
+            case 3:
+                challengeButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                eventButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                statsButton.setColorFilter(Color.argb(255, 192, 192, 192));
+                programsButton.setColorFilter(null);
+                break;
+        }
     }
 
 

@@ -4,7 +4,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.fitness.centrale.misc.store.Store;
+import com.fitness.centrale.mobile.activities.SplashScreen;
 
 
 public class DisconnectDialog extends DialogFragment {
@@ -39,13 +43,19 @@ public class DisconnectDialog extends DialogFragment {
 
 
                     }
-                })
-        .setNeutralButton("Ne rien faire", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+                });
 
-            }
-        });
+        if (Store.getStore().getDemoObject().demo){
+            builder.setNeutralButton("[BETA] Quitter le mode découverte", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getActivity(), SplashScreen.class);
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+        }
+
         // Create the AlertDialog object and return it
         return builder.create();
     }

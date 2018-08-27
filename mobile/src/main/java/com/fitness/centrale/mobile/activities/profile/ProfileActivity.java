@@ -34,6 +34,7 @@ import com.fitness.centrale.mobile.activities.EditProfileActivity;
 import com.fitness.centrale.mobile.activities.dialogs.DisconnectDialog;
 import com.fitness.centrale.mobile.activities.CenterActivity;
 import com.fitness.centrale.mobile.activities.social.BasicSocialObject;
+import com.fitness.centrale.mobile.activities.social.SocialActivity;
 import com.fitness.centrale.mobile.activities.social.SocialCardsAdapter;
 import com.fitness.centrale.misc.store.Store;
 import com.vansuita.gaussianblur.GaussianBlur;
@@ -52,9 +53,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
     ImageView session;
+    ImageView social;
     ImageView center;
     LinearLayout topProfileLyt;
     TextView presentationText;
+    ImageView comment;
 
     private ArrayList<BasicSocialObject> itemsIdsList;
     private View view;
@@ -106,9 +109,18 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
          session = findViewById(R.id.sessionButton);
+         social = findViewById(R.id.socialButton);
          center = findViewById(R.id.profileButton);
          topProfileLyt = findViewById(R.id.topProfileLyt);
          presentationText = findViewById(R.id.presentationText);
+         comment = findViewById(R.id.commentPicture);
+
+         comment.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+
+             }
+         });
 
          if (Store.getStore().getDemoObject().demo && !Store.getStore().getDemoObject().enterInDemo){
              AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -149,6 +161,18 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+         social.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Pair<View, String> p1 = Pair.create((View)session, ViewCompat.getTransitionName(session));
+                 Pair<View, String> p2 = Pair.create((View)social, ViewCompat.getTransitionName(social));
+
+                 Intent intent = new Intent(ProfileActivity.this, SocialActivity.class);
+                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(ProfileActivity.this, p1, p2);
+                 startActivity(intent, options.toBundle());
+             }
+         });
 
 
 
@@ -266,11 +290,6 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(new SocialCardsAdapter(itemsIdsList,getBaseContext(), this, true));
-
-
-
-
-
 
 
     }

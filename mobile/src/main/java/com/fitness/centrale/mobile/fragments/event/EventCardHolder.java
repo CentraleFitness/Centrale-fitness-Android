@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -42,11 +43,9 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
 
     private CardView event;
     private TextView title;
-    private TextView startDateView;
-    private TextView endDateView;
     private ImageView eventPicture;
-    private TextView registeredText;
     private Bitmap eventPictureBitmap;
+    private ImageView registeredImage;
 
     public EventCardHolder(View itemView, Context context, Activity parent) {
         super(itemView);
@@ -55,10 +54,8 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
 
         event = itemView.findViewById(R.id.cardViewEvent);
         title = itemView.findViewById(R.id.cardEventTitle);
-        startDateView = itemView.findViewById(R.id.startDateText);
-        endDateView = itemView.findViewById(R.id.endDateText);
         eventPicture = itemView.findViewById(R.id.eventPicture);
-        registeredText = itemView.findViewById(R.id.registeredEventText);
+        registeredImage = itemView.findViewById(R.id.registerPicture);
     }
 
 
@@ -79,8 +76,6 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
         final String startDateStr = format.format(startDate);
         final String endDateStr = format.format(endDate);
 
-        startDateView.setText(startDateStr);
-        endDateView.setText(endDateStr);
 
 
 
@@ -115,7 +110,10 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
             }
         });
 
-        registeredText.setText(registered ? "Inscrit" : "Non inscrit");
+        if (!registered){
+            registeredImage.setImageDrawable(context.getDrawable(R.drawable.error));
+        }
+
 
     }
 

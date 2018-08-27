@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 
 import org.json.JSONException;
@@ -33,6 +34,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     private LinearLayout lyt;
     private TextView postContent;
     private TextView postDate;
+    private TextView posterName;
 
     public SocialCardHolder(View itemView, Context context, AppCompatActivity parent) {
         super(itemView);
@@ -42,16 +44,33 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
         postContent = itemView.findViewById(R.id.postContent);
         postDate = itemView.findViewById(R.id.postDate);
+        posterName = itemView.findViewById(R.id.posterName);
         lyt = itemView.findViewById(R.id.postMainLayout);
-
-
 
     }
 
 
+    public void setContent(final Date date, final String content){
+
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy hh:mm");
+        String dateStr = format.format(date);
+
+        postContent.setText(content);
+
+        SocialCardHolder.this.postDate.setText(dateStr);
+    }
 
 
     public void bind(final BasicSocialObject myObject){
+
+
+        if (Store.getStore().getDemoObject().demo){
+
+            posterName.setText(myObject.post.poster);
+            setContent(myObject.post.postDate, myObject.post.content);
+
+            return;
+        }
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -59,7 +78,6 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         final Map<String, Object> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getToken());
         params.put(Constants.POSTID, myObject.id);
-
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_POST_CONTENT, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -72,25 +90,8 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                                 long postDate = response.getLong("post date");
                                 Date date = new Date(postDate);
                                 String content = response.getString("post content");
-                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy hh:mm");
-                                String dateStr = format.format(date);
 
-
-                                postContent.setText(content);
-                                //int lines = postContent.getLineCount();
-
-                                //ViewGroup.LayoutParams params = lyt.getLayoutParams();
-
-                                //int size = 100 + (lines * 23);
-
-                                //Resources r = parent.getResources();
-                                //params.height = Math.round(TypedValue.applyDimension(
-                                //        TypedValue.COMPLEX_UNIT_DIP, size,r.getDisplayMetrics())); //size;
-                                //lyt.setLayoutParams(params);
-
-                                SocialCardHolder.this.postDate.setText(dateStr);
-                                System.out.println();
-
+                                setContent(date, content);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

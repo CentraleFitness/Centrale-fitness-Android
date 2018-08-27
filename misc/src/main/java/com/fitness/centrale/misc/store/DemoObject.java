@@ -26,12 +26,19 @@ public class DemoObject {
         public String id;
     }
 
+    public static class Post{
+        public Date postDate = new Date();
+        public String content;
+        public String poster;
+    }
+
     public boolean demo = false ;
     public boolean enterInDemo = true;
     public boolean enterInSessionPage = true;
     public boolean enterInSocial = true;
     public List<Session> sessionList = new LinkedList<>();
     public List<Event> eventList = new LinkedList<>();
+    public List<Post> postsList = new LinkedList<>();
 
     public DemoObject(){
 
@@ -54,6 +61,13 @@ public class DemoObject {
 
         eventList.add(event1);
         eventList.add(event2);
+
+
+        Post post1 = new Post();
+        post1.content = "Coucou";
+        post1.poster = "Centrale Fitness";
+
+        postsList.add(post1);
 
     }
 

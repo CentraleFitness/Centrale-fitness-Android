@@ -6,47 +6,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/AppThemeNoActionBar"
-    android:background="#F9F1F1"
+    android:background="#FFFFFF"
     tools:context=".activities.profile.ProfileActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".7"
+        android:layout_weight="@dimen/top_bar_weight"
         android:background="@color/white"
-        android:elevation="4dp">
+        android:orientation="horizontal"
+        android:elevation="@dimen/global_elevation_level">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
 
 
-        <ImageView
-            android:id="@+id/sessionButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/sessionicon"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            <ImageView
+                android:id="@+id/profileButton"
+                android:layout_width="@dimen/top_bar_icon_size"
+                android:layout_height="@dimen/top_bar_icon_size"
+                android:tint="@color/grey"
+                android:transitionName="profilemove"
+                android:layout_gravity="center"
+                android:src="@drawable/profil" />
+        </LinearLayout>
 
-            android:transitionName="sessionmove"
-            />
-
-
-        <ImageView
-            android:transitionName="socialmove"
-            android:id="@+id/socialButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:src="@drawable/social" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
 
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/sessionButton"
+                android:layout_width="@dimen/top_bar_icon_size"
+                android:layout_height="@dimen/top_bar_icon_size"
+                android:tint="@color/grey"
+                android:transitionName="sessionmove"
+                android:src="@drawable/sessionicon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/socialButton"
+                android:layout_width="@dimen/top_bar_icon_size"
+                android:layout_height="@dimen/top_bar_icon_size"
+                android:layout_gravity="center"
+                android:transitionName="socialmove"
+                android:src="@drawable/social" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#F9F1F1"
         android:layout_weight="7">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/SocialRefresh"

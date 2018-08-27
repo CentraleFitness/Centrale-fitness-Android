@@ -22,10 +22,12 @@ import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.store.DemoObject;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.activities.dialogs.NewPostDialog;
 import com.fitness.centrale.mobile.activities.CenterActivity;
 import com.fitness.centrale.misc.store.Store;
+import com.fitness.centrale.mobile.activities.profile.ProfileActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +41,6 @@ public class SocialActivity extends AppCompatActivity {
 
 
     private ArrayList<BasicSocialObject> itemsIdsList;
-    private View view;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton newPostButton;
@@ -78,13 +79,15 @@ public class SocialActivity extends AppCompatActivity {
         newPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewPostDialog dialog = new NewPostDialog();
+                final NewPostDialog dialog = new NewPostDialog();
+                dialog.setActivity(SocialActivity.this);
                 dialog.show(getSupportFragmentManager(), "New Post");
             }
         });
 
         refreshPosts();
         final ImageView sessionBtn = findViewById(R.id.sessionButton);
+        final ImageView profileBtn = findViewById(R.id.profileButton);
         final ImageView socialBtn = findViewById(R.id.socialButton);
 
         sessionBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,15 +103,42 @@ public class SocialActivity extends AppCompatActivity {
             }
         });
 
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair<View, String> p1 = Pair.create((View)profileBtn, ViewCompat.getTransitionName(profileBtn));
+                Pair<View, String> p2 = Pair.create((View)socialBtn, ViewCompat.getTransitionName(socialBtn));
+
+                Intent intent = new Intent(SocialActivity.this, ProfileActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SocialActivity.this, p1, p2);
+                startActivity(intent, options.toBundle());
+
+            }
+        });
+
     }
 
-    private void refreshPosts(){
+    public void refreshPosts(){
 
+        itemsIdsList = new ArrayList<>();
+
+        if (Store.getStore().getDemoObject().demo){
+
+            for (DemoObject.Post post :  Store.getStore().getDemoObject().postsList){
+
+                BasicSocialObject obj = new BasicSocialObject("", this, BasicSocialObject.PostType.PUBLICATION);
+                obj.post = post;
+                itemsIdsList.add(obj);
+            }
+
+            setAdapter();
+
+            return;
+        }
 
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        itemsIdsList = new ArrayList<>();
 
         final Map<String, Object> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getToken());

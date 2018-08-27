@@ -6,5 +6,13 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="design_fab_image_size" tools:override="true">56dp</dimen>
+    <dimen name="top_bar_weight">.55</dimen>
+    <dimen name="top_bar_icon_size">30dp</dimen>
+    <dimen name="global_elevation_level">1dp</dimen>
+    <dimen name="buttons_elevation_level">2dp</dimen>
+    <dimen name="little_button_size">50dp</dimen>
+    <dimen name="big_button_size">70dp</dimen>
+    <dimen name="card_elevation">1dp</dimen>
+
 
 </resources>

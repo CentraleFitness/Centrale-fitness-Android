@@ -28,7 +28,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_test">TestActivity</string>
-    <string name="welcome_text">Bienvenue sur Centrale Fitness!\n\n Afin commencer à utiliser Centrale Fitness, débutez une session de sport en vous rendant dans le menu central.\n\n
+    <string name="welcome_text">Bienvenue sur Centrale Fitness!\n\n Pour commencer à utiliser Centrale Fitness, débutez une session de sport en vous rendant dans le menu central.\n\n
     Vous pouvez également vous inscrire à divers événements disponible dans votre salle de sport.\n\n
         Afin d\'ajouter du piment à vos séances de sport, n\'hésitez pas à vous créer vos propres défis ou rejoindre ceux des autres !\n\n
         Enfin, exprimez vous dans votre salle de sport via le fil d\'actualité disponible dans le menu de droite.\n\n

@@ -5,10 +5,10 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight=".7"
+        android:elevation="@dimen/global_elevation_level"
         android:orientation="horizontal"
         >
 
@@ -17,10 +17,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:elevation="4dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
+            android:elevation="@dimen/global_elevation_level"
             android:orientation="vertical"
             android:background="@drawable/event_registered_tab_unselected">
 
@@ -40,10 +37,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:elevation="4dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:elevation="@dimen/global_elevation_level"
 
             android:background="@drawable/event_all_tab_unselected">
 

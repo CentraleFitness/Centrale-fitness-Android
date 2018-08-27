@@ -9,8 +9,7 @@
     android:id="@+id/cardViewStat"
 
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="2dp">
+    app:cardElevation="@dimen/card_elevation">
 
 
     <LinearLayout

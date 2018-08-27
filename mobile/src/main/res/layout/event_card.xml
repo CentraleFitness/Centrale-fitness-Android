@@ -4,113 +4,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:transitionName="eventOpening"
     android:id="@+id/cardViewEvent"
+    android:layout_margin="5dp"
 
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="2dp">
+    app:cardElevation="@dimen/card_elevation">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="80dp"
+        android:gravity="center"
         android:orientation="horizontal"
         >
 
         <ImageView
             android:transitionName="eventPictureAnimation"
             android:id="@+id/eventPicture"
-            android:scaleType="centerCrop"
-            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:layout_weight=".5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:src="@drawable/paysagetest"
-            android:background="@drawable/event_registered_tab_selected"
+            android:layout_margin="10dp"
             />
 
         <LinearLayout
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                >
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="2">
                 <TextView
                     android:id="@+id/cardEventTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="base"
                     android:transitionName="eventTitleTransition"
-                    android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
-
+                    android:textSize="17sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="12sp"
+                    android:text="En cours"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <TextView
-                        android:id="@+id/startDateText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/grey">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <TextView
-                        android:id="@+id/endDateText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@color/grey">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <TextView
-                        android:id="@+id/registeredEventText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
+                <ImageView
+                    android:src="@drawable/success"
+                    android:layout_margin="20dp"
+                    android:id="@+id/registerPicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 

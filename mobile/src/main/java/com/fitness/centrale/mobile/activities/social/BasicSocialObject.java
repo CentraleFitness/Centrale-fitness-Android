@@ -2,12 +2,16 @@ package com.fitness.centrale.mobile.activities.social;
 
 import android.content.Context;
 
+import com.fitness.centrale.misc.store.DemoObject;
+
 public class BasicSocialObject {
 
 
     public String id;
     public Context context;
     public PostType type;
+
+    public DemoObject.Post post;
 
 
 
