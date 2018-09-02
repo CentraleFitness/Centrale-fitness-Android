@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "511361473319",
+    "firebase_url": "https://central-fitness.firebaseio.com",
+    "project_id": "central-fitness",
+    "storage_bucket": "central-fitness.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:511361473319:android:eb31d1d1a5b4fff7",
+        "android_client_info": {
+          "package_name": "com.fitness.centrale.centralefitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "511361473319-itnr624kp0783fcoc2qbfkoqkfunns6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAajyrYYB6D8m0TqCT3NAnl8571kJ_DNNY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
