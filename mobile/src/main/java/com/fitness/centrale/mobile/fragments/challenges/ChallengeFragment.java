@@ -1,4 +1,4 @@
-package com.fitness.centrale.mobile.fragments.event;
+package com.fitness.centrale.mobile.fragments.challenges;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,17 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fitness.centrale.mobile.R;
+import com.fitness.centrale.mobile.fragments.event.EventsFragment;
 
 
 /**
  * Created by Psyycker on 19/11/2017.
  */
 
-public class EventsFragment extends Fragment {
+public class ChallengeFragment extends Fragment {
+
 
     final int PAGE_NUMBER = 2;
     ViewPager mpager;
-    EventsFragment.ScreenSlidePagerAdapter adapter;
+    ScreenSlidePagerAdapter adapter;
     private int position = 0;
 
 
@@ -32,12 +34,13 @@ public class EventsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.event_fragment, container, false);
+        View view = inflater.inflate(R.layout.challenge_fragment, container, false);
 
-        leftTab = view.findViewById(R.id.EventRegisteredTab);
-        leftTabTitle = view.findViewById(R.id.event_registered_tab_text);
-        rightTab = view.findViewById(R.id.EventAllTab);
-        rightTabTitle = view.findViewById(R.id.event_all_tab_text);
+
+        leftTab = view.findViewById(R.id.ChallengesRegisteredTab);
+        leftTabTitle = view.findViewById(R.id.challenges_registered_tab_text);
+        rightTab = view.findViewById(R.id.ChallengesAllTab);
+        rightTabTitle = view.findViewById(R.id.challenges_all_tab_text);
 
         if (position == 0){
             setLeftTabSelected();
@@ -45,9 +48,9 @@ public class EventsFragment extends Fragment {
             setRightTabSelected();
         }
 
-        mpager = view.findViewById(R.id.eventPager);
+        mpager = view.findViewById(R.id.challengesPager);
 
-        adapter = new EventsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
+        adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
 
         mpager.setAdapter(adapter);
         mpager.setCurrentItem(position);
@@ -69,18 +72,26 @@ public class EventsFragment extends Fragment {
         });
 
         return view;
+
+
     }
 
+
+
+
+
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     LinearLayout leftTab = null;
     TextView leftTabTitle = null;
     LinearLayout rightTab = null;
     TextView rightTabTitle = null;
-
 
 
     private void setLeftTabSelected(){
@@ -106,27 +117,6 @@ public class EventsFragment extends Fragment {
         rightTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.ourRed));
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-
-    //Ici, remplacer les int et autres par les vrais arguments de la map
-    public static EventsFragment newInstance() {
-        EventsFragment fragment = new EventsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-
 
     public void onClickOnButton(int pos) {
         position = pos;
@@ -135,22 +125,31 @@ public class EventsFragment extends Fragment {
     }
 
 
-    private AllEventsFragment allEventsFragment;
-    private RegisteredEventsFragment registeredEventsFragment;
-
-    private AllEventsFragment getAllEventFragment(){
-        if (allEventsFragment == null){
-            allEventsFragment = AllEventsFragment.newInstance();
-        }
-        return allEventsFragment;
+    //Ici, remplacer les int et autres par les vrais arguments de la map
+    public static ChallengeFragment newInstance() {
+        ChallengeFragment fragment = new ChallengeFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 
-    private RegisteredEventsFragment getRegisteredEventsFragment(){
-        if (registeredEventsFragment == null){
-            registeredEventsFragment = RegisteredEventsFragment.newInstance();
+    private AllChallengesFragment allChallengesFragment;
+    private RegisteredChallengesFragment registeredChallengesFragment;
+
+    private AllChallengesFragment getAllChallengesFragment(){
+        if (allChallengesFragment == null){
+            allChallengesFragment = AllChallengesFragment.newInstance();
         }
-        return registeredEventsFragment;
+        return allChallengesFragment;
     }
+
+    private RegisteredChallengesFragment getRegisteredChallengesFragment(){
+        if (registeredChallengesFragment == null){
+            registeredChallengesFragment = RegisteredChallengesFragment.newInstance();
+        }
+        return registeredChallengesFragment;
+    }
+
 
     private class ScreenSlidePagerAdapter extends FragmentPagerAdapter {
         public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
@@ -161,9 +160,9 @@ public class EventsFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return getRegisteredEventsFragment();
+                    return getRegisteredChallengesFragment();
                 case 1:
-                    return getAllEventFragment();
+                    return getAllChallengesFragment();
 
                 default:
                     return null;
