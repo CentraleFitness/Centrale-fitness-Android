@@ -76,7 +76,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
 
         final Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(context).getToken());
         params.put(Constants.POSTID, myObject.id);
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_POST_CONTENT, new JSONObject(params),

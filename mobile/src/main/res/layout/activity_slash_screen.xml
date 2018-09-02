@@ -13,15 +13,17 @@
         android:layout_height="300dp"
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
-        android:src="@drawable/logo_white"
+        android:tint="@color/white"
+        android:src="@drawable/logo_svg"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Central Fitness"
+        android:text="Centrale Fitness"
+        android:fontFamily="@font/bjor_regular"
         android:textColor="#FFFFFF"
-        android:textSize="50dp"
+        android:textSize="38dp"
         android:textAlignment="center"/>
 
 

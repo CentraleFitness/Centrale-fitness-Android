@@ -122,7 +122,7 @@ public class StatsFragment extends Fragment {
         itemsList = new ArrayList<>();
 
         final Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
 

@@ -85,7 +85,7 @@ public class SessionActivity extends AppCompatActivity {
 
 
                     Map<String, String> params = new HashMap<>();
-                    params.put(Constants.TOKEN, Prefs.getToken());
+                    params.put(Constants.TOKEN, Prefs.getPrefs(SessionActivity.this).getToken());
                     JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.USER_PAIR_STOP, new JSONObject(params), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -201,7 +201,7 @@ public class SessionActivity extends AppCompatActivity {
                 }else {
                     RequestQueue queue = Volley.newRequestQueue(getApplication());
                     Map<String, String> params = new HashMap<>();
-                    params.put(Constants.TOKEN, Prefs.getToken());
+                    params.put(Constants.TOKEN, Prefs.getPrefs(SessionActivity.this).getToken());
                     JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_INSTANT_PRODUCTION, new JSONObject(params), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

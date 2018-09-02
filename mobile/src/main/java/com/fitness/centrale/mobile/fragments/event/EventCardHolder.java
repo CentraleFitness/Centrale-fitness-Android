@@ -140,7 +140,7 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
 
 
         Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(context).getToken());
         params.put(Constants.EVENTID, myObject.id);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_PREVIEW, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override

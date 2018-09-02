@@ -82,7 +82,7 @@ public class FavoriteProgramFragment extends Fragment {
 
 
         Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs().getToken());
         itemsIdsList = new ArrayList<>();
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);

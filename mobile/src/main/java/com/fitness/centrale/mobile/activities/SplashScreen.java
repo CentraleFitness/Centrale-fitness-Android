@@ -69,7 +69,6 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slash_screen);
 
-        Prefs.initPreferencesManager(getBaseContext());
 
         PackageManager manager = getPackageManager();
         try {
@@ -125,7 +124,7 @@ public class SplashScreen extends AppCompatActivity {
             RequestQueue queue = Volley.newRequestQueue(ctx);
 
             final Map<String, String> params = new HashMap<>();
-            params.put(Constants.TOKEN, Prefs.getToken());
+            params.put(Constants.TOKEN, Prefs.getPrefs(SplashScreen.this).getToken());
 
             JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.AUTHTOKEN, new JSONObject(params),
                     new Response.Listener<JSONObject>() {
@@ -167,7 +166,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
         Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_AFFILIATION, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

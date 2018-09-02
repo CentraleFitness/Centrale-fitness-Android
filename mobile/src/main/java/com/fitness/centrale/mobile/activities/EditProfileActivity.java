@@ -54,7 +54,7 @@ public class EditProfileActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(EditProfileActivity.this);
 
         final Map<String, String> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.FIRST_NAME, firstName.getText().toString());
         params.put(Constants.LAST_NAME, lastName.getText().toString());
         params.put(Constants.EMAIL, email.getText().toString());
@@ -102,7 +102,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(EditProfileActivity.this);
 
                 final Map<String, String> params = new HashMap<>();
-                params.put(Constants.TOKEN, Prefs.getToken());
+                params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
                 params.put(Constants.PASSWORD, oldPassword.getText().toString());
                 params.put(Constants.NEW_PASSWORD, newPassword.getText().toString());
 

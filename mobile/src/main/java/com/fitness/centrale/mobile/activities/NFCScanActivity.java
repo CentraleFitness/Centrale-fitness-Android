@@ -228,7 +228,7 @@ public class NFCScanActivity extends Activity  {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         final Map<String, String> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.SESSIONID, finalText.replace("\n", ""));
 
 

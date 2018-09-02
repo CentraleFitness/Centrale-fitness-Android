@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.3"
-        android:src="@drawable/logo_white"
+        android:src="@drawable/logo_svg"
+        android:tint="@color/white"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,21 +28,26 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3"
+        android:fontFamily="@font/bjor_regular"
         android:layout_marginTop="22dp"
-        android:text="Central Fitness"
+        android:text="Centrale Fitness"
 
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="40sp" />
+        android:textSize="37sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginTop="30dp"
+            android:background="@drawable/form_card_background"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:elevation="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -52,6 +58,7 @@
         android:id="@+id/imageView7"
         android:layout_width="29dp"
         android:layout_height="29dp"
+        android:tint="@color/black"
 
         android:src="@drawable/customer"
         app:layout_constraintEnd_toStartOf="@+id/loginEditPassword"
@@ -66,15 +73,22 @@
         android:hint="Login"
         android:inputType="textNoSuggestions"
         android:imeOptions="actionNext"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textColorLink="#FFFFFF" />
+        android:shadowColor="#000000"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:backgroundTint="@color/black"
+        android:textCursorDrawable="@null"
+        android:textColorLink="#000000"
+        />
 
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/form_card_background"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:elevation="2dp"
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,8 +99,9 @@
         android:id="@+id/imageView6"
         android:layout_width="29dp"
         android:layout_height="29dp"
+        android:tint="@color/black"
 
-        android:src="@drawable/customer"
+        android:src="@drawable/ic_lock_outline_black_24dp"
          />
 
     <EditText
@@ -97,11 +112,14 @@
         android:hint="Mot de passe"
         android:inputType="textPassword"
         android:imeOptions="actionDone"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textColorLink="#FFFFFF" />
+        android:shadowColor="#000000"
+        android:textColor="#000000"
+        android:backgroundTint="@color/black"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000"
+        android:textCursorDrawable="@null"
+        android:textColorLink="#000000"
+        />
 
         </LinearLayout>
 
@@ -113,7 +131,7 @@
         android:layout_gravity="center"
         android:layout_marginEnd="90dp"
         android:layout_marginStart="90dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="55dp"
         android:background="@drawable/buttonradius"
         android:text="Connexion"
         app:layout_constraintEnd_toEndOf="parent"

@@ -93,7 +93,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
                 final Map<String, String> params = new HashMap<>();
-                params.put(Constants.TOKEN, Prefs.getToken());
+                params.put(Constants.TOKEN, Prefs.getPrefs(EventDetailsActivity.this).getToken());
                 params.put(Constants.EVENTID, getIntent().getStringExtra("id"));
 
                 JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.REGISTER_EVENT, new JSONObject(params),

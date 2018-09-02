@@ -104,7 +104,7 @@ public class RegisteredEventsFragment extends Fragment {
 
 
         Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
         params.put(Constants.ISREG, true);

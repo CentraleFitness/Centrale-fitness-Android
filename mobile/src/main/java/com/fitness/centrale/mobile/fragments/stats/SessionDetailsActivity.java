@@ -82,7 +82,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
 
         final Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.SESSIONID, id);
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_STATS_DETAILS, new JSONObject(params),

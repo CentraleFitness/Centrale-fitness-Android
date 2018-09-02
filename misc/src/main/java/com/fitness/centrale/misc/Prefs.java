@@ -12,11 +12,25 @@ public class Prefs {
 
 
     public static SharedPreferences prefs;
+    private static Prefs prefsObj;
     private static String username;
 
+    @Deprecated
     public static void initPreferencesManager(Context ctx){
         if (prefs ==null)
         prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+    }
+
+    private Prefs(final Context ctx){
+        prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        prefsObj = this;
+    }
+
+    public static Prefs getPrefs(final Context ctx){
+        if (prefsObj == null){
+            prefsObj = new Prefs(ctx);
+        }
+        return prefsObj;
     }
 
 

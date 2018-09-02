@@ -57,7 +57,7 @@ public class ProfileFragment extends Fragment {
 
 
         Map<String, String> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
         params.put(Constants.PICTURE, b64img);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.UPDATEPROFILEPICTURE, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
@@ -123,7 +123,7 @@ public class ProfileFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         final Map<String, String> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GETPROFILE, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -154,7 +154,7 @@ public class ProfileFragment extends Fragment {
 
 
         final Map<String, String> params2 = new HashMap<>();
-        params2.put(Constants.TOKEN, Prefs.getToken());
+        params2.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
 
         JsonObjectRequest request2 = new JsonObjectRequest(Constants.SERVER + Constants.GETPROFILEPICTURE, new JSONObject(params2),
                 new Response.Listener<JSONObject>() {

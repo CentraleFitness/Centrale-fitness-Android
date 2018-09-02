@@ -141,7 +141,7 @@ public class SocialActivity extends AppCompatActivity {
 
 
         final Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.TARGETID, Store.getStore().getUserObject().gymId);
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);

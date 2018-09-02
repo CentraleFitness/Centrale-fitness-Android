@@ -75,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         final Map<String, String> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_AFFILIATION, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -120,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
              @Override
              public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, FeedBackActivity.class);
-                startActivity(intent);
+
              }
          });
 
@@ -186,7 +186,7 @@ public class ProfileActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         final Map<String, String> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GETPROFILE, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -220,7 +220,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         final Map<String, String> params2 = new HashMap<>();
-        params2.put(Constants.TOKEN, Prefs.getToken());
+        params2.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
 
         JsonObjectRequest request2 = new JsonObjectRequest(Constants.SERVER + Constants.GETPROFILEPICTURE, new JSONObject(params2),
                 new Response.Listener<JSONObject>() {
@@ -305,7 +305,7 @@ public class ProfileActivity extends AppCompatActivity {
         itemsIdsList = new ArrayList<>();
 
         final Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.TARGETID, Store.getStore().getUserObject().gymId);
         params.put(Constants.START, 0);
         params.put(Constants.END, 5);
@@ -381,7 +381,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         Map<String, String> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.PICTURE, b64img);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.UPDATEPROFILEPICTURE, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override

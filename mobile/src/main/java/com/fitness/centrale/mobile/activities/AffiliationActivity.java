@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
@@ -35,6 +36,15 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
 
     private QRCodeReaderView qrCodeReaderView;
     private LinearLayout discoverButton;
+    private ImageView backButton;
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AffiliationActivity.this, LoginActivity.class);
+        Prefs.removeToken();
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +54,15 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
 
         discoverButton = findViewById(R.id.discoverButton);
         qrCodeReaderView = findViewById(R.id.qrcodeView);
+        backButton = findViewById(R.id.backArrow);
         qrCodeReaderView.setOnQRCodeReadListener(this);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         // Use this function to enable/disable decoding
         qrCodeReaderView.setQRDecodingEnabled(true);
@@ -137,7 +155,7 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.AFFILIATIONTOKEN, text);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.AFFILIATE, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override

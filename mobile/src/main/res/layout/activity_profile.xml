@@ -127,6 +127,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:fontFamily="@font/aquawaxlight"
                         android:layout_marginTop="20dp"
                         android:id="@+id/profileLogin"
                         android:layout_width="match_parent"
@@ -224,6 +225,7 @@
                                 android:gravity="center"
                                 android:background="@drawable/background_gradient_radius">
                                 <TextView
+                                    android:fontFamily="@font/aquawaxlight"
                                     android:textColor="@color/white"
                                     android:textSize="17sp"
                                     android:layout_width="wrap_content"
@@ -264,6 +266,7 @@
         android:layout_height="match_parent"
         android:text="@string/welcome_text"
         android:textStyle="bold"
+        android:fontFamily="@font/aquawaxlight"
         android:textColor="@color/black"
         android:layout_margin="10dp"/>
 

@@ -98,7 +98,7 @@ public class AllEventsFragment extends Fragment {
 
 
         Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_IDS, new JSONObject(params), new Response.Listener<JSONObject>() {
