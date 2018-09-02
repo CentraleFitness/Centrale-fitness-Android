@@ -11,6 +11,10 @@
     <string name="registered_events">Evenements inscrits</string>
     <string name="all_events">Tous les événements</string>
 
+    <string name="registered_challenges">Challenges inscrits</string>
+    <string name="all_challenges">Tous les challenges</string>
+
+
     <string name="favorite_programs">Programmes favoris</string>
     <string name="all_programs">Tous les programmes</string>
 

@@ -6,17 +6,67 @@
     tools:context=".activities.HomeActivity"
     android:gravity="center"
     android:orientation="vertical">
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bjor_regular"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        android:layout_margin="10dp"
-        android:textColor="@color/black"
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:elevation="@dimen/global_elevation_level"
+        android:orientation="horizontal"
+        >
 
-        android:text="La page challenge est actuellement en cours de construction"/>
+        <LinearLayout
+            android:id="@+id/ChallengesRegisteredTab"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/global_elevation_level"
+            android:orientation="vertical"
+            android:background="@drawable/event_registered_tab_unselected">
+
+            <TextView
+                android:id="@+id/challenges_registered_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:text="@string/registered_challenges"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ChallengesAllTab"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/global_elevation_level"
+
+            android:background="@drawable/event_all_tab_unselected">
+
+            <TextView
+                android:id="@+id/challenges_all_tab_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:text="@string/all_challenges"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6">
+
+        <com.fitness.centrale.mobile.customcomponent.NonSlidablePager
+            android:id="@+id/challengesPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
