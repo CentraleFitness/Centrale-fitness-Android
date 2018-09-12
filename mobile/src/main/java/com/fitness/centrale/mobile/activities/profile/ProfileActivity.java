@@ -28,6 +28,7 @@ import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.mobile.FireBaseEventLogger;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.misc.VolleyUtility;
 import com.fitness.centrale.mobile.activities.EditProfileActivity;
@@ -108,6 +109,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        FireBaseEventLogger.getLogger(this).logEvent(FireBaseEventLogger.Events.NEW_ACTIVITY, "open_profile_activity");
 
          session = findViewById(R.id.sessionButton);
          social = findViewById(R.id.socialButton);
