@@ -1,6 +1,8 @@
 package com.fitness.centrale.mobile.fragments.challenges;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.bluetooth.BluetoothAssignedNumbers;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,7 +12,9 @@ import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -33,28 +37,42 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.crypto.Mac;
+
+import lecho.lib.hellocharts.model.Line;
 
 public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
 
     private Context context;
     private Activity parent;
 
-    private CardView event;
-    private TextView title;
-    private ImageView eventPicture;
-    private Bitmap eventPictureBitmap;
-    private ImageView registeredImage;
+    private LinearLayout challenge;
+    private LinearLayout challenge1Lyt;
+    private LinearLayout challenge2Lyt;
+    private LinearLayout challenge3Lty;
+    private ImageView firstChallengeImg;
+    private ImageView secondChallengeImg;
+    private ImageView thirdChallengeImg;
+
 
     public ChallengeCardHolder(View itemView, Context context, Activity parent) {
         super(itemView);
         this.context = context;
         this.parent = parent;
 
-        event = itemView.findViewById(R.id.cardViewEvent);
-        title = itemView.findViewById(R.id.cardEventTitle);
-        eventPicture = itemView.findViewById(R.id.eventPicture);
-        registeredImage = itemView.findViewById(R.id.registerPicture);
+        challenge1Lyt = itemView.findViewById(R.id.firstChallenge);
+        challenge2Lyt = itemView.findViewById(R.id.secondChallenge);
+        challenge3Lty = itemView.findViewById(R.id.thirdChallenge);
+        firstChallengeImg = itemView.findViewById(R.id.firstChallengeImage);
+        secondChallengeImg = itemView.findViewById(R.id.secondChallengeImage);
+        thirdChallengeImg = itemView.findViewById(R.id.thirdChallengeImage);
+        challenge = itemView.findViewById(R.id.cardViewChallenge);
+
+        challenge.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+
     }
 
 
@@ -63,151 +81,68 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
                            final Boolean registered,
                            final String picture,
                            final String description,
-                           final String id,
                            final String name){
 
-        if (Store.getStore().getDemoObject().demo){
-            eventPicture.setImageDrawable(context.getDrawable(R.drawable.roundlogo));
-        }else
-            new B64ToImageTask(picture, eventPicture).execute();
-
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        final String startDateStr = format.format(startDate);
-        final String endDateStr = format.format(endDate);
 
 
 
 
-        event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(parent, EventDetailsActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("id", id);
-                intent.putExtra("startDate", startDateStr);
-                intent.putExtra("endDate", endDateStr);
-                intent.putExtra("registered", registered);
-                intent.putExtra("description", description);
-
-                ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-                if (!Store.getStore().getDemoObject().demo) {
-                    eventPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                    byte[] byteArray = bStream.toByteArray();
-                    intent.putExtra("picture", byteArray);
-                }
-
-
-
-                Pair<View, String> p1 = Pair.create((View)event, "eventOpening");
-                //   Pair<View, String> p2 = Pair.create((View)eventPicture, "eventPictureAnimation");
-                Pair<View, String> p3 = Pair.create((View)title, "eventTitleTransition");
-
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(parent, p1);
-
-                context.startActivity(intent, options.toBundle());
-            }
-        });
-
-        if (!registered){
-            registeredImage.setImageDrawable(context.getDrawable(R.drawable.error));
-        }
 
 
     }
 
-    public void bind(final BasicChallengeObject myObject){
+    private void setFirstContent(BasicChallengeObject obj){
+        Machines machines = Machines.getMachineEnum(obj.machine);
+        firstChallengeImg.setImageDrawable(context.getDrawable(machines.drawable));
+    }
 
-        if (Store.getStore().getDemoObject().demo){
-
-            title.setText(myObject.event.name);
-            setContent(myObject.event.startDate,
-                    myObject.event.endDate,
-                    myObject.event.registered,
-                    myObject.event.picture,
-                    myObject.event.description,
-                    myObject.event.id,
-                    myObject.event.name);
-            return;
-        }
-
-        title.setText(myObject.name);
-
-
-        RequestQueue queue = Volley.newRequestQueue(myObject.context);
-
-
-
-        Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getPrefs(context).getToken());
-        params.put(Constants.EVENTID, myObject.id);
-        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_PREVIEW, new JSONObject(params), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    System.out.println(response.getString("code"));
-                    if (response.getString("code").equals("001")){
-
-                        Date startDate = new Date(Long.valueOf(response.getString("start date")));
-                        Date endDate = new Date(Long.valueOf(response.getString("end date")));
-                        final Boolean registered = Boolean.valueOf(response.getString("user_registered"));
-                        final String picture = response.getString("picture");
-                        final String description = response.getString("description");
-
-                        setContent(startDate, endDate, registered, picture, description, myObject.id, myObject.name);
-
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        VolleyUtility.fixDoubleRequests(request);
-
-        queue.add(request);
+    private void setSecondContent(BasicChallengeObject obj){
+        Machines machines = Machines.getMachineEnum(obj.machine);
+        secondChallengeImg.setImageDrawable(context.getDrawable(machines.drawable));
 
     }
 
 
+    private void setThirdContent(BasicChallengeObject obj){
+        Machines machines = Machines.getMachineEnum(obj.machine);
+        thirdChallengeImg.setImageDrawable(context.getDrawable(machines.drawable));
 
-    private class B64ToImageTask extends AsyncTask{
+    }
 
-        final String pictureB64;
-        final ImageView imageView;
 
-        public B64ToImageTask(final String pictureB64, final ImageView imageView){
-            this.pictureB64 = pictureB64;
-            this.imageView = imageView;
+    public void bind(final List<BasicChallengeObject> myObject){
+
+        BasicChallengeObject first = null;
+        BasicChallengeObject second = null;
+        BasicChallengeObject third = null;
+
+        for (BasicChallengeObject obj : myObject){
+            if (first == null)
+                first = obj;
+            else if (second == null)
+                second = obj;
+            else if (third == null)
+                third = obj;
         }
 
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            String []splitted = pictureB64.split(",");
-            if (splitted.length == 2){
-                return ImageUtility.base64ToImage(splitted[1]);
-            }
 
-
-
-            return null;
+        if (first != null){
+            setFirstContent(first);
+            this.challenge1Lyt.setVisibility(View.VISIBLE);
+            challenge.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
         }
-
-        @Override
-        protected void onPostExecute(Object result) {
-            if (result != null) {
-                eventPicture.setImageBitmap((Bitmap) result);
-                eventPictureBitmap = (Bitmap) result;
-            }
+        if (second != null){
+            setSecondContent(second);
+            this.challenge2Lyt.setVisibility(View.VISIBLE);
+        }
+        if (third != null){
+            setThirdContent(third);
+            this.challenge3Lty.setVisibility(View.VISIBLE);
         }
 
     }
+
+
 
 
 

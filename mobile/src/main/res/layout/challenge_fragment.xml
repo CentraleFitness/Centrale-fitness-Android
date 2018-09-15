@@ -11,57 +11,30 @@
         android:elevation="@dimen/global_elevation_level"
         android:orientation="horizontal"
         >
-
-        <LinearLayout
-            android:id="@+id/ChallengesRegisteredTab"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="Défis collectifs"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:background="@color/white"
             android:elevation="@dimen/global_elevation_level"
-            android:orientation="vertical"
-            android:background="@drawable/event_registered_tab_unselected">
-
-            <TextView
-                android:id="@+id/challenges_registered_tab_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="@string/registered_challenges"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/ChallengesAllTab"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:elevation="@dimen/global_elevation_level"
-
-            android:background="@drawable/event_all_tab_unselected">
-
-            <TextView
-                android:id="@+id/challenges_all_tab_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="@string/all_challenges"/>
-
-        </LinearLayout>
-
-
+            android:textColor="@color/black"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/challengeSwipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <com.fitness.centrale.mobile.customcomponent.NonSlidablePager
-            android:id="@+id/challengesPager"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/challengeRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 
     </LinearLayout>

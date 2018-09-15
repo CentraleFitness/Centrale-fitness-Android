@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 
 import com.fitness.centrale.mobile.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChallengeCardsAdapter extends RecyclerView.Adapter<ChallengeCardHolder> {
 
     List<BasicChallengeObject> eventsIds;
+    List<BasicChallengeObject> line = new ArrayList<>();
     Context context;
     Activity parent;
 
@@ -27,13 +29,20 @@ public class ChallengeCardsAdapter extends RecyclerView.Adapter<ChallengeCardHol
     @NonNull
     @Override
     public ChallengeCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.challenge_card,parent,false);
         return new ChallengeCardHolder(view, context, this.parent);    }
 
     @Override
     public void onBindViewHolder(@NonNull ChallengeCardHolder holder, int position) {
         BasicChallengeObject myObject = eventsIds.get(position);
-        holder.bind(myObject);
+        line.add(myObject);
+        if (line.size() == 3) {
+            holder.bind(line);
+            line = new ArrayList<>();
+            return;
+        }
+        if (eventsIds.size() == position + 1 && line.size() > 0)
+            holder.bind(line);
     }
 
     @Override

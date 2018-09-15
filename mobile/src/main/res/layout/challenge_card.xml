@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:transitionName="eventOpening"
+    android:id="@+id/cardViewChallenge"
+    android:layout_margin="5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:orientation="horizontal"
+            android:id="@+id/firstChallenge"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="6dp"
+            android:background="@color/white"
+            android:elevation="@dimen/global_elevation_level">
+
+            <ImageView
+                android:id="@+id/firstChallengeImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/tapis"
+                android:layout_margin="10dp"
+                android:tint="@color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:orientation="horizontal"
+            android:id="@+id/secondChallenge"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="6dp"
+            android:background="@color/white"
+            android:elevation="@dimen/global_elevation_level">
+
+            <ImageView
+                android:id="@+id/secondChallengeImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/tapis"
+                android:layout_margin="10dp"
+                android:tint="@color/black"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:orientation="horizontal"
+            android:id="@+id/thirdChallenge"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="6dp"
+            android:background="@color/white"
+            android:elevation="@dimen/global_elevation_level">
+
+            <ImageView
+                android:id="@+id/thirdChallengeImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/tapis"
+                android:layout_margin="10dp"
+                android:tint="@color/black"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

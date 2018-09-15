@@ -38,6 +38,7 @@ public class Constants {
     public static String GET_INSTANT_PRODUCTION = "/user/get/instantproduction";
     public static String USER_PAIR_STOP = "/user/pair/stop";
     public static String GET_EVENTS_IDS = "/get/events";
+    public static String GET_CHALLENGES = "/challenge/get";
     public static String GET_EVENTS_PREVIEW = "/get/eventpreview";
     public static String GET_AFFILIATION = "/get/affiliation";
     public static String AFFILIATE="/affiliate";

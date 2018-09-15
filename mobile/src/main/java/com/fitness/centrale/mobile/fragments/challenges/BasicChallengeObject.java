@@ -6,15 +6,19 @@ import com.fitness.centrale.misc.store.DemoObject;
 
 public class BasicChallengeObject {
 
-    public final String id;
-    public final String name;
+    public String type;
+    public String title;
+    public String owner;
+    public String steps;
+    public String desc;
+    public String machine;
+    public String endDate;
+    public String pointsNeeded;
     public final Context context;
 
     public DemoObject.Event event;
 
-    public BasicChallengeObject(final String id, final String name, final Context context){
-        this.id = id;
-        this.name = name;
+    public BasicChallengeObject(final Context context){
         this.context = context;
     }
 

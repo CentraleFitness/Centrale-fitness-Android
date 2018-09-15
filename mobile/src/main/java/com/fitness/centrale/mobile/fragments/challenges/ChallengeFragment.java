@@ -7,14 +7,35 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.Constants;
+import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.VolleyUtility;
+import com.fitness.centrale.misc.store.DemoObject;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.fragments.event.EventsFragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -23,11 +44,9 @@ import com.fitness.centrale.mobile.fragments.event.EventsFragment;
 
 public class ChallengeFragment extends Fragment {
 
-
-    final int PAGE_NUMBER = 2;
-    ViewPager mpager;
-    ScreenSlidePagerAdapter adapter;
-    private int position = 0;
+    RecyclerView recyclerView;
+    SwipeRefreshLayout swipeRefreshLayout;
+    private ArrayList<BasicChallengeObject> itemsIdsList;
 
 
     @Nullable
@@ -36,40 +55,22 @@ public class ChallengeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.challenge_fragment, container, false);
 
-
-        leftTab = view.findViewById(R.id.ChallengesRegisteredTab);
-        leftTabTitle = view.findViewById(R.id.challenges_registered_tab_text);
-        rightTab = view.findViewById(R.id.ChallengesAllTab);
-        rightTabTitle = view.findViewById(R.id.challenges_all_tab_text);
-
-        if (position == 0){
-            setLeftTabSelected();
-        }else{
-            setRightTabSelected();
-        }
-
-        mpager = view.findViewById(R.id.challengesPager);
-
-        adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
-
-        mpager.setAdapter(adapter);
-        mpager.setCurrentItem(position);
-
-        leftTab.setOnClickListener(new View.OnClickListener() {
+        recyclerView = view.findViewById(R.id.challengeRecycler);
+        swipeRefreshLayout = view.findViewById(R.id.challengeSwipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-                setLeftTabSelected();
-                onClickOnButton(0);
+            public void onRefresh() {
+                refreshChallenges();
             }
         });
 
-        rightTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setRightTabSelected();
-                onClickOnButton(1);
-            }
-        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        itemsIdsList = new ArrayList<>();
+        recyclerView.setAdapter(new ChallengeCardsAdapter(itemsIdsList, getContext(), getActivity()));
+
+        refreshChallenges();
+
 
         return view;
 
@@ -77,50 +78,82 @@ public class ChallengeFragment extends Fragment {
     }
 
 
+    public void setListAdapter(){
+        recyclerView.setAdapter(new ChallengeCardsAdapter(itemsIdsList, getContext(), getActivity()));
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+
+    public void refreshChallenges(){
+
+        itemsIdsList = new ArrayList<>();
+
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
 
 
 
+        Map<String, Object> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_CHALLENGES, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    System.out.println(response.getString("code"));
+                    if (response.getString("code").equals("001")){
+
+
+                        JSONArray challenges = (JSONArray) response.get("challenges");
+                        int index  = 0;
+                        while (index != challenges.length()){
+
+                            JSONArray subArray = challenges.getJSONArray(index);
+                            JSONObject obj = (JSONObject) subArray.get(0);
+                            BasicChallengeObject object = new BasicChallengeObject(ChallengeFragment.this.getContext());
+                            object.type = obj.getString("type");
+                            object.title = obj.getString("title");
+                            object.desc = obj.getString("description");
+                            object.endDate = obj.getString("endDate");
+                            object.owner = obj.getString("owner");
+                            object.steps = obj.getString("steps");
+                            object.machine = obj.getString("machine");
+                            object.pointsNeeded = obj.getString("pointsNeeded");
+
+                            itemsIdsList.add(object);
+
+
+
+                            index++;
+
+                        }
+
+                        setListAdapter();
+
+                        swipeRefreshLayout.setRefreshing(false);
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleyUtility.fixDoubleRequests(request);
+
+        queue.add(request);
+
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-    }
-
-    LinearLayout leftTab = null;
-    TextView leftTabTitle = null;
-    LinearLayout rightTab = null;
-    TextView rightTabTitle = null;
-
-
-    private void setLeftTabSelected(){
-        setRightTabUnselected();
-        leftTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_registered_tab_selected));
-        leftTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-
-    }
-
-    private void setLeftTabUnselected(){
-        leftTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_registered_tab_unselected));
-        leftTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.ourRed));
-    }
-
-    private void setRightTabSelected(){
-        setLeftTabUnselected();
-        rightTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_all_tab_selected));
-        rightTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-    }
-
-    private void setRightTabUnselected(){
-        rightTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_all_tab_unselected));
-        rightTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.ourRed));
-    }
-
-
-    public void onClickOnButton(int pos) {
-        position = pos;
-        mpager.setCurrentItem(pos, false);
 
     }
 
@@ -133,49 +166,6 @@ public class ChallengeFragment extends Fragment {
         return fragment;
     }
 
-    private AllChallengesFragment allChallengesFragment;
-    private RegisteredChallengesFragment registeredChallengesFragment;
-
-    private AllChallengesFragment getAllChallengesFragment(){
-        if (allChallengesFragment == null){
-            allChallengesFragment = AllChallengesFragment.newInstance();
-        }
-        return allChallengesFragment;
-    }
-
-    private RegisteredChallengesFragment getRegisteredChallengesFragment(){
-        if (registeredChallengesFragment == null){
-            registeredChallengesFragment = RegisteredChallengesFragment.newInstance();
-        }
-        return registeredChallengesFragment;
-    }
-
-
-    private class ScreenSlidePagerAdapter extends FragmentPagerAdapter {
-        public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return getRegisteredChallengesFragment();
-                case 1:
-                    return getAllChallengesFragment();
-
-                default:
-                    return null;
-            }
-        }
-
-
-
-        @Override
-        public int getCount() {
-            return PAGE_NUMBER;
-        }
-    }
 
 
 }
