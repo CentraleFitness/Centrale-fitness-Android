@@ -2,47 +2,19 @@ package com.fitness.centrale.mobile.fragments.challenges;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.bluetooth.BluetoothAssignedNumbers;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
-import android.support.v7.widget.CardView;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.fitness.centrale.misc.Constants;
-import com.fitness.centrale.misc.ImageUtility;
-import com.fitness.centrale.misc.Prefs;
-import com.fitness.centrale.misc.VolleyUtility;
-import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
-import com.fitness.centrale.mobile.activities.EventDetailsActivity;
+import com.fitness.centrale.mobile.activities.ChallengeActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.crypto.Mac;
-
-import lecho.lib.hellocharts.model.Line;
 
 public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
 
@@ -52,7 +24,7 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
     private LinearLayout challenge;
     private LinearLayout challenge1Lyt;
     private LinearLayout challenge2Lyt;
-    private LinearLayout challenge3Lty;
+    private LinearLayout challenge3Lyt;
     private ImageView firstChallengeImg;
     private ImageView secondChallengeImg;
     private ImageView thirdChallengeImg;
@@ -65,7 +37,7 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
 
         challenge1Lyt = itemView.findViewById(R.id.firstChallenge);
         challenge2Lyt = itemView.findViewById(R.id.secondChallenge);
-        challenge3Lty = itemView.findViewById(R.id.thirdChallenge);
+        challenge3Lyt = itemView.findViewById(R.id.thirdChallenge);
         firstChallengeImg = itemView.findViewById(R.id.firstChallengeImage);
         secondChallengeImg = itemView.findViewById(R.id.secondChallengeImage);
         thirdChallengeImg = itemView.findViewById(R.id.thirdChallengeImage);
@@ -76,36 +48,51 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
     }
 
 
-    public void setContent(final Date startDate,
-                           final Date endDate,
-                           final Boolean registered,
-                           final String picture,
-                           final String description,
-                           final String name){
-
-
-
-
-
-
-
+    private void onChallengePress(BasicChallengeObject object){
+        Intent intent = new Intent(context, ChallengeActivity.class);
+        intent.putExtra("title", object.title);
+        intent.putExtra("machine", object.machine);
+        intent.putExtra("desc", object.desc);
+        intent.putExtra("endDate", object.endDate);
+        intent.putExtra("pointsNeeded", object.pointsNeeded);
+        intent.putExtra("steps", object.steps);
+        intent.putExtra("type", object.type);
+        context.startActivity(intent);
     }
 
-    private void setFirstContent(BasicChallengeObject obj){
+    private void setFirstContent(final BasicChallengeObject obj){
         Machines machines = Machines.getMachineEnum(obj.machine);
         firstChallengeImg.setImageDrawable(context.getDrawable(machines.drawable));
+        challenge1Lyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onChallengePress(obj);
+            }
+        });
     }
 
-    private void setSecondContent(BasicChallengeObject obj){
+    private void setSecondContent(final BasicChallengeObject obj){
         Machines machines = Machines.getMachineEnum(obj.machine);
         secondChallengeImg.setImageDrawable(context.getDrawable(machines.drawable));
+        challenge2Lyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onChallengePress(obj);
+            }
+        });
 
     }
 
 
-    private void setThirdContent(BasicChallengeObject obj){
+    private void setThirdContent(final BasicChallengeObject obj){
         Machines machines = Machines.getMachineEnum(obj.machine);
         thirdChallengeImg.setImageDrawable(context.getDrawable(machines.drawable));
+        challenge3Lyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onChallengePress(obj);
+            }
+        });
 
     }
 
@@ -137,7 +124,7 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
         }
         if (third != null){
             setThirdContent(third);
-            this.challenge3Lty.setVisibility(View.VISIBLE);
+            this.challenge3Lyt.setVisibility(View.VISIBLE);
         }
 
     }
