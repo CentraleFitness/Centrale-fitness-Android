@@ -14,6 +14,7 @@ public class BasicChallengeObject {
     public String machine;
     public String endDate;
     public String pointsNeeded;
+    public Integer currentPoints = null;
     public final Context context;
 
     public DemoObject.Event event;

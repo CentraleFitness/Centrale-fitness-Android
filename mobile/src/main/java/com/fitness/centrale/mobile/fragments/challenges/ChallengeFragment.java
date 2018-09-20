@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -87,6 +88,27 @@ public class ChallengeFragment extends Fragment {
     public void refreshChallenges(){
 
         itemsIdsList = new ArrayList<>();
+
+        if (Store.getStore().getDemoObject().demo){
+
+            List<DemoObject.Challenge> challenges = Store.getStore().getDemoObject().challengesList;
+
+            for (DemoObject.Challenge challenge : challenges){
+                BasicChallengeObject object = new BasicChallengeObject(getContext());
+                object.pointsNeeded = challenge.pointsNeeded;
+                object.machine = challenge.machineType;
+                object.steps = challenge.steps;
+                object.desc = challenge.desc;
+                object.title = challenge.title;
+                object.currentPoints = challenge.userPoints;
+
+                itemsIdsList.add(object);
+            }
+
+            setListAdapter();
+
+            return;
+        }
 
 
         RequestQueue queue = Volley.newRequestQueue(getContext());

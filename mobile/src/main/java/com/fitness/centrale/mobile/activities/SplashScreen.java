@@ -52,7 +52,7 @@ public class SplashScreen extends AppCompatActivity {
                         dialog.dismiss();
                         tryToConnect();
                     }
-                }).show();
+                }).setCancelable(false).show();
 
             }
         } catch (InterruptedException e) {

@@ -47,7 +47,6 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
 
     }
 
-
     private void onChallengePress(BasicChallengeObject object){
         Intent intent = new Intent(context, ChallengeActivity.class);
         intent.putExtra("title", object.title);
@@ -57,6 +56,9 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
         intent.putExtra("pointsNeeded", object.pointsNeeded);
         intent.putExtra("steps", object.steps);
         intent.putExtra("type", object.type);
+        if (object.currentPoints != null){
+            intent.putExtra("current", object.currentPoints);
+        }
         context.startActivity(intent);
     }
 
@@ -83,7 +85,6 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
 
     }
 
-
     private void setThirdContent(final BasicChallengeObject obj){
         Machines machines = Machines.getMachineEnum(obj.machine);
         thirdChallengeImg.setImageDrawable(context.getDrawable(machines.drawable));
@@ -95,7 +96,6 @@ public class ChallengeCardHolder extends RecyclerView.ViewHolder   {
         });
 
     }
-
 
     public void bind(final List<BasicChallengeObject> myObject){
 
