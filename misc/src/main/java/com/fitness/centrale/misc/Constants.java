@@ -48,8 +48,9 @@ public class Constants {
     public static String GET_STATS_SESSIONS="/get/sportsessions";
     public static String GET_STATS_SESSION="/get/sportsession";
     public static String GET_STATS_DETAILS="/get/sportsessionstats";
-
-
+    public static String GET_CUSTOM_PROGRAMS="/customProgram-get-range";
+    public static String GET_CUSTOM_PROGRAM_PREVIEW ="/customProgram-get-preview";
+    public static String GET_CUSTOM_PROGRAM_STEPS= "/customProgram-get-steps";
 
     /*
      *  REQUESTS VARIABLES
@@ -67,6 +68,7 @@ public class Constants {
     public static String SESSIONID= "session id";
     public static String START="start";
     public static String END="end";
+    public static String GYMID="sport center id";
     public static String EVENTID="eventid";
     public static String SPORTCENTERID="sport center id";
     public static String AFFILIATIONTOKEN="affiliation token";
@@ -77,6 +79,7 @@ public class Constants {
     public static String POSTICON="post icon";
     public static String POSTDATE="post date";
     public static String POSTCONTENT="post content";
+    public static String CUSTOMPROGRAMID="custom program id";
 
 
 }

@@ -11,9 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.Constants;
+import com.fitness.centrale.misc.Prefs;
+import com.fitness.centrale.misc.VolleyUtility;
+import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -56,7 +71,7 @@ public class AllProgramsFragment extends Fragment {
 
     public void setListAdapter(){
 
-/*
+
         recyclerView = view.findViewById(R.id.allProgramsRecyclerView);
         swipeRefreshLayout = view.findViewById(R.id.allProgramsSwypeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -67,7 +82,7 @@ public class AllProgramsFragment extends Fragment {
         });
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         recyclerView.setAdapter(new ProgramCardsAdapter(itemsIdsList, getContext(), getActivity()));
 
@@ -75,17 +90,18 @@ public class AllProgramsFragment extends Fragment {
 
     public void refreshPrograms(){
 
-/*
+
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
 
 
         Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getPrefs().getToken());
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
         itemsIdsList = new ArrayList<>();
         params.put(Constants.START, 0);
         params.put(Constants.END, 10);
-        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_EVENTS_IDS, new JSONObject(params), new Response.Listener<JSONObject>() {
+        params.put(Constants.GYMID, Store.getStore().getUserObject().gymId);
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_CUSTOM_PROGRAMS, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -93,26 +109,17 @@ public class AllProgramsFragment extends Fragment {
                     if (response.getString("code").equals("001")){
 
 
-                        JSONArray events = (JSONArray) response.get("events");
+                        JSONArray programs = (JSONArray) response.get("custom programs");
                         int index  = 0;
 
-                        while (index != events.length()){
-
-                            JSONArray subArray = events.getJSONArray(index);
-
-                            itemsIdsList.add(new BasicProgramObject(subArray.getString(1), subArray.getString(0), getContext()));
-
-
-
+                        while (index != programs.length()){
+                            JSONObject subArray = programs.getJSONObject(index);
+                            itemsIdsList.add(new BasicProgramObject(subArray.getString("custom program id"), subArray.getString("name"), getContext()));
                             index++;
-
                         }
-
                         setListAdapter();
 
                         swipeRefreshLayout.setRefreshing(false);
-
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -127,17 +134,7 @@ public class AllProgramsFragment extends Fragment {
 
         VolleyUtility.fixDoubleRequests(request);
 
-        queue.add(request);*/
-
-        itemsIdsList = new ArrayList<>();
-
-        BasicProgramObject obj = new BasicProgramObject("1234", "Programme simple", getContext());
-        itemsIdsList.add(obj);
-        //itemsIdsList.add(new BasicProgramObject("1245", "Second Programme", getContext()));
-
-        setListAdapter();
-        swipeRefreshLayout.setRefreshing(false);
-
+        queue.add(request);
 
 
     }

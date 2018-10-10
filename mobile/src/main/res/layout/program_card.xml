@@ -9,8 +9,7 @@
     android:id="@+id/cardViewProgram"
 
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="2dp">
+    app:cardElevation="@dimen/global_elevation_level">
 
 
     <LinearLayout
@@ -47,31 +46,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:gravity="center"
                     android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/cardProgramTitle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
                         android:textColor="@color/black"
+                        android:gravity="left|center"
 
                         android:layout_marginLeft="10dp"
                         android:text="Nom du programme"
                         android:textSize="18sp"
                         />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:text="Ceci est la description du programme"/>
 
                 </LinearLayout>
 

@@ -243,14 +243,6 @@ public class NFCScanActivity extends Activity  {
                                 startActivity(intent);
                                 finish();
                             }else{
-                                AlertDialog.Builder builder;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    builder = new AlertDialog.Builder(getApplicationContext(), android.R.style.Theme_Material_Dialog_Alert);
-                                } else {
-                                    builder = new AlertDialog.Builder(getApplicationContext());
-                                }
-                                builder.setTitle("Tag NFC non valide")
-                                        .setMessage("Ce module est invalide").show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

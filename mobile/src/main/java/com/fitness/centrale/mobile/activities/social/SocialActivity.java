@@ -73,7 +73,7 @@ public class SocialActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                //refreshEvents();
+                refreshPosts();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

@@ -48,10 +48,13 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         if (Store.getStore().getDemoObject().demo){
             eventPicture.setImageDrawable(getDrawable(R.drawable.roundlogo));
-        }else {
+        }else  {
             byte[] byteArray = getIntent().getByteArrayExtra("picture");
-            eventPictureBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            eventPicture.setImageBitmap(eventPictureBitmap);
+            if (byteArray != null) {
+                eventPictureBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                if (eventPictureBitmap != null)
+                    eventPicture.setImageBitmap(eventPictureBitmap);
+            }
         }
 
         title = findViewById(R.id.eventTitle);

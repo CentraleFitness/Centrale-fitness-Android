@@ -9,8 +9,7 @@
     android:id="@+id/cardViewEvent"
 
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="2dp">
+    app:cardElevation="@dimen/global_elevation_level">
 
 
     <LinearLayout
@@ -29,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
-                android:src="@drawable/bikelogo"/>
+                android:src="@drawable/elliptiquelogo"/>
 
         </LinearLayout>
 
@@ -43,8 +42,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="22sp"/>
+                android:layout_weight="1.6"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/activityDuration"
