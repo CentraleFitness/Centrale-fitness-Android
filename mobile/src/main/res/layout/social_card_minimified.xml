@@ -29,7 +29,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/paysagetest"
+                android:src="@drawable/store"
                 android:layout_margin="10dp"/>
 
         </LinearLayout>
@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nom du posteur"
+                android:text="Fitness Plus"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 />

@@ -10,6 +10,7 @@ public class BasicActivityObject  {
     public final String name;
     public final Context context;
     public final int duration;
+    public final String iconB64;
 
     public class MinimalActivityObject{
         public String id;
@@ -23,11 +24,12 @@ public class BasicActivityObject  {
         }
     }
 
-    public BasicActivityObject(final String id, final String name, final Context context, final int duration){
+    public BasicActivityObject(final String id, final String name, final Context context, final int duration, String icon){
         this.id = id;
         this.name = name;
         this.context = context;
         this.duration = duration;
+        this.iconB64 = icon;
     }
 
     public String toJson(){

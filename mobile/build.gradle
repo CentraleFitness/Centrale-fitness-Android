@@ -17,8 +17,8 @@ android {
         applicationId "com.fitness.centrale.centralefitness"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.0.4BETA"
+        versionCode 10
+        versionName "1.1.0BETA"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 19
