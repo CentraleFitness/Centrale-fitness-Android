@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -134,12 +135,14 @@ public class StatsFragment extends Fragment {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
 
-                                JSONArray postsArray = response.getJSONArray("session id").getJSONArray(0);
 
 
-                                for (int index = 0; index < postsArray.length(); index++){
 
-                                    String id = postsArray.getString(index);
+                                for (int index = 0; index < response.getJSONArray("session id").length(); index++){
+
+                                    JSONArray postsArray = response.getJSONArray("session id").getJSONArray(index);
+
+                                    String id = postsArray.getString(0);
 
                                     StatObject object = new StatObject();
                                     object.id = id;
@@ -151,6 +154,8 @@ public class StatsFragment extends Fragment {
 
 
                                 }
+
+                                Collections.reverse(itemsList);
 
                                 setListAdapter();
 

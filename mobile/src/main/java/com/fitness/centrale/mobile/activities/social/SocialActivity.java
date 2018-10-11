@@ -34,7 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SocialActivity extends AppCompatActivity {
@@ -71,7 +73,7 @@ public class SocialActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                //refreshEvents();
+                refreshPosts();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -130,6 +132,8 @@ public class SocialActivity extends AppCompatActivity {
                 obj.post = post;
                 itemsIdsList.add(obj);
             }
+
+            Collections.reverse(itemsIdsList);
 
             setAdapter();
 

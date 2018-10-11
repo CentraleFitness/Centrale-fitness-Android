@@ -20,7 +20,7 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
     private TextView name;
     private TextView duration;
     private ImageView logo;
-    private Bitmap eventPictureBitmap;
+    private Bitmap activityPictureBitmap;
 
     public ProgramActivityCardHolder(View itemView, Context context, Activity parent) {
         super(itemView);
@@ -40,6 +40,13 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
 
         this.name.setText(myObject.name);
 
+        if (myObject.name.equals("Repos")){
+            this.logo.setImageDrawable(parent.getDrawable(R.drawable.rest_logo));
+        }
+
+        new B64ToImageTask(myObject.iconB64, logo).execute();
+
+
         if (myObject.duration > 60){
 
             double initialTime = myObject.duration;
@@ -57,9 +64,6 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
         }
 
 
-        if (myObject.name.equals("Repos")){
-            this.logo.setImageDrawable(parent.getDrawable(R.drawable.rest_logo));
-        }
 
 
 
@@ -81,6 +85,7 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
         protected Object doInBackground(Object[] objects) {
             String []splitted = pictureB64.split(",");
             if (splitted.length == 2){
+                System.out.println();
                 return ImageUtility.base64ToImage(splitted[1]);
             }
 
@@ -92,8 +97,7 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
         @Override
         protected void onPostExecute(Object result) {
             if (result != null) {
-                //eventPicture.setImageBitmap((Bitmap) result);
-                eventPictureBitmap = (Bitmap) result;
+                activityPictureBitmap = (Bitmap) result;
             }
         }
 

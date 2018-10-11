@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fitness.centrale.mobile"
-    >
+    package="com.fitness.centrale.mobile">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,9 +24,8 @@
 
         <activity
             android:name=".activities.LoginActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.RegisterActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -58,41 +56,51 @@
             android:name=".activities.SessionActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.profile.ProfileActivity"
+        <activity
+            android:name=".activities.profile.ProfileActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.social.SocialActivity"
+        <activity
+            android:name=".activities.social.SocialActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.CenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CenterActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.EventDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EventDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.AffiliationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AffiliationActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".fragments.stats.SessionDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".fragments.stats.SessionDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.programs.ProgramDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.programs.ProgramDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.programs.run.program.RunProgramActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.programs.run.program.RunProgramActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.FeedBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.FeedBackActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.programs.run.program.ProgramEndingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.programs.run.program.ProgramEndingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.ChallengeActivity"></activity>
     </application>
 
 </manifest>

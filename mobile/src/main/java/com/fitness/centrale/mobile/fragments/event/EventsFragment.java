@@ -74,9 +74,6 @@ public class EventsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
-        System.out.println();
     }
 
     LinearLayout leftTab = null;
