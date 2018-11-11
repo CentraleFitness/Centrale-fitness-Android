@@ -69,6 +69,10 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slash_screen);
 
+        int total = Prefs.getPrefs(getApplication()).getTotal();
+        if (total == 0) {
+            Prefs.getPrefs(getApplicationContext()).setTotal(245);
+        }
 
         PackageManager manager = getPackageManager();
         try {

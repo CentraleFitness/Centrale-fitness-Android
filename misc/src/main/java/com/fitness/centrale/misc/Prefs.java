@@ -51,6 +51,24 @@ public class Prefs {
 
     }
 
+    public static int getTotal() {
+        return prefs.getInt("total", 0);
+    }
+
+    public static void setTotal(int total) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("total", total);
+        editor.apply();
+    }
+
+    public static void addTotal (int add) {
+        int total = getTotal();
+        total += add;
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("total", total);
+        editor.apply();
+    }
+
     public static void setUsername(String username) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(Constants.LOGIN, username);

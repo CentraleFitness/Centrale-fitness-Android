@@ -1,5 +1,6 @@
 package com.fitness.centrale.mobile.fragments.challenges;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,10 +47,23 @@ import java.util.Map;
 
 public class ChallengeFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<BasicChallengeObject> itemsIdsList;
+    ImageView ampoule;
+    ImageView console;
+    ImageView tv;
+    ImageView washmachine;
 
+    List<ImageView> images;
+
+    public void setSelected(int index) {
+        for (int i = 0; i < images.size(); i++) {
+            if (i == index) {
+                images.get(i).setVisibility(View.VISIBLE);
+            }else {
+                images.get(i).setVisibility(View.INVISIBLE);
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -56,21 +71,28 @@ public class ChallengeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.challenge_fragment, container, false);
 
-        recyclerView = view.findViewById(R.id.challengeRecycler);
-        swipeRefreshLayout = view.findViewById(R.id.challengeSwipeRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshChallenges();
-            }
-        });
+        ampoule = view.findViewById(R.id.ampoule);
+        console = view.findViewById(R.id.console);
+        tv = view.findViewById(R.id.tv);
+        washmachine = view.findViewById(R.id.washmachine);
+        images = new ArrayList<>();
+        images.add(ampoule);
+        images.add(tv);
+        images.add(console);
+        images.add(washmachine);
 
+        int total = Prefs.getPrefs(getContext()).getTotal();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        itemsIdsList = new ArrayList<>();
-        recyclerView.setAdapter(new ChallengeCardsAdapter(itemsIdsList, getContext(), getActivity()));
+        if (total > 50 && total < 100){
+            setSelected(0);
+        } else if (total > 100 && total < 250) {
+            setSelected(1);
+        } else if (total > 250 && total < 500) {
+            setSelected(2);
+        } else if (total > 500) {
+            setSelected(3);
+        }
 
-        refreshChallenges();
 
 
         return view;
@@ -78,11 +100,6 @@ public class ChallengeFragment extends Fragment {
 
     }
 
-
-    public void setListAdapter(){
-        recyclerView.setAdapter(new ChallengeCardsAdapter(itemsIdsList, getContext(), getActivity()));
-        swipeRefreshLayout.setRefreshing(false);
-    }
 
 
     public void refreshChallenges(){
@@ -105,7 +122,7 @@ public class ChallengeFragment extends Fragment {
                 itemsIdsList.add(object);
             }
 
-            setListAdapter();
+
 
             return;
         }
@@ -148,10 +165,6 @@ public class ChallengeFragment extends Fragment {
                             index++;
 
                         }
-
-                        setListAdapter();
-
-                        swipeRefreshLayout.setRefreshing(false);
 
 
                     }

@@ -175,6 +175,7 @@ public class SessionActivity extends AppCompatActivity {
                     gauge.setValue(convertedValue);
                     values.add(random);
                     totalValues.add(random);
+                    Prefs.getPrefs(getApplicationContext()).addTotal((int) random);
                     if (values.size() > 15){
                         values.removeFirst();
                     }
@@ -184,7 +185,6 @@ public class SessionActivity extends AppCompatActivity {
                         average += point;
                         count++;
                         points.add(new PointValue(points.size(), point));
-
                     }
 
 
@@ -215,6 +215,7 @@ public class SessionActivity extends AppCompatActivity {
                                     if (yourList.size() > 0) {
 
                                         double value = Double.parseDouble(yourList.get(yourList.size() - 1));
+                                        Prefs.getPrefs(getApplicationContext()).addTotal((int) value);
                                         int convertedValue = (int) (value * 100);
                                         if (maxGaugeValue < convertedValue) {
                                             maxGaugeValue = convertedValue;
