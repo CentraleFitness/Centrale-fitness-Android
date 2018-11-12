@@ -66,7 +66,7 @@ public class FeedBackActivity extends AppCompatActivity {
         params.put("content", content.getText().toString());
         params.put("version", Constants.VERSION);
         params.put("date", new Date().toString());
-        JsonObjectRequest request = new JsonObjectRequest("http://psyycker.fr.nf:3001/postfeedback", new JSONObject(params),
+        JsonObjectRequest request = new JsonObjectRequest("http://psyycker.fr.nf:5002/postfeedback", new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

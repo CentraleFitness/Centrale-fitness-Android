@@ -51,6 +51,9 @@ public class Constants {
     public static String GET_CUSTOM_PROGRAMS="/customProgram-get-range";
     public static String GET_CUSTOM_PROGRAM_PREVIEW ="/customProgram-get-preview";
     public static String GET_CUSTOM_PROGRAM_STEPS= "/customProgram-get-steps";
+    public static String LIKE_POST = "/post-like";
+    public static String GET_POST_LIKES = "/post-get-likes";
+    public static String CREATE_POST = "/post-create";
 
     /*
      *  REQUESTS VARIABLES

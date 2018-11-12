@@ -14,10 +14,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.Constants;
+import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.misc.store.DemoObject;
 import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
+import com.fitness.centrale.mobile.activities.social.BasicSocialObject;
 import com.fitness.centrale.mobile.activities.social.SocialActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewPostDialog extends DialogFragment {
 
@@ -54,6 +69,36 @@ public class NewPostDialog extends DialogFragment {
                     Store.getStore().getDemoObject().postsList.add(post);
                     activity.refreshPosts();
                 }else{
+                    RequestQueue queue = Volley.newRequestQueue(getContext());
+
+
+                    final Map<String, Object> params = new HashMap<>();
+                    params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
+                    params.put(Constants.POSTTYPE, BasicSocialObject.PostType.PUBLICATION.value);
+                    params.put(Constants.POSTCONTENT, txt.getText().toString());
+                    params.put(Constants.POSTICON, "");
+
+                    JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.CREATE_POST, new JSONObject(params),
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        System.out.println("Response code : " + response.getString("code"));
+                                        if (response.getString("code").equals("001")){
+                                            System.out.println("GREEEEEAAAATTTTT");
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            });
+                    queue.add(request);
                     //TODO : Faire le rajout de post via API
                 }
                 getDialog().dismiss();

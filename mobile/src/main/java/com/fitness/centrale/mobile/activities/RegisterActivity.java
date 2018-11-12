@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         Prefs.setToken(response.getString(Constants.TOKEN));
                                         Prefs.setUsername(params.get(Constants.LOGIN));
 
-                                        Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
+                                        Intent intent = new Intent(RegisterActivity.this, AffiliationActivity.class);
                                         startActivity(intent);
                                     }
                                 } catch (JSONException e) {

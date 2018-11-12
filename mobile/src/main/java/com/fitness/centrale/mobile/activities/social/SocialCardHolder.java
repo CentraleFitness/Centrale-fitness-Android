@@ -19,11 +19,14 @@ import com.fitness.centrale.mobile.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import lecho.lib.hellocharts.model.Line;
 
 public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
@@ -35,6 +38,9 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     private TextView postContent;
     private TextView postDate;
     private TextView posterName;
+    private LinearLayout likeBtn;
+    private LinearLayout commentBtn;
+    private TextView likeNumber;
 
     public SocialCardHolder(View itemView, Context context, AppCompatActivity parent) {
         super(itemView);
@@ -46,6 +52,10 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         postDate = itemView.findViewById(R.id.postDate);
         posterName = itemView.findViewById(R.id.posterName);
         lyt = itemView.findViewById(R.id.postMainLayout);
+        likeBtn = itemView.findViewById(R.id.LikeBtn);
+        commentBtn = itemView.findViewById(R.id.CommentBtn);
+        likeNumber = itemView.findViewById(R.id.likeNumber);
+
 
     }
 
@@ -60,9 +70,41 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         SocialCardHolder.this.postDate.setText(dateStr);
     }
 
+    public void refreshLikes(BasicSocialObject myObject) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+        final Map<String, Object> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getPrefs(context).getToken());
+        params.put(Constants.POSTID, myObject.id);
+
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_POST_LIKES, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("code").equals("001")){
+                                int likes = response.getInt("likes");
+                                likeNumber.setText(String.valueOf(likes));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
+    }
 
     public void bind(final BasicSocialObject myObject){
 
+        if (likeBtn != null)
+            this.refreshLikes(myObject);
 
         if (Store.getStore().getDemoObject().demo){
 
@@ -71,6 +113,40 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
             return;
         }
+
+        if (likeBtn != null)
+            likeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RequestQueue queue = Volley.newRequestQueue(context);
+
+
+                    final Map<String, Object> params = new HashMap<>();
+                    params.put(Constants.TOKEN, Prefs.getPrefs(context).getToken());
+                    params.put(Constants.POSTID, myObject.id);
+
+                    JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.LIKE_POST, new JSONObject(params),
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        if (response.getString("code").equals("001")){
+                                            refreshLikes(myObject);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            });
+                    queue.add(request);
+                }
+            });
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
