@@ -15,7 +15,7 @@ public class Constants {
     /**
      * SERVER INFO
      */
-    public static String HOST = "psyycker.fr.nf";
+    public static String HOST = "91.121.155.83";
     //public static String HOST = "163.5.84.201";
     public static String PORT  = "8081";
     public static String SERVER = "http://" + HOST + ":" + PORT;
@@ -54,6 +54,7 @@ public class Constants {
     public static String LIKE_POST = "/post-like";
     public static String GET_POST_LIKES = "/post-get-likes";
     public static String CREATE_POST = "/post-create";
+    public static String GET_POST_COMMENTS = "/post-comment-get-range";
 
     /*
      *  REQUESTS VARIABLES

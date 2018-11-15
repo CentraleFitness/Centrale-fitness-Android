@@ -115,9 +115,10 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/CommentBtnTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Commenter"
+                    android:text="Commentaires"
                     android:gravity="center"
                     android:textColor="@color/black"/>
 

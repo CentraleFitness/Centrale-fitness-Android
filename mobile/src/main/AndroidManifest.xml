@@ -52,6 +52,9 @@
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tec_list" />
         </activity>
+        <activity android:name=".activities.social.CommentsActivity">
+
+        </activity>
         <activity
             android:name=".activities.SessionActivity"
             android:configChanges="orientation|keyboardHidden"

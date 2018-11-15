@@ -120,6 +120,11 @@ public class SocialActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        this.refreshPosts();
+    }
+
     public void refreshPosts(){
 
         itemsIdsList = new ArrayList<>();
