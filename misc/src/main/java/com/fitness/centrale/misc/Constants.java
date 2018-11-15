@@ -56,6 +56,7 @@ public class Constants {
     public static String CREATE_POST = "/post-create";
     public static String GET_POST_COMMENTS = "/post-comment-get-range";
     public static String CREATE_COMMENT = "/post-comment-create";
+    public static String UNAFFILIATE = "/unaffiliate";
 
     /*
      *  REQUESTS VARIABLES
