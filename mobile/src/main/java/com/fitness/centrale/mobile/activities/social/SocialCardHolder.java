@@ -21,14 +21,13 @@ import com.fitness.centrale.mobile.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import lecho.lib.hellocharts.model.Line;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
@@ -45,6 +44,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     private TextView likeNumber;
     private TextView commentTxt;
     private JSONArray comments;
+    private CircleImageView circleImageView;
 
     public SocialCardHolder(View itemView, Context context, AppCompatActivity parent) {
         super(itemView);
@@ -60,17 +60,22 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         commentBtn = itemView.findViewById(R.id.CommentBtn);
         commentTxt = itemView.findViewById(R.id.CommentBtnTxt);
         likeNumber = itemView.findViewById(R.id.likeNumber);
+        circleImageView = itemView.findViewById(R.id.postImageView);
 
 
     }
 
 
-    public void setContent(final Date date, final String content){
+    public void setContent(final Date date, final String content, String name, String isCenter){
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy hh:mm");
         String dateStr = format.format(date);
 
         postContent.setText(content);
+        posterName.setText(name);
+        int id = isCenter.equals("true") ? R.drawable.store : R.drawable.boy;
+
+        circleImageView.setImageDrawable(parent.getDrawable(id));
 
         SocialCardHolder.this.postDate.setText(dateStr);
     }
@@ -152,7 +157,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         if (Store.getStore().getDemoObject().demo){
 
             posterName.setText(myObject.post.poster);
-            setContent(myObject.post.postDate, myObject.post.content);
+            setContent(myObject.post.postDate, myObject.post.content, "toto", "true");
 
             return;
         }
@@ -221,7 +226,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                                 Date date = new Date(postDate);
                                 String content = response.getString("post content");
 
-                                setContent(date, content);
+                                setContent(date, content, response.getString("name"), response.getString("isCenter"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

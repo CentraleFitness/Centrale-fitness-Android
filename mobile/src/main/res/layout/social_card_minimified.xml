@@ -27,6 +27,7 @@
             android:layout_weight="1">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/postImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/store"
@@ -41,6 +42,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/posterName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Fitness Plus"
