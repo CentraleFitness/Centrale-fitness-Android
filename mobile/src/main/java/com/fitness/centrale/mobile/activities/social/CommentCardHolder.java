@@ -31,6 +31,8 @@ public class CommentCardHolder extends RecyclerView.ViewHolder   {
 
     private Context context;
     private AppCompatActivity parent;
+    private TextView comment;
+    private TextView name;
 
 
     public CommentCardHolder(View itemView, Context context, AppCompatActivity parent) {
@@ -38,6 +40,8 @@ public class CommentCardHolder extends RecyclerView.ViewHolder   {
         this.context = context;
         this.parent = parent;
 
+        comment = itemView.findViewById(R.id.commentContent);
+        name = itemView.findViewById(R.id.commentName);
 
 
     }
@@ -47,6 +51,11 @@ public class CommentCardHolder extends RecyclerView.ViewHolder   {
 
 
     public void bind(final BasicCommentObject myObject){
+
+        comment.setText(myObject.postContent);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy hh:mm");
+        String dateStr = format.format(myObject.date);
+        name.setText(myObject.name + " le " + dateStr);
 
 
     }

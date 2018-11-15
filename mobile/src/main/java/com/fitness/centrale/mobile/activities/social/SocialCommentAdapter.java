@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.fitness.centrale.mobile.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SocialCommentAdapter extends RecyclerView.Adapter<CommentCardHolder> {
@@ -34,17 +33,9 @@ public class SocialCommentAdapter extends RecyclerView.Adapter<CommentCardHolder
     @Override
     public CommentCardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-
         int layout;
-
-        BasicCommentObject obj = socialIds.get(viewIndex);
-
-                layout = R.layout.social_card;
-
-
+        layout = R.layout.comment_card;
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent,false);
-
-        viewIndex++;
         return new CommentCardHolder(view, context, this.parent);
     }
 
@@ -56,6 +47,9 @@ public class SocialCommentAdapter extends RecyclerView.Adapter<CommentCardHolder
 
     @Override
     public int getItemCount() {
+        if (socialIds == null) {
+            return 0;
+        }
         return socialIds.size();
     }
 }

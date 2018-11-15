@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/grey">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
@@ -24,19 +24,23 @@
                 android:layout_height="match_parent">
 
 
-
             </android.support.v7.widget.RecyclerView>
 
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/newCommentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="21dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/postfab" />
 
-        </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

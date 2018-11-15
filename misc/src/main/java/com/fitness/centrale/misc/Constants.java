@@ -55,6 +55,7 @@ public class Constants {
     public static String GET_POST_LIKES = "/post-get-likes";
     public static String CREATE_POST = "/post-create";
     public static String GET_POST_COMMENTS = "/post-comment-get-range";
+    public static String CREATE_COMMENT = "/post-comment-create";
 
     /*
      *  REQUESTS VARIABLES
