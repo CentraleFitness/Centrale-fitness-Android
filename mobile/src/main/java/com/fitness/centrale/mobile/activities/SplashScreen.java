@@ -15,11 +15,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.misc.VolleyUtility;
 import com.fitness.centrale.mobile.activities.profile.ProfileActivity;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +70,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slash_screen);
+        Fresco.initialize(this);
 
         int total = Prefs.getPrefs(getApplication()).getTotal();
         if (total == 0) {

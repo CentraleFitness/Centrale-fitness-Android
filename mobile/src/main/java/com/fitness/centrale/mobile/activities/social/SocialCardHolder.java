@@ -2,9 +2,13 @@ package com.fitness.centrale.mobile.activities.social;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,9 +18,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
+import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +41,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     private AppCompatActivity parent;
 
 
+    //POST
     private LinearLayout lyt;
     private TextView postContent;
     private TextView postDate;
@@ -45,6 +52,16 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     private TextView commentTxt;
     private JSONArray comments;
     private CircleImageView circleImageView;
+
+    //EVENT
+    private ImageView eventPicture;
+    private TextView eventTitle;
+    private TextView eventDesc;
+
+    //PHOTO
+    private ImageView photo;
+    private TextView photoTitle;
+    private TextView photoDesc;
 
     public SocialCardHolder(View itemView, Context context, AppCompatActivity parent) {
         super(itemView);
@@ -62,7 +79,13 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         likeNumber = itemView.findViewById(R.id.likeNumber);
         circleImageView = itemView.findViewById(R.id.postImageView);
 
+        eventPicture = itemView.findViewById(R.id.eventPicture);
+        eventTitle = itemView.findViewById(R.id.eventTitle);
+        eventDesc = itemView.findViewById(R.id.eventDescription);
 
+        photo = itemView.findViewById(R.id.photoPicture);
+        photoTitle = itemView.findViewById(R.id.photoTitle);
+        photoDesc = itemView.findViewById(R.id.photoDescription);
     }
 
 
@@ -79,6 +102,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
         SocialCardHolder.this.postDate.setText(dateStr);
     }
+
 
     public void refreshLikes(BasicSocialObject myObject) {
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -225,6 +249,19 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                                 long postDate = response.getLong("post date");
                                 Date date = new Date(postDate);
                                 String content = response.getString("post content");
+                                if (myObject.type == BasicSocialObject.PostType.EVENT) {
+                                    String picture = response.getString("post picture");
+                                    String title = response.getString("post title");
+                                    String desc = response.getString("post content");
+                                    setContentEvent(picture, title, desc);
+
+                                    return;
+                                } else if (myObject.type == BasicSocialObject.PostType.PHOTO) {
+                                    setContentPicture(response.getString("post picture"),
+                                            response.getString("post title"),
+                                            response.getString("post content"));
+                                    return;
+                                }
 
                                 setContent(date, content, response.getString("name"), response.getString("isCenter"));
                             }
@@ -241,11 +278,53 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                 });
         queue.add(request);
 
-
-
-
     }
 
+    public void setContentEvent(String picture, String title, String desc) {
+        new B64ToImageTask(picture, eventPicture).execute();
+        eventTitle.setText(title);
+        eventDesc.setText(desc);
+    }
+
+    public void setContentPicture(String picture, String title, String desc) {
+        new B64ToImageTask(picture, photo).execute();
+        photoTitle.setText(title);
+        photoDesc.setText(desc);
+    }
+
+
+
+    private class B64ToImageTask extends AsyncTask {
+
+        final String pictureB64;
+        final ImageView imageView;
+
+        public B64ToImageTask(final String pictureB64, final ImageView imageView){
+            this.pictureB64 = pictureB64;
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            String []splitted = pictureB64.split(",");
+            if (splitted.length == 2){
+                return ImageUtility.base64ToImage(splitted[1]);
+            }
+
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final Object result) {
+            if (result != null) {
+                imageView.setImageBitmap((Bitmap) result);
+
+            }
+        }
+
+    }
 
 
 }

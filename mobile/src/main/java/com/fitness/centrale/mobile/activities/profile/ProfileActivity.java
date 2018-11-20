@@ -332,7 +332,8 @@ public class ProfileActivity extends AppCompatActivity {
                                     String postId = object.getString("post id");
 
                                     BasicSocialObject socialObject = new BasicSocialObject(postId, ProfileActivity.this, type);
-                                    itemsIdsList.add(socialObject);
+                                    if (type == BasicSocialObject.PostType.PUBLICATION)
+                                        itemsIdsList.add(socialObject);
 
                                 }
 

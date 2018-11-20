@@ -50,8 +50,11 @@ public class SocialCardsAdapter extends RecyclerView.Adapter<SocialCardHolder> {
                 if (!minimify)
                 layout = R.layout.social_event_card;
                 else{
-                    layout = R.layout.social_event_card;
+                    layout = R.layout.event_card_minimified;
                 }
+                break;
+            case PHOTO:
+                layout = R.layout.social_photo_card;
                 break;
             default:
                 layout = R.layout.social_card;

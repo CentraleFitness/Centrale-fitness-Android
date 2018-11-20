@@ -10,6 +10,10 @@ public class BasicSocialObject {
     public String id;
     public Context context;
     public PostType type;
+    public String eventId;
+    public String eventTitle;
+    public String eventDesc;
+    public String eventPicture;
 
     public DemoObject.Post post;
 
@@ -25,7 +29,8 @@ public class BasicSocialObject {
     public enum PostType{
 
         PUBLICATION("PUBLICATION"),
-        EVENT("EVENT");
+        EVENT("EVENT"),
+        PHOTO("PHOTO");
 
         public final  String value;
 
