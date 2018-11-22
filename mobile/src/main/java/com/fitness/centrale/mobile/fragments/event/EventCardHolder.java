@@ -90,14 +90,6 @@ public class EventCardHolder  extends RecyclerView.ViewHolder   {
                 intent.putExtra("registered", registered);
                 intent.putExtra("description", description);
 
-                ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-                if (!Store.getStore().getDemoObject().demo && eventPictureBitmap != null) {
-                    eventPictureBitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                    byte[] byteArray = bStream.toByteArray();
-                    intent.putExtra("picture", byteArray);
-                }
-
-
 
                 Pair<View, String> p1 = Pair.create((View)event, "eventOpening");
                 //   Pair<View, String> p2 = Pair.create((View)eventPicture, "eventPictureAnimation");

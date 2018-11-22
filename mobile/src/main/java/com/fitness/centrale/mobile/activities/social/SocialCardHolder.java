@@ -22,6 +22,7 @@ import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
+import com.fitness.centrale.mobile.activities.EventDetailsActivity;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.json.JSONArray;
@@ -253,7 +254,29 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                                     String picture = response.getString("post picture");
                                     String title = response.getString("post title");
                                     String desc = response.getString("post content");
+
+                                    Date startDate = new Date(Long.valueOf(response.getString("post start_date")));
+                                    Date endDate = new Date(Long.valueOf(response.getString("post end_date")));
                                     setContentEvent(picture, title, desc);
+
+                                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                                    final String startDateStr = format.format(startDate);
+                                    final String endDateStr = format.format(endDate);
+
+                                    final Intent intent = new Intent(parent, EventDetailsActivity.class);
+                                    intent.putExtra("name", title);
+                                    intent.putExtra("id", response.getString("post event_id"));
+                                    intent.putExtra("startDate", startDateStr);
+                                    intent.putExtra("endDate", endDateStr);
+                                    intent.putExtra("registered", response.getString("isreg"));
+                                    intent.putExtra("description", desc);
+
+                                    lyt.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            parent.startActivity(intent);
+                                        }
+                                    });
 
                                     return;
                                 } else if (myObject.type == BasicSocialObject.PostType.PHOTO) {
