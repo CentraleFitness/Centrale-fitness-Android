@@ -1,44 +1,24 @@
 package com.fitness.centrale.mobile.fragments.challenges;
 
-import android.media.Image;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
-import com.fitness.centrale.misc.VolleyUtility;
-import com.fitness.centrale.misc.store.DemoObject;
-import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
-import com.fitness.centrale.mobile.fragments.event.EventsFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -47,11 +27,30 @@ import java.util.Map;
 
 public class ChallengeFragment extends Fragment {
 
+    int ampoulePerHour = 40;
+    int tvLEDPerHour = 90;
+    int consolePerHour = 137;
+    int machineALaverPerHour = 1000;
+
+
+    int total;
+
     private ArrayList<BasicChallengeObject> itemsIdsList;
     ImageView ampoule;
     ImageView console;
     ImageView tv;
     ImageView washmachine;
+
+    ImageView ampouleBtn;
+    ImageView consoleBtn;
+    ImageView tvBtn;
+    ImageView washMachineBtn;
+
+    TextView wattCounter;
+    TextView textDesc;
+    TextView defiTime;
+    TextView percentageText;
+    ProgressBar progressBar;
 
     List<ImageView> images;
 
@@ -63,6 +62,154 @@ public class ChallengeFragment extends Fragment {
                 images.get(i).setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+
+    public void changeAmpouleState(boolean state) {
+        if (!state) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            Resources r = getActivity().getResources();
+            int px = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    10,
+                    r.getDisplayMetrics()
+            );
+            params.setMargins(px, px, px, px);
+            ampouleBtn.setLayoutParams(params);
+            return;
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        Resources r = getActivity().getResources();
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                0,
+                r.getDisplayMetrics()
+        );
+        params.setMargins(px, px, px, px);
+        ampouleBtn.setLayoutParams(params);
+        textDesc.setText("Ceci qui permet de faire fonctionner une ampoule durant");
+
+        int time = 60 * total / ampoulePerHour;
+        defiTime.setText(time + " minutes !");
+
+    }
+
+    public void changeTvState(boolean state) {
+        if (!state) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            Resources r = getActivity().getResources();
+            int px = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    10,
+                    r.getDisplayMetrics()
+            );
+            params.setMargins(px, px, px, px);
+            tvBtn.setLayoutParams(params);
+            return;
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        Resources r = getActivity().getResources();
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                0,
+                r.getDisplayMetrics()
+        );
+        params.setMargins(px, px, px, px);
+        tvBtn.setLayoutParams(params);
+        textDesc.setText("Ceci qui permet de faire fonctionner une télévision durant");
+
+        int time = 60 * total / tvLEDPerHour;
+        defiTime.setText(time + " minutes !");
+
+    }
+
+    public void changeConsoleState(boolean state) {
+        if (!state) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            Resources r = getActivity().getResources();
+            int px = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    10,
+                    r.getDisplayMetrics()
+            );
+            params.setMargins(px, px, px, px);
+            consoleBtn.setLayoutParams(params);
+            return;
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        Resources r = getActivity().getResources();
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                0,
+                r.getDisplayMetrics()
+        );
+        params.setMargins(px, px, px, px);
+        consoleBtn.setLayoutParams(params);
+        textDesc.setText("Ceci qui permet de faire fonctionner une console de jeu durant");
+
+        int time = 60 * total / consolePerHour;
+        defiTime.setText(time + " minutes !");
+
+
+    }
+
+    public void changeWashMachineState(boolean state) {
+        if (!state) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            Resources r = getActivity().getResources();
+            int px = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    10,
+                    r.getDisplayMetrics()
+            );
+            params.setMargins(px, px, px, px);
+            washMachineBtn.setLayoutParams(params);
+            return;
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        Resources r = getActivity().getResources();
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                0,
+                r.getDisplayMetrics()
+        );
+        params.setMargins(px, px, px, px);
+        washMachineBtn.setLayoutParams(params);
+        textDesc.setText("Ceci qui permet de faire fonctionner une machine à laver durant");
+
+        int time = 60 * total / machineALaverPerHour;
+        defiTime.setText(time + " minutes !");
+    }
+
+    public void selectDetails(int index) {
+        changeAmpouleState(index == 0);
+        changeTvState(index == 1);
+        changeConsoleState(index == 2);
+        changeWashMachineState(index == 3);
     }
 
     @Nullable
@@ -81,16 +228,75 @@ public class ChallengeFragment extends Fragment {
         images.add(console);
         images.add(washmachine);
 
-        int total = Prefs.getPrefs(getContext()).getTotal();
+        percentageText = view.findViewById(R.id.percentage);
+
+        ampouleBtn = view.findViewById(R.id.ampouleButton);
+        ampouleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDetails(0);
+            }
+        });
+        tvBtn = view.findViewById(R.id.tvbutton);
+        tvBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDetails(1);
+            }
+        });
+        consoleBtn = view.findViewById(R.id.consolebutton);
+        consoleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDetails(2);
+            }
+        });
+        washMachineBtn = view.findViewById(R.id.washbutton);
+        washMachineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDetails(3);
+            }
+        });
+
+        progressBar = view.findViewById(R.id.progressBar);
+
+        total = Prefs.getPrefs(getContext()).getTotal();
+
+        wattCounter = view.findViewById(R.id.wattCounter);
+        wattCounter.setText(total + " Watts !!");
+        defiTime = view.findViewById(R.id.defiTime);
+
+        textDesc = view.findViewById(R.id.textDesc);
+
+        selectDetails(0);
+
 
         if (total > 50 && total < 100){
             setSelected(0);
+            int percentage = total * 100 / 100;
+            percentageText.setText(percentage + "%");
+            progressBar.setProgress(percentage);
         } else if (total > 100 && total < 250) {
             setSelected(1);
+            int percentage = total * 100 / 250;
+            percentageText.setText(percentage + "%");
+            progressBar.setProgress(percentage);
         } else if (total > 250 && total < 500) {
             setSelected(2);
+            int percentage = total * 100 / 500;
+            percentageText.setText(percentage + "%");
+            progressBar.setProgress(percentage);
         } else if (total > 500) {
             setSelected(3);
+            int percentage = total * 100 / 2000;
+            percentageText.setText(percentage + "%");
+            progressBar.setProgress(percentage);
+        } else {
+            int percentage = total * 100 / 50;
+            percentageText.setText(percentage + "%");
+            progressBar.setProgress(percentage);
+
         }
 
 
@@ -100,90 +306,6 @@ public class ChallengeFragment extends Fragment {
 
     }
 
-
-
-    public void refreshChallenges(){
-
-        itemsIdsList = new ArrayList<>();
-
-        if (Store.getStore().getDemoObject().demo){
-
-            List<DemoObject.Challenge> challenges = Store.getStore().getDemoObject().challengesList;
-
-            for (DemoObject.Challenge challenge : challenges){
-                BasicChallengeObject object = new BasicChallengeObject(getContext());
-                object.pointsNeeded = challenge.pointsNeeded;
-                object.machine = challenge.machineType;
-                object.steps = challenge.steps;
-                object.desc = challenge.desc;
-                object.title = challenge.title;
-                object.currentPoints = challenge.userPoints;
-
-                itemsIdsList.add(object);
-            }
-
-
-
-            return;
-        }
-
-
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-
-
-
-        Map<String, Object> params = new HashMap<>();
-        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
-        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_CHALLENGES, new JSONObject(params), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    System.out.println(response.getString("code"));
-                    if (response.getString("code").equals("001")){
-
-
-                        JSONArray challenges = (JSONArray) response.get("challenges");
-                        int index  = 0;
-                        while (index != challenges.length()){
-
-                            JSONArray subArray = challenges.getJSONArray(index);
-                            JSONObject obj = (JSONObject) subArray.get(0);
-                            BasicChallengeObject object = new BasicChallengeObject(ChallengeFragment.this.getContext());
-                            object.type = obj.getString("type");
-                            object.title = obj.getString("title");
-                            object.desc = obj.getString("description");
-                            object.endDate = obj.getString("endDate");
-                            object.owner = obj.getString("owner");
-                            object.steps = obj.getString("steps");
-                            object.machine = obj.getString("machine");
-                            object.pointsNeeded = obj.getString("pointsNeeded");
-
-                            itemsIdsList.add(object);
-
-
-
-                            index++;
-
-                        }
-
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        VolleyUtility.fixDoubleRequests(request);
-
-        queue.add(request);
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
