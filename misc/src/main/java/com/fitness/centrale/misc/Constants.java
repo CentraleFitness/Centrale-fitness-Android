@@ -15,8 +15,8 @@ public class Constants {
     /**
      * SERVER INFO
      */
-    public static String HOST = "psyycker.fr.nf";
-    //public static String HOST = "163.5.84.201";
+    //public static String HOST = "psyycker.fr.nf";
+    public static String HOST = "91.121.155.83";
     public static String PORT  = "8081";
     public static String SERVER = "http://" + HOST + ":" + PORT;
     public static String VERSION = "1.0.1BETA";

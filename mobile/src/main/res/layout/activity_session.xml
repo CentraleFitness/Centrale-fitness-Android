@@ -59,8 +59,7 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:background="#FFFFFF"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -69,34 +68,33 @@
             android:gravity="center">
 
 
-
-        <pl.pawelkleczkowski.customgauge.CustomGauge
-            android:id="@+id/gauge1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:gaugePointEndColor="@color/ourOrange"
-            app:gaugePointStartColor="@color/ourOrangeClair"
-            app:gaugeStartAngle="135"
-            app:gaugeStartValue="0"
-            app:gaugeStrokeCap="ROUND"
-            app:gaugeStrokeColor="@color/ourViolet"
-            app:gaugeStrokeWidth="10dp"
-            app:gaugeSweepAngle="270"/>
+            <pl.pawelkleczkowski.customgauge.CustomGauge
+                android:id="@+id/gauge1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                app:gaugePointEndColor="@color/ourOrange"
+                app:gaugePointStartColor="@color/ourOrangeClair"
+                app:gaugeStartAngle="135"
+                app:gaugeStartValue="0"
+                app:gaugeStrokeCap="ROUND"
+                app:gaugeStrokeColor="@color/ourViolet"
+                app:gaugeStrokeWidth="10dp"
+                app:gaugeSweepAngle="270" />
 
             <TextView
                 android:id="@+id/SessionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textStyle="bold"
+                android:textAlignment="center"
                 android:textSize="20sp"
-                android:textAlignment="center"/>
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -105,12 +103,16 @@
             android:layout_height="0dp"
             android:layout_weight="5">
 
-            <lecho.lib.hellocharts.view.LineChartView
-                android:id="@+id/SessionChart"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingLeft="10dp"
+                android:paddingTop="40dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp" />
 
         </LinearLayout>
 

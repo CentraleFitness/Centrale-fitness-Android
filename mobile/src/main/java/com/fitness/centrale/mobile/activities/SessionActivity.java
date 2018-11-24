@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -58,6 +59,8 @@ public class SessionActivity extends AppCompatActivity {
     Float average = 0f;
     int count = 0;
     ImageView backArrow;
+    ProgressBar prg;
+    float elecCrea = 0;
     @Override
     public void onBackPressed() {
 
@@ -129,6 +132,8 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
+        prg = findViewById(R.id.progressBar);
+
         AlertDialogBuilder.createAlertDialog(this, "Votre session sportive",
                 "Ici vous pourrez constater votre production d'énergie en temps réel dans votre salle de sport et voir" +
                         "de courts diagrammes. N'hésitez pas à laisser des suggestion (page de profil) si vous avez de meilleures idées d'ergonomie!", "Ok").show();
@@ -136,7 +141,6 @@ public class SessionActivity extends AppCompatActivity {
         gauge = findViewById(R.id.gauge1);
         gauge.setEndValue(maxGaugeValue);
         sessionText = findViewById(R.id.SessionText);
-        chart = findViewById(R.id.SessionChart);
         backArrow = findViewById(R.id.backArrow);
 
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +175,8 @@ public class SessionActivity extends AppCompatActivity {
                         maxGaugeValue = convertedValue;
                         gauge.setEndValue(maxGaugeValue);
                     }
+                    elecCrea += random;
+                    prg.setProgress((int) elecCrea/100);
                     sessionText.setText(String.valueOf(random));
                     gauge.setValue(convertedValue);
                     values.add(random);
