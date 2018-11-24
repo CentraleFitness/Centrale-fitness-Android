@@ -14,11 +14,30 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.mobile.R;
+import com.fitness.centrale.mobile.fragments.stats.SessionDetailsActivity;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -35,7 +54,6 @@ public class ChallengeFragment extends Fragment {
 
     int total;
 
-    private ArrayList<BasicChallengeObject> itemsIdsList;
     ImageView ampoule;
     ImageView console;
     ImageView tv;
@@ -261,46 +279,72 @@ public class ChallengeFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progressBar);
 
-        total = Prefs.getPrefs(getContext()).getTotal();
-
         wattCounter = view.findViewById(R.id.wattCounter);
-        wattCounter.setText(total + " Watts !!");
         defiTime = view.findViewById(R.id.defiTime);
 
         textDesc = view.findViewById(R.id.textDesc);
 
-        selectDetails(0);
+        RequestQueue queue = Volley.newRequestQueue(getContext());
 
 
-        if (total > 50 && total < 100){
-            setSelected(0);
-            int percentage = total * 100 / 100;
-            percentageText.setText(percentage + "%");
-            progressBar.setProgress(percentage);
-        } else if (total > 100 && total < 250) {
-            setSelected(1);
-            int percentage = total * 100 / 250;
-            percentageText.setText(percentage + "%");
-            progressBar.setProgress(percentage);
-        } else if (total > 250 && total < 500) {
-            setSelected(2);
-            int percentage = total * 100 / 500;
-            percentageText.setText(percentage + "%");
-            progressBar.setProgress(percentage);
-        } else if (total > 500) {
-            setSelected(3);
-            int percentage = total * 100 / 2000;
-            percentageText.setText(percentage + "%");
-            progressBar.setProgress(percentage);
-        } else {
-            int percentage = total * 100 / 50;
-            percentageText.setText(percentage + "%");
-            progressBar.setProgress(percentage);
+        final Map<String, Object> params = new HashMap<>();
+        params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
 
-        }
+        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GETTOTALPRODUCTION, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println("Response code : " + response.getString("code"));
+                            if (response.getString("code").equals("001")){
 
+                                Double production = Double.valueOf(response.getString("production"));
 
+                                total = (int) Math.round(production);
 
+                                wattCounter.setText(total + " Watts !!");
+
+                                selectDetails(0);
+
+                                if (total > 50 && total < 100){
+                                    setSelected(0);
+                                    int percentage = total * 100 / 100;
+                                    percentageText.setText(percentage + "%");
+                                    progressBar.setProgress(percentage);
+                                } else if (total > 100 && total < 250) {
+                                    setSelected(1);
+                                    int percentage = total * 100 / 250;
+                                    percentageText.setText(percentage + "%");
+                                    progressBar.setProgress(percentage);
+                                } else if (total > 250 && total < 500) {
+                                    setSelected(2);
+                                    int percentage = total * 100 / 500;
+                                    percentageText.setText(percentage + "%");
+                                    progressBar.setProgress(percentage);
+                                } else if (total > 500) {
+                                    setSelected(3);
+                                    int percentage = total * 100 / 2000;
+                                    percentageText.setText(percentage + "%");
+                                    progressBar.setProgress(percentage);
+                                } else {
+                                    int percentage = total * 100 / 50;
+                                    percentageText.setText(percentage + "%");
+                                    progressBar.setProgress(percentage);
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
         return view;
 
 

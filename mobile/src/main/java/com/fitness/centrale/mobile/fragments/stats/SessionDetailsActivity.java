@@ -91,18 +91,14 @@ public class SessionDetailsActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             System.out.println("Response code : " + response.getString("code"));
-                           // if (response.getString("code").equals("001")){
-
-                                System.out.println();
+                            if (response.getString("code").equals("001")){
 
                                 List<Entry> entries = new ArrayList<>();
 
-                                entries.add(new Entry(0, 10));
-                                entries.add(new Entry(1, 15));
-                                entries.add(new Entry(2, 23));
-                                entries.add(new Entry(3, 35));
-                                entries.add(new Entry(4, 24));
-
+                                for (int i = 0; i < response.getJSONArray("production").length(); i++) {
+                                    Double value = response.getJSONArray("production").getDouble(i);
+                                    entries.add(new Entry(i, Float.valueOf(String.valueOf(value))));
+                                }
 
                                 LineDataSet dataSet = new LineDataSet(entries, "Production");
                                 LineData lineData = new LineData(dataSet);
@@ -140,7 +136,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
                                 chart.setDescription(desc);
                                 chart.setData(lineData);
 
-                           // }
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
