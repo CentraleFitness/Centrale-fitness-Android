@@ -1,8 +1,6 @@
 package com.fitness.centrale.mobile.activities.dialogs;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,19 +23,19 @@ import com.fitness.centrale.misc.store.DemoObject;
 import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.activities.social.BasicSocialObject;
+import com.fitness.centrale.mobile.activities.social.CommentsActivity;
 import com.fitness.centrale.mobile.activities.social.SocialActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewPostDialog extends DialogFragment {
+public class NewCommentDialog extends DialogFragment {
 
 
-    private SocialActivity activity;
+    private CommentsActivity activity;
 
     public String getPostContent(){
         return txt.getText().toString();
@@ -67,26 +65,23 @@ public class NewPostDialog extends DialogFragment {
                     post.poster = "Vous";
                     post.content = txt.getText().toString();
                     Store.getStore().getDemoObject().postsList.add(post);
-                    activity.refreshPosts();
                 }else{
                     RequestQueue queue = Volley.newRequestQueue(getContext());
 
 
                     final Map<String, Object> params = new HashMap<>();
                     params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
-                    params.put(Constants.POSTTYPE, BasicSocialObject.PostType.PUBLICATION.value);
-                    params.put(Constants.POSTCONTENT, txt.getText().toString());
-                    params.put(Constants.POSTICON, "");
+                    params.put("comment content", txt.getText().toString());
+                    params.put(Constants.POSTID, activity.postId);
 
-                    JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.CREATE_POST, new JSONObject(params),
+                    JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.CREATE_COMMENT, new JSONObject(params),
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     try {
                                         System.out.println("Response code : " + response.getString("code"));
                                         if (response.getString("code").equals("001")){
-                                            getDialog().dismiss();
-
+                                            activity.refreshComments();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -100,6 +95,7 @@ public class NewPostDialog extends DialogFragment {
                                 }
                             });
                     queue.add(request);
+                    getDialog().dismiss();
                     //TODO : Faire le rajout de post via API
                 }
             }
@@ -123,7 +119,7 @@ public class NewPostDialog extends DialogFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public void setActivity(SocialActivity activity) {
+    public void setActivity(CommentsActivity activity) {
         this.activity = activity;
     }
 }

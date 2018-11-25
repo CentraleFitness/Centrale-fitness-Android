@@ -208,28 +208,13 @@ public class NFCScanActivity extends Activity  {
         }
     }
 
-    private void displayMsgs(NdefMessage[] msgs) {
-        if (msgs == null || msgs.length == 0)
-            return;
-
-        StringBuilder builder = new StringBuilder();
-        List<ParsedNdefRecord> records = NdefMessageParser.parse(msgs[0]);
-        final int size = records.size();
-
-        for (int i = 0; i < size; i++) {
-            ParsedNdefRecord record = records.get(i);
-            String str = record.str();
-            builder.append(str).append("\n");
-        }
-
-        String finalText = builder.toString();
-
+    private void pair(final String code) {
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         final Map<String, String> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
-        params.put(Constants.SESSIONID, finalText.replace("\n", ""));
+        params.put(Constants.SESSIONID, code.replace("\n", ""));
 
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.USER_PAIR_START, new JSONObject(params),
@@ -256,8 +241,25 @@ public class NFCScanActivity extends Activity  {
                     }
                 });
         queue.add(request);
+    }
 
+    private void displayMsgs(NdefMessage[] msgs) {
+        if (msgs == null || msgs.length == 0)
+            return;
 
+        StringBuilder builder = new StringBuilder();
+        List<ParsedNdefRecord> records = NdefMessageParser.parse(msgs[0]);
+        final int size = records.size();
+
+        for (int i = 0; i < size; i++) {
+            ParsedNdefRecord record = records.get(i);
+            String str = record.str();
+            builder.append(str).append("\n");
+        }
+
+        String finalText = builder.toString();
+
+        pair(finalText);
 
 
 

@@ -1,15 +1,30 @@
 package com.fitness.centrale.mobile.activities.dialogs;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
-import com.fitness.centrale.mobile.activities.LoginActivity;
 import com.fitness.centrale.misc.store.Store;
+import com.fitness.centrale.mobile.activities.AffiliationActivity;
+import com.fitness.centrale.mobile.activities.LoginActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfirmationDialog extends DialogFragment {
 
@@ -60,7 +75,39 @@ public class ConfirmationDialog extends DialogFragment {
 
 
                         }else if (type == ConfirmationType.LEAVE){
+                            RequestQueue queue = Volley.newRequestQueue(getActivity());
 
+
+                            final Map<String, Object> params = new HashMap<>();
+                            params.put(Constants.TOKEN, Prefs.getPrefs(getActivity()).getToken());
+                            final Activity activity = getActivity();
+
+                            //TODO Remplacer par la récupération de la dernière activité
+                            JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.UNAFFILIATE, new JSONObject(params),
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            try {
+                                                System.out.println("Response code : " + response.getString("code"));
+                                                if (response.getString("code").equals("001")){
+                                                    Intent intent = new Intent(activity, AffiliationActivity.class);
+                                                    activity.startActivity(intent);
+                                                    activity.finish();
+
+
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+
+                                        }
+                                    });
+                            queue.add(request);
                         }
 
                         // FIRE ZE MISSILES!

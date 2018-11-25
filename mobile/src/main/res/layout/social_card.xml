@@ -9,7 +9,7 @@
     android:id="@+id/cardViewEvent"
 
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="@dimen/cardview_default_radius"
     app:cardElevation="2dp">
 
     <LinearLayout
@@ -29,6 +29,7 @@
             android:layout_weight="1">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/postImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/store"
@@ -43,6 +44,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/posterName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,9 +117,10 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/CommentBtnTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Commenter"
+                    android:text="Commentaires"
                     android:gravity="center"
                     android:textColor="@color/black"/>
 

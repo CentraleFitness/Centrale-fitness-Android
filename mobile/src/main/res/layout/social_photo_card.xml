@@ -34,7 +34,7 @@
                 <TextView
                     android:textColor="@color/black"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/eventTitle"
+                    android:id="@+id/photoTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fitness Plus"
@@ -44,7 +44,7 @@
                     />
                 <ImageView
                     android:layout_marginTop="20dp"
-                    android:id="@+id/eventPicture"
+                    android:id="@+id/photoPicture"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"/>
@@ -52,7 +52,7 @@
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:id="@+id/eventDescription"
+                    android:id="@+id/photoDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Desc de l'event"/>

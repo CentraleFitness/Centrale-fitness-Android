@@ -1,5 +1,7 @@
 package com.fitness.centrale.mobile.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +43,19 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if (!passwordEdit.getText().toString().equals(confirmEdit.getText().toString())) {
+
+                    final AlertDialog.Builder builder;
+
+                    builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setTitle("Erreur").setMessage("Les mots de passe ne correspondent pas").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setCancelable(false).show();
+                    return;
+                }
 
                 RequestQueue queue = Volley.newRequestQueue(getBaseContext());
 
