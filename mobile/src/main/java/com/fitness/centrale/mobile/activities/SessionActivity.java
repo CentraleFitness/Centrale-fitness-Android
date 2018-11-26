@@ -176,7 +176,7 @@ public class SessionActivity extends AppCompatActivity {
                         gauge.setEndValue(maxGaugeValue);
                     }
                     elecCrea += random;
-                    prg.setProgress((int) elecCrea/100);
+                    prg.setProgress((int) elecCrea/1000);
                     sessionText.setText(String.valueOf(random));
                     gauge.setValue(convertedValue);
                     values.add(random);
