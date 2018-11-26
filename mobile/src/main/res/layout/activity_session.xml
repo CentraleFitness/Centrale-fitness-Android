@@ -124,7 +124,7 @@
                 android:id="@+id/editText3"
                 android:layout_width="180dp"
                 android:layout_height="60dp"
-                android:layout_weight=""
+                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Energie produite" />
@@ -147,7 +147,7 @@
                     android:id="@+id/editText5"
                     android:layout_width="180dp"
                     android:layout_height="60dp"
-                    android:layout_weight=""
+                    android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="kw" />

@@ -258,7 +258,6 @@ public class SessionActivity extends AppCompatActivity {
                                         LineChartData data = new LineChartData();
                                         data.setLines(lines);
 
-                                        chart.setLineChartData(data);
 
 
                                     }
