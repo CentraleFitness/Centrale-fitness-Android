@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.misc.store.DemoObject;
@@ -29,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,7 +59,11 @@ public class SessionActivity extends AppCompatActivity {
     ProductionGetter getter;
     Float average = 0f;
     int count = 0;
-    ImageView backArrow;
+    Button stopSession;
+    TextView time;
+    TextView total;
+    TextView averageText;
+
     @Override
     public void onBackPressed() {
 
@@ -129,17 +135,16 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
-        AlertDialogBuilder.createAlertDialog(this, "Votre session sportive",
-                "Ici vous pourrez constater votre production d'énergie en temps réel dans votre salle de sport et voir" +
-                        "de courts diagrammes. N'hésitez pas à laisser des suggestion (page de profil) si vous avez de meilleures idées d'ergonomie!", "Ok").show();
 
         gauge = findViewById(R.id.gauge1);
         gauge.setEndValue(maxGaugeValue);
         sessionText = findViewById(R.id.SessionText);
-        chart = findViewById(R.id.SessionChart);
-        backArrow = findViewById(R.id.backArrow);
+        stopSession = findViewById(R.id.stopSession);
+        time = findViewById(R.id.timeCounter);
+        total = findViewById(R.id.totalCounter);
+        averageText = findViewById(R.id.averageCounter);
 
-        backArrow.setOnClickListener(new View.OnClickListener() {
+        stopSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -157,127 +162,119 @@ public class SessionActivity extends AppCompatActivity {
 
     class ProductionGetter extends AsyncTask{
 
+        Handler handler = new Handler();
+
         @Override
         protected Object doInBackground(Object[] objects) {
 
+            int timeCounter = 0;
+            final double[] totalCounter = {0};
+            final List<Double> allData = new ArrayList<>();
+
             while (canRun){
 
-                if (Store.getStore().getDemoObject().demo){
-
-                    Random r = new Random();
-                    float random = 0 + r.nextFloat() * (5 - 0);
-                    int convertedValue = (int) (random * 100);
-                    if (maxGaugeValue < convertedValue){
-                        maxGaugeValue = convertedValue;
-                        gauge.setEndValue(maxGaugeValue);
-                    }
-                    sessionText.setText(String.valueOf(random));
-                    gauge.setValue(convertedValue);
-                    values.add(random);
-                    totalValues.add(random);
-                    Prefs.getPrefs(getApplicationContext()).addTotal((int) random);
-                    if (values.size() > 15){
-                        values.removeFirst();
-                    }
-
-                    points = new ArrayList<>();
-                    for (Float point : values) {
-                        average += point;
-                        count++;
-                        points.add(new PointValue(points.size(), point));
-                    }
+                RequestQueue queue = Volley.newRequestQueue(getApplication());
+                Map<String, String> params = new HashMap<>();
+                params.put(Constants.TOKEN, Prefs.getPrefs(SessionActivity.this).getToken());
+                JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_INSTANT_PRODUCTION, new JSONObject(params), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("code").equals("001")) {
+                                Type listType = new TypeToken<List<String>>() {
+                                }.getType();
+                                List<String> yourList = new Gson().fromJson(response.getString("production"), listType);
 
 
-                    //In most cased you can call data model methods in builder-pattern-like manner.
-                    Line line = new Line(points).setColor(Color.BLUE).setCubic(true);
-                    List<Line> lines = new ArrayList<Line>();
-                    lines.add(line);
+                                if (yourList.size() > 0) {
 
-                    LineChartData data = new LineChartData();
-                    data.setLines(lines);
+                                    final double value = Double.parseDouble(yourList.get(yourList.size() - 1));
 
-                    chart.setLineChartData(data);
-
-                }else {
-                    RequestQueue queue = Volley.newRequestQueue(getApplication());
-                    Map<String, String> params = new HashMap<>();
-                    params.put(Constants.TOKEN, Prefs.getPrefs(SessionActivity.this).getToken());
-                    JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_INSTANT_PRODUCTION, new JSONObject(params), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                if (response.getString("code").equals("001")) {
-                                    Type listType = new TypeToken<List<String>>() {
-                                    }.getType();
-                                    List<String> yourList = new Gson().fromJson(response.getString("production"), listType);
+                                    totalCounter[0] += value;
+                                    allData.add(value);
 
 
-                                    if (yourList.size() > 0) {
+                                    final int convertedValue = (int) (value * 100);
+                                    if (maxGaugeValue < convertedValue) {
+                                        maxGaugeValue = convertedValue;
+                                        gauge.setEndValue(maxGaugeValue);
+                                    }
 
-                                        double value = Double.parseDouble(yourList.get(yourList.size() - 1));
-                                        Prefs.getPrefs(getApplicationContext()).addTotal((int) value);
-                                        int convertedValue = (int) (value * 100);
-                                        if (maxGaugeValue < convertedValue) {
-                                            maxGaugeValue = convertedValue;
-                                            gauge.setEndValue(maxGaugeValue);
+                                    handler.post(new Runnable(){
+                                        public void run() {
+                                            sessionText.setText(String.valueOf(value));
+                                            gauge.setValue(convertedValue);
                                         }
-                                        sessionText.setText(String.valueOf(value));
-                                        gauge.setValue(convertedValue);
+                                    });
 
-                                        for (String tmp : yourList) {
+                                    for (String tmp : yourList) {
 
-                                            Float number = Float.parseFloat(tmp);
+                                        Float number = Float.parseFloat(tmp);
 
-                                            values.add(number);
-                                            if (values.size() > 15) {
-                                                values.removeFirst();
-                                            }
-
+                                        values.add(number);
+                                        if (values.size() > 15) {
+                                            values.removeFirst();
                                         }
-
-                                        points = new ArrayList<>();
-                                        for (Float point : values) {
-                                            average += point;
-                                            count++;
-                                            points.add(new PointValue(points.size(), point));
-
-                                        }
-
-
-                                        //In most cased you can call data model methods in builder-pattern-like manner.
-                                        Line line = new Line(points).setColor(Color.BLUE).setCubic(true);
-                                        List<Line> lines = new ArrayList<Line>();
-                                        lines.add(line);
-
-                                        LineChartData data = new LineChartData();
-                                        data.setLines(lines);
-
-                                        chart.setLineChartData(data);
-
 
                                     }
-                                } else {
-                                    SessionActivity.super.onBackPressed();
-                                    getter.cancel(true);
-                                    finish();
-                                    canRun = false;
+
+                                    points = new ArrayList<>();
+                                    for (Float point : values) {
+                                        average += point;
+                                        count++;
+                                        points.add(new PointValue(points.size(), point));
+
+                                    }
+
+
+                                    //In most cased you can call data model methods in builder-pattern-like manner.
+                                    Line line = new Line(points).setColor(Color.BLUE).setCubic(true);
+                                    List<Line> lines = new ArrayList<Line>();
+                                    lines.add(line);
+
+                                    LineChartData data = new LineChartData();
+                                    data.setLines(lines);
+
+
+
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            } else {
+                                SessionActivity.super.onBackPressed();
+                                getter.cancel(true);
+                                finish();
+                                canRun = false;
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
-                        }
-                    });
+                    }
+                });
 
-                    VolleyUtility.fixDoubleRequests(request);
+                VolleyUtility.fixDoubleRequests(request);
 
-                    queue.add(request);
-                }
+                queue.add(request);
 
+
+                timeCounter++;
+                final int MINUTES_IN_AN_HOUR = 60;
+                final int SECONDS_IN_A_MINUTE = 60;
+
+                final int seconds = timeCounter % SECONDS_IN_A_MINUTE;
+                int totalMinutes = timeCounter / SECONDS_IN_A_MINUTE;
+                final int minutes = totalMinutes % MINUTES_IN_AN_HOUR;
+
+                handler.post(new Runnable(){
+                    public void run() {
+                        time.setText(minutes + " minutes " + seconds + " secondes");
+                        total.setText(String.valueOf(Math.round(totalCounter[0] * 100.0) / 100.0));
+                         averageText.setText(String.valueOf(Math.round(totalCounter[0] / allData.size() * 100.0) / 100.0));
+                    }
+                });
 
                 try {
                     Thread.sleep(1000);
@@ -289,5 +286,6 @@ public class SessionActivity extends AppCompatActivity {
             return null;
         }
     }
+
 
 }

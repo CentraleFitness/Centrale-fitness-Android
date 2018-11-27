@@ -114,7 +114,7 @@ public class ChallengeFragment extends Fragment {
         textDesc.setText("Ceci qui permet de faire fonctionner une ampoule durant");
 
         int time = 60 * total / ampoulePerHour;
-        defiTime.setText(time + " minutes !");
+        defiTime.setText(time > 60 ? time / 60 > 24 ? time  /60 / 24 + " jours !" : time  /60 + " heures !" : time + " minutes !");
 
     }
 
@@ -149,7 +149,7 @@ public class ChallengeFragment extends Fragment {
         textDesc.setText("Ceci qui permet de faire fonctionner une télévision durant");
 
         int time = 60 * total / tvLEDPerHour;
-        defiTime.setText(time + " minutes !");
+        defiTime.setText(time > 60 ? time / 60 > 24 ? time  /60 / 24 + " jours !" : time  /60 + " heures !" : time + " minutes !");
 
     }
 
@@ -184,7 +184,7 @@ public class ChallengeFragment extends Fragment {
         textDesc.setText("Ceci qui permet de faire fonctionner une console de jeu durant");
 
         int time = 60 * total / consolePerHour;
-        defiTime.setText(time + " minutes !");
+        defiTime.setText(time > 60 ? time / 60 > 24 ? time  /60 / 24 + " jours !" : time  /60 + " heures !" : time + " minutes !");
 
 
     }
@@ -220,7 +220,7 @@ public class ChallengeFragment extends Fragment {
         textDesc.setText("Ceci qui permet de faire fonctionner une machine à laver durant");
 
         int time = 60 * total / machineALaverPerHour;
-        defiTime.setText(time + " minutes !");
+        defiTime.setText(time > 60 ? time / 60 > 24 ? time  /60 / 24 + " jours !" : time  /60 + " heures !" : time + " minutes !");
     }
 
     public void selectDetails(int index) {

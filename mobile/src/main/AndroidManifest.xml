@@ -58,7 +58,11 @@
         <activity
             android:name=".activities.SessionActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.profile.ProfileActivity"
             android:configChanges="orientation|keyboardHidden"
