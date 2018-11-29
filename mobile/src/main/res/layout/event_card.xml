@@ -14,21 +14,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="140dp"
         android:gravity="center"
         android:orientation="horizontal"
         >
 
-        <ImageView
-            android:transitionName="eventPictureAnimation"
-            android:id="@+id/eventPicture"
-            android:scaleType="centerInside"
-            android:layout_weight=".5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/default_event"
-            android:layout_margin="10dp"
-            />
 
         <LinearLayout
             android:layout_weight="2"
@@ -47,30 +37,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="base"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:transitionName="eventTitleTransition"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="17sp"/>
+                    android:layout_marginLeft="10dp"
+                    android:textSize="25sp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:textSize="12sp"
                     android:text="En cours"/>
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp">
+
+                    <ImageView
+                        android:padding="10dp"
+                        android:src="@drawable/success"
+                        android:id="@+id/registerPicture"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
-            <LinearLayout
+
+            <ImageView
+                android:transitionName="eventPictureAnimation"
+                android:id="@+id/eventPicture"
+                android:scaleType="centerInside"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:src="@drawable/success"
-                    android:layout_margin="20dp"
-                    android:id="@+id/registerPicture"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
+                android:src="@drawable/default_event"
+                android:layout_margin="10dp"
+                />
 
         </LinearLayout>
 

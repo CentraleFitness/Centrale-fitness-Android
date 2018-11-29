@@ -38,7 +38,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
 
 
-    LineChart chart;
     TextView title;
     TextView duration;
     TextView maxProd;
@@ -58,7 +57,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
         averageProd = findViewById(R.id.statsDetailsAverageProd);
         machineLogo = findViewById(R.id.statsDetailsMachineLogo);
 
-        chart = findViewById(R.id.statsChart);
 
 
 
@@ -100,41 +98,7 @@ public class SessionDetailsActivity extends AppCompatActivity {
                                     entries.add(new Entry(i, Float.valueOf(String.valueOf(value))));
                                 }
 
-                                LineDataSet dataSet = new LineDataSet(entries, "Production");
-                                LineData lineData = new LineData(dataSet);
-                                lineData.setValueTextSize(12);
 
-                                Description desc = new Description();
-                                desc.setText("");
-
-
-                                chart.setTouchEnabled(false);
-
-
-                                IAxisValueFormatter wattsFormatter = new WattsValueFormater();
-                                IAxisValueFormatter minFormatter = new MinValueFormater();
-
-                                XAxis xAxis = chart.getXAxis();
-                                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                                xAxis.setDrawGridLines(false);
-                                xAxis.setGranularity(1f); // only intervals of 1 day
-                                xAxis.setLabelCount(7);
-                                xAxis.setValueFormatter(minFormatter);
-
-
-
-                                YAxis leftAxis = chart.getAxisLeft();
-                                leftAxis.setLabelCount(8, false);
-                                leftAxis.setValueFormatter(wattsFormatter);
-                                leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-                                leftAxis.setSpaceTop(15f);
-                                leftAxis.setAxisMinimum(0f);
-
-
-
-
-                                chart.setDescription(desc);
-                                chart.setData(lineData);
 
                             }
                         } catch (JSONException e) {
@@ -156,36 +120,5 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
     }
 
-
-
-    public class WattsValueFormater implements IAxisValueFormatter
-    {
-
-        private DecimalFormat mFormat;
-
-        public WattsValueFormater() {
-            mFormat = new DecimalFormat("###,###,###,##0.0");
-        }
-
-        @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            return mFormat.format(value) + " Watts";
-        }
-    }
-
-    public class MinValueFormater implements IAxisValueFormatter
-    {
-
-        private DecimalFormat mFormat;
-
-        public MinValueFormater() {
-            mFormat = new DecimalFormat("###,###,###,##0.0");
-        }
-
-        @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            return mFormat.format(value) + " Min";
-        }
-    }
 
 }

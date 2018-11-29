@@ -37,7 +37,6 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
 
     private TextView title;
     private TextView duration;
-    private ImageView picture;
     private View cardView;
 
 
@@ -47,7 +46,6 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
         this.parent = parent;
 
         title = itemView.findViewById(R.id.cardStatDate);
-        picture = itemView.findViewById(R.id.statPicture);
         duration = itemView.findViewById(R.id.cardStatDuration);
         cardView = itemView.findViewById(R.id.cardViewStat);
 
@@ -98,7 +96,6 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
             Map<String, Integer> time = millisecondToMinuteSeconds(duration);
 
             title.setText(String.valueOf(date));
-            picture.setImageDrawable(context.getDrawable(StatsFragment.MachineTypes.BIKE.machineLogo));
 
             if (time.get("minutes") == 0){
                 StatCardHolder.this.duration.setText(time.get("seconds") + " secondes");
@@ -157,18 +154,15 @@ public class StatCardHolder extends RecyclerView.ViewHolder   {
                                 Map<String, Integer> time = millisecondToMinuteSeconds(duration);
 
 
-
-
                                 String type = response.getString("type");
 
 
                                 title.setText(String.valueOf(date));
-                                picture.setImageDrawable(context.getDrawable(StatsFragment.MachineTypes.BIKE.machineLogo));
 
                                 if (time.get("minutes") == 0){
                                     StatCardHolder.this.duration.setText(time.get("seconds") + " secondes");
                                 }else
-                                StatCardHolder.this.duration.setText(time.get("minutes") + "min " + time.get("seconds"));
+                                StatCardHolder.this.duration.setText(time.get("minutes") + " minutes");
 
                                 cardView.setOnClickListener(new View.OnClickListener() {
                                     @Override
