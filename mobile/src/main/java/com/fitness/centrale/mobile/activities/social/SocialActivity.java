@@ -153,7 +153,7 @@ public class SocialActivity extends AppCompatActivity {
         params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.TARGETID, Store.getStore().getUserObject().gymId);
         params.put(Constants.START, 0);
-        params.put(Constants.END, 10);
+        params.put(Constants.END, 100);
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_POSTS, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -176,6 +176,8 @@ public class SocialActivity extends AppCompatActivity {
                                     itemsIdsList.add(socialObject);
 
                                 }
+
+                                Collections.reverse(itemsIdsList);
 
                                 setAdapter();
 

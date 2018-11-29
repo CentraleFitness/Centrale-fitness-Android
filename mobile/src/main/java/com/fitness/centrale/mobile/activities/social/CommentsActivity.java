@@ -60,9 +60,14 @@ public class CommentsActivity extends AppCompatActivity {
                                 for (int i = 0; i < comments.length(); i++) {
                                     JSONObject object = comments.getJSONObject(i);
                                     BasicCommentObject commentObject = new BasicCommentObject();
+
+                                    commentObject.id = object.getString("comment id");
                                     commentObject.postContent = object.getString("comment content");
                                     commentObject.name = object.getString("name");
                                     commentObject.date = Long.parseLong(object.getString("date"));
+                                    commentObject.isCenter = object.getBoolean("is_center");
+                                    commentObject.isMine = object.getBoolean("is_mine");
+                                    commentObject.signaledByMe = object.getBoolean("reported_by_me");
                                     objects.add(commentObject);
                                     refresh.setRefreshing(false);
                                 }

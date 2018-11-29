@@ -1,13 +1,16 @@
 package com.fitness.centrale.mobile.activities.social;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,12 +20,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.misc.Prefs;
 import com.fitness.centrale.misc.store.Store;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.activities.EventDetailsActivity;
+import com.fitness.centrale.mobile.activities.profile.ProfileActivity;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import org.json.JSONArray;
@@ -41,6 +46,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     private Context context;
     private AppCompatActivity parent;
 
+    private View itemView;
 
     //POST
     private LinearLayout lyt;
@@ -69,6 +75,8 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         this.context = context;
         this.parent = parent;
 
+        this.itemView = itemView;
+
 
         postContent = itemView.findViewById(R.id.postContent);
         postDate = itemView.findViewById(R.id.postDate);
@@ -91,6 +99,8 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
 
     public void setContent(final Date date, final String content, String name, String isCenter){
+
+
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy hh:mm");
         String dateStr = format.format(date);
@@ -179,13 +189,6 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         if (commentBtn != null)
             this.refreshComs(myObject);
 
-        if (Store.getStore().getDemoObject().demo){
-
-            posterName.setText(myObject.post.poster);
-            setContent(myObject.post.postDate, myObject.post.content, "toto", "true");
-
-            return;
-        }
 
         if (likeBtn != null)
             likeBtn.setOnClickListener(new View.OnClickListener() {
@@ -280,12 +283,97 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
                                     return;
                                 } else if (myObject.type == BasicSocialObject.PostType.PHOTO) {
+                                    System.out.println();
                                     setContentPicture(response.getString("post picture"),
                                             response.getString("post title"),
                                             response.getString("post content"));
                                     return;
                                 }
 
+                                final boolean reportedByMe = response.getBoolean("reported_by_me");
+                                final boolean isMine = response.getBoolean("is_mine");
+                                final boolean isCenter = response.getBoolean("is_center");
+
+                                lyt.setOnLongClickListener(new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View view) {
+
+                                        if (reportedByMe || isMine || isCenter) {
+
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+                                            builder.setTitle("Erreur")
+                                                    .setMessage(isMine ? "Vous ne pouvez pas signaler votre propre post" : reportedByMe ? "Vous avez déjà signalé ce post": isCenter ? "Vous ne pouvez pas signaler le post de votre salle de sport" : "")
+                                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                        }
+                                                    });
+                                            AlertDialog dialog = builder.create();
+                                            dialog.show();
+
+                                            return false;
+                                        }
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+                                        builder.setTitle("Signaler")
+                                                .setMessage("Voulez vous signaler ce post ?")
+                                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+                                                        final Map<String, Object> params = new HashMap<>();
+                                                        params.put(Constants.TOKEN, Prefs.getPrefs(context).getToken());
+                                                        params.put(Constants.POSTID, myObject.id);
+
+                                                        JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + "/post-report", new JSONObject(params),
+                                                                new Response.Listener<JSONObject>() {
+                                                                    @Override
+                                                                    public void onResponse(JSONObject response) {
+                                                                        try {
+                                                                            System.out.println("Response code : " + response.getString("code"));
+                                                                            if (response.getString("code").equals("001")){
+
+                                                                                AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+                                                                                builder.setTitle("Post signalé !")
+                                                                                        .setMessage("Merci de nous aider à rendre Centrale Fitness plus convivial !")
+                                                                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                                                            @Override
+                                                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                                                ((SocialActivity)parent).refreshPosts();
+                                                                                                dialog.dismiss();
+                                                                                            }
+                                                                                        });
+                                                                                AlertDialog dialog = builder.create();
+                                                                                dialog.show();
+
+                                                                            }
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    }
+                                                                },
+                                                                new Response.ErrorListener() {
+                                                                    @Override
+                                                                    public void onErrorResponse(VolleyError error) {
+
+                                                                    }
+                                                                });
+                                                        queue.add(request);
+                                                    }
+                                                })
+                                        .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            }
+                                        });
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                        return false;
+                                    }
+                                });
                                 setContent(date, content, response.getString("name"), response.getString("isCenter"));
                             }
                         } catch (JSONException e) {
@@ -304,14 +392,31 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     }
 
     public void setContentEvent(String picture, String title, String desc) {
+        if (eventTitle == null || eventDesc == null || eventPicture == null) {
+            ViewGroup.LayoutParams params = lyt.getLayoutParams();
+// Changes the height and width to the specified *pixels*
+            params.height = 0;
+            params.width = 0;
+            lyt.setLayoutParams(params);
+            return;
+        }
         new B64ToImageTask(picture, eventPicture).execute();
         eventTitle.setText(title);
         eventDesc.setText(desc);
     }
 
     public void setContentPicture(String picture, String title, String desc) {
+        if (photoTitle == null || photoDesc == null || photo == null) {
+            ViewGroup.LayoutParams params = lyt.getLayoutParams();
+// Changes the height and width to the specified *pixels*
+            params.height = 0;
+            params.width = 0;
+            lyt.setLayoutParams(params);
+            return;
+        }
         new B64ToImageTask(picture, photo).execute();
-        photoTitle.setText(title);
+        if (photoTitle != null)
+            photoTitle.setText(title);
         photoDesc.setText(desc);
     }
 

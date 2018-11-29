@@ -57,7 +57,7 @@ public class SocialCardsAdapter extends RecyclerView.Adapter<SocialCardHolder> {
                 layout = R.layout.social_photo_card;
                 break;
             default:
-                layout = R.layout.social_card;
+                return null;
         }
 
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent,false);
@@ -70,6 +70,11 @@ public class SocialCardsAdapter extends RecyclerView.Adapter<SocialCardHolder> {
     public void onBindViewHolder(@NonNull SocialCardHolder holder, int position) {
         BasicSocialObject myObject = socialIds.get(position);
         holder.bind(myObject);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override

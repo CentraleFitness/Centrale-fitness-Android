@@ -47,6 +47,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -311,7 +312,7 @@ public class ProfileActivity extends AppCompatActivity {
         params.put(Constants.TOKEN, Prefs.getPrefs(this).getToken());
         params.put(Constants.TARGETID, Store.getStore().getUserObject().gymId);
         params.put(Constants.START, 0);
-        params.put(Constants.END, 5);
+        params.put(Constants.END, 100);
 
         //TODO Remplacer par la récupération de la dernière activité
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_POSTS, new JSONObject(params),
@@ -335,7 +336,12 @@ public class ProfileActivity extends AppCompatActivity {
                                     if (type == BasicSocialObject.PostType.PUBLICATION)
                                         itemsIdsList.add(socialObject);
 
+                                    if (itemsIdsList.size() == 3)
+                                        break;
+
                                 }
+
+                                Collections.reverse(itemsIdsList);
 
                                 setAdapter();
 
