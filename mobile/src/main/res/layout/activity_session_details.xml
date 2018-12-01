@@ -5,75 +5,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/grey"
+    android:background="@color/white"
     tools:context=".activities.EventDetailsActivity">
 
 
     <LinearLayout
-
         android:transitionName="statsOpening"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/loginroundbackground"
-        android:layout_margin="20dp"
+        android:background="#F9F1F1"
         android:orientation="vertical"
         >
 
         <TextView
+
             android:id="@+id/statsDetailsTitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="Session du 20/03/2018"
-            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_weight=".8"
             android:gravity="center"
-            android:textSize="23dp"/>
+            android:textSize="27sp"/>
 
-        <ImageView
-            android:id="@+id/statsDetailsMachineLogo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:src="@drawable/bikelogo"
-            android:layout_weight="1"/>
         <TextView
+            android:layout_marginTop="20dp"
+
             android:id="@+id/statsDetailsDuration"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:paddingLeft="20dp"
             android:gravity="center_vertical"
             android:text="Durée : 120minutes"
             android:layout_weight=".5"/>
 
         <TextView
+            android:layout_marginTop="20dp"
+
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:paddingLeft="20dp"
+
             android:id="@+id/statsDetailsMaxProd"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center_vertical"
-
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:elevation="4dp"
             android:layout_weight=".5"
             android:text="Production Maximale : 10 Watt"/>
 
         <TextView
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:paddingLeft="20dp"
+
             android:id="@+id/statsDetailsAverageProd"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center_vertical"
-
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:layout_marginTop="20dp"
             android:layout_weight=".5"
+            android:layout_marginBottom="20dp"
             android:text="Production moyenne : 5 Watt"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".5"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="Vision globale"/>
-
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/statsChart"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"/>
 
 
 

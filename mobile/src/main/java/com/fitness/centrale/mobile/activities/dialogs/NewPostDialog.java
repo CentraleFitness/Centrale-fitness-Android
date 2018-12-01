@@ -86,6 +86,7 @@ public class NewPostDialog extends DialogFragment {
                                         System.out.println("Response code : " + response.getString("code"));
                                         if (response.getString("code").equals("001")){
                                             getDialog().dismiss();
+                                            activity.refreshPosts();
 
                                         }
                                     } catch (JSONException e) {

@@ -42,7 +42,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
     TextView duration;
     TextView maxProd;
     TextView averageProd;
-    ImageView machineLogo;
 
 
 
@@ -55,7 +54,6 @@ public class SessionDetailsActivity extends AppCompatActivity {
         duration = findViewById(R.id.statsDetailsDuration);
         maxProd = findViewById(R.id.statsDetailsMaxProd);
         averageProd = findViewById(R.id.statsDetailsAverageProd);
-        machineLogo = findViewById(R.id.statsDetailsMachineLogo);
 
 
 
@@ -66,13 +64,12 @@ public class SessionDetailsActivity extends AppCompatActivity {
         long duration = getIntent().getLongExtra("duration", 0);
 
         title.setText("Session du " + date);
-        machineLogo.setImageDrawable(getDrawable(type.machineLogo));
 
         Map<String, Integer> time = StatCardHolder.millisecondToMinuteSeconds(duration);
         if (time.get("minutes") == 0) {
             this.duration.setText("Durée : " + time.get("seconds") + " secondes");
         }else{
-            this.duration.setText("Durée : " + time.get("minutes") + "min" + time.get("seconds"));
+            this.duration.setText("Durée : " + time.get("minutes") + " minutes");
         }
 
 
@@ -91,12 +88,14 @@ public class SessionDetailsActivity extends AppCompatActivity {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
 
-                                List<Entry> entries = new ArrayList<>();
+                                List<Double> entries = new ArrayList<>();
 
                                 for (int i = 0; i < response.getJSONArray("production").length(); i++) {
                                     Double value = response.getJSONArray("production").getDouble(i);
-                                    entries.add(new Entry(i, Float.valueOf(String.valueOf(value))));
+                                    entries.add(value);
                                 }
+
+                                System.out.println();
 
 
 

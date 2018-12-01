@@ -54,6 +54,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     private TextView postDate;
     private TextView posterName;
     private LinearLayout likeBtn;
+    private ImageView likePicture;
     private LinearLayout commentBtn;
     private TextView likeNumber;
     private TextView commentTxt;
@@ -83,6 +84,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
         posterName = itemView.findViewById(R.id.posterName);
         lyt = itemView.findViewById(R.id.postMainLayout);
         likeBtn = itemView.findViewById(R.id.LikeBtn);
+        likePicture = itemView.findViewById(R.id.likePicture);
         commentBtn = itemView.findViewById(R.id.CommentBtn);
         commentTxt = itemView.findViewById(R.id.CommentBtnTxt);
         likeNumber = itemView.findViewById(R.id.likeNumber);
@@ -130,6 +132,12 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                         try {
                             if (response.getString("code").equals("001")){
                                 int likes = response.getInt("likes");
+                                boolean liked = response.getBoolean("liked");
+                                if (liked) {
+                                    likePicture.setImageDrawable(parent.getDrawable(R.drawable.like_button));
+                                } else {
+                                    likePicture.setImageDrawable(parent.getDrawable(R.drawable.unliked_likebtn));
+                                }
                                 likeNumber.setText(String.valueOf(likes));
                             }
                         } catch (JSONException e) {
@@ -271,7 +279,7 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                                     intent.putExtra("id", response.getString("post event_id"));
                                     intent.putExtra("startDate", startDateStr);
                                     intent.putExtra("endDate", endDateStr);
-                                    intent.putExtra("registered", response.getString("isreg"));
+                                    intent.putExtra("registered", response.getBoolean("isreg"));
                                     intent.putExtra("description", desc);
 
                                     lyt.setOnClickListener(new View.OnClickListener() {
