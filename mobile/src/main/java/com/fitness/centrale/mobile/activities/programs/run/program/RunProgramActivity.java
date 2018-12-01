@@ -1,8 +1,10 @@
 package com.fitness.centrale.mobile.activities.programs.run.program;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fitness.centrale.misc.AlertDialogBuilder;
 import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.mobile.R;
+import com.fitness.centrale.mobile.activities.NFCScanActivity;
+import com.fitness.centrale.mobile.activities.profile.ProfileActivity;
 import com.fitness.centrale.mobile.activities.programs.BasicActivityObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,6 +34,7 @@ public class RunProgramActivity extends AppCompatActivity {
     TextView activityDuration;
     LinearLayout noMoreActivityLyt;
     LinearLayout nextActivityLyt;
+    LinearLayout quitButton;
 
     int minutes;
     int seconds;
@@ -38,6 +44,8 @@ public class RunProgramActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
     }
+
+    final ArrayList<BasicActivityObject.MinimalActivityObject> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +66,6 @@ public class RunProgramActivity extends AppCompatActivity {
         ArrayList<String> arrayJson = getIntent().getStringArrayListExtra("array");
 
 
-
-        final ArrayList<BasicActivityObject.MinimalActivityObject> list = new ArrayList<>();
-
         Gson gson = new GsonBuilder().create();
 
         for (String tmp : arrayJson){
@@ -74,7 +79,7 @@ public class RunProgramActivity extends AppCompatActivity {
             return;
         }
 
-        BasicActivityObject.MinimalActivityObject obj = list.get(0);
+        final BasicActivityObject.MinimalActivityObject obj = list.get(0);
         if (list.size() > 1) {
             nextActivityLyt.setVisibility(View.VISIBLE);
             BasicActivityObject.MinimalActivityObject nextObj = list.get(1);
@@ -106,7 +111,6 @@ public class RunProgramActivity extends AppCompatActivity {
 
             double time = initialTime / 60;
             double seconds = (Math.floor((time % 1) * 10) / 10) * 60;
-            System.out.println(time);
 
             minutes = (int) Math.floor(time);
             this.seconds = (int) seconds;
@@ -121,38 +125,91 @@ public class RunProgramActivity extends AppCompatActivity {
             counter.setText(String.valueOf(obj.duration) + " secondes");
         }
 
-        this.skipText.setText("Démarrer");
-
-        this.skipBtn.setOnClickListener(new View.OnClickListener() {
+        quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                decounter = new Decounter(RunProgramActivity.this, list);
-                decounter.execute();
-                skipText.setText("Passer");
-                skipBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RunProgramActivity.this);
+                builder.setTitle("Arrêter le programme personnalisé ?")
+                        .setMessage("Si vous quittez le programme maintenant, vous devrez le refaire en entier. Confirmer ?")
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                RunProgramActivity.super.onBackPressed();
+                                finish();
+                            }
+                        })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        decounter.cancel(true);
-
-                        list.remove(0);
-                        ArrayList<String> jsons = new ArrayList<>();
-
-                        for (BasicActivityObject.MinimalActivityObject obj : list){
-                            jsons.add(new GsonBuilder().create().toJson(obj));
-                        }
-
-                        Intent intent = new Intent(RunProgramActivity.this, RunProgramActivity.class);
-                        intent.putStringArrayListExtra("array", jsons);
-                        startActivity(intent);
-                        finish();
                     }
                 });
-
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+
+        if (obj.isModule) {
+            this.skipText.setText("Appairage");
+            this.skipBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(RunProgramActivity.this, NFCScanActivity.class);
+                    intent.putExtra("fromProgram", true);
+                    intent.putExtra("duration", obj.duration);
+                    startActivityForResult(intent, 1);
+                }
+            });
+        }else {
+
+            this.skipText.setText("Démarrer");
+
+            this.skipBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    decounter = new Decounter(RunProgramActivity.this, list);
+                    decounter.execute();
+                    skipText.setText("Passer");
+                    skipBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            decounter.cancel(true);
+
+                            list.remove(0);
+                            ArrayList<String> jsons = new ArrayList<>();
+
+                            for (BasicActivityObject.MinimalActivityObject obj : list) {
+                                jsons.add(new GsonBuilder().create().toJson(obj));
+                            }
+
+                            Intent intent = new Intent(RunProgramActivity.this, RunProgramActivity.class);
+                            intent.putStringArrayListExtra("array", jsons);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+
+                }
+            });
+
+        }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        list.remove(0);
+        ArrayList<String> jsons = new ArrayList<>();
+
+        for (BasicActivityObject.MinimalActivityObject obj : list){
+            jsons.add(new GsonBuilder().create().toJson(obj));
+        }
+
+        Intent intent = new Intent(RunProgramActivity.this, RunProgramActivity.class);
+        intent.putStringArrayListExtra("array", jsons);
+        startActivity(intent);
+        finish();
+    }
 
     class Decounter extends AsyncTask{
 

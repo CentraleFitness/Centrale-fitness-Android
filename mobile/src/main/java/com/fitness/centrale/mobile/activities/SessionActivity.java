@@ -4,12 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -19,30 +18,29 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fitness.centrale.misc.Constants;
 import com.fitness.centrale.misc.Prefs;
-import com.fitness.centrale.misc.store.DemoObject;
-import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.misc.VolleyUtility;
+import com.fitness.centrale.misc.store.DemoObject;
 import com.fitness.centrale.misc.store.Store;
+import com.fitness.centrale.mobile.R;
+import com.fitness.centrale.mobile.activities.programs.BasicActivityObject;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.view.LineChartView;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class SessionActivity extends AppCompatActivity {
@@ -52,10 +50,8 @@ public class SessionActivity extends AppCompatActivity {
     CustomGauge gauge;
     TextView sessionText;
     int maxGaugeValue = 500;
-    LineChartView chart;
     List<PointValue> points = new ArrayList<PointValue>();
     LinkedList<Float> values = new LinkedList<>();
-    LinkedList<Float> totalValues = new LinkedList<>();
     ProductionGetter getter;
     Float average = 0f;
     int count = 0;
@@ -130,11 +126,16 @@ public class SessionActivity extends AppCompatActivity {
 
     }
 
+    int duration;
+    boolean fromProgram;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
+        fromProgram = getIntent().getBooleanExtra("fromProgram", false);
+        duration = getIntent().getIntExtra("duration", 0);
 
         gauge = findViewById(R.id.gauge1);
         gauge.setEndValue(maxGaugeValue);
@@ -151,9 +152,12 @@ public class SessionActivity extends AppCompatActivity {
             }
         });
 
-        getter= new ProductionGetter();
-        getter.execute();
-
+        if (!fromProgram) {
+            getter = new ProductionGetter();
+            getter.execute();
+        } else {
+            new Decounter(this).execute();
+        }
 
     }
 
@@ -275,11 +279,165 @@ public class SessionActivity extends AppCompatActivity {
                          averageText.setText(String.valueOf(Math.round(totalCounter[0] / allData.size() * 100.0) / 100.0));
                     }
                 });
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return null;
+        }
+    }
+
+
+    class Decounter extends AsyncTask {
+
+        final AppCompatActivity appCompatActivity;
+        Handler handler = new Handler();
+
+        public Decounter(AppCompatActivity appCompatActivity){
+            this.appCompatActivity = appCompatActivity;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+
+            double initialTime = duration;
+
+            double time = initialTime / 60;
+            double secondsdbl = (Math.floor((time % 1) * 10) / 10) * 60;
+
+            int minutes = (int) Math.floor(time);
+            int seconds = (int) secondsdbl;
+
+            int timeCounter = 0;
+            final double[] totalCounter = {0};
+            final List<Double> allData = new ArrayList<>();
+
+
+            while (canRun){
+
+
+                RequestQueue queue = Volley.newRequestQueue(getApplication());
+                Map<String, String> params = new HashMap<>();
+                params.put(Constants.TOKEN, Prefs.getPrefs(SessionActivity.this).getToken());
+                JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_INSTANT_PRODUCTION, new JSONObject(params), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("code").equals("001")) {
+                                Type listType = new TypeToken<List<String>>() {
+                                }.getType();
+                                List<String> yourList = new Gson().fromJson(response.getString("production"), listType);
+
+
+                                if (yourList.size() > 0) {
+
+                                    final double value = Double.parseDouble(yourList.get(yourList.size() - 1));
+
+                                    totalCounter[0] += value;
+                                    allData.add(value);
+
+
+                                    final int convertedValue = (int) (value * 100);
+                                    if (maxGaugeValue < convertedValue) {
+                                        maxGaugeValue = convertedValue;
+                                        gauge.setEndValue(maxGaugeValue);
+                                    }
+
+                                    handler.post(new Runnable(){
+                                        public void run() {
+                                            sessionText.setText(String.valueOf(value));
+                                            gauge.setValue(convertedValue);
+                                        }
+                                    });
+
+                                    for (String tmp : yourList) {
+
+                                        Float number = Float.parseFloat(tmp);
+
+                                        values.add(number);
+                                        if (values.size() > 15) {
+                                            values.removeFirst();
+                                        }
+
+                                    }
+
+                                    points = new ArrayList<>();
+                                    for (Float point : values) {
+                                        average += point;
+                                        count++;
+                                        points.add(new PointValue(points.size(), point));
+
+                                    }
+
+
+                                    //In most cased you can call data model methods in builder-pattern-like manner.
+                                    Line line = new Line(points).setColor(Color.BLUE).setCubic(true);
+                                    List<Line> lines = new ArrayList<Line>();
+                                    lines.add(line);
+
+                                    LineChartData data = new LineChartData();
+                                    data.setLines(lines);
+
+
+
+                                }
+                            } else {
+                                SessionActivity.super.onBackPressed();
+                                getter.cancel(true);
+                                finish();
+                                canRun = false;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+                VolleyUtility.fixDoubleRequests(request);
+
+                queue.add(request);
+
+                seconds--;
+                if (seconds == -1){
+                    minutes--;
+
+
+                    if (minutes == -1 && seconds == -1){
+
+                        ArrayList<String> jsons = new ArrayList<>();
+
+                        finish();
+                        return null;
+                    }
+                    seconds = 59;
+                }
+
+                if (minutes == 0){
+                    SessionActivity.this.time.setText(String.valueOf(seconds) + " secondes");
+                }else{
+                    SessionActivity.this.time.setText(String.valueOf(minutes) + ":" + String.valueOf(seconds));
+                }
+
+                handler.post(new Runnable(){
+                    public void run() {
+                        total.setText(String.valueOf(Math.round(totalCounter[0] * 100.0) / 100.0));
+                        averageText.setText(String.valueOf(Math.round(totalCounter[0] / allData.size() * 100.0) / 100.0));
+                    }
+                });
 
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    return null;
                 }
             }
 

@@ -48,29 +48,6 @@ public class ProgramsFragment extends Fragment {
 
 
 
-    private void setLeftTabSelected(){
-        setRightTabUnselected();
-        leftTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_registered_tab_selected));
-        leftTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-
-    }
-
-    private void setLeftTabUnselected(){
-        leftTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_registered_tab_unselected));
-        leftTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.ourRed));
-    }
-
-    private void setRightTabSelected(){
-        setLeftTabUnselected();
-        rightTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_all_tab_selected));
-        rightTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-    }
-
-    private void setRightTabUnselected(){
-        rightTab.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_all_tab_unselected));
-        rightTabTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.ourRed));
-    }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -87,19 +64,6 @@ public class ProgramsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
-        leftTab = view.findViewById(R.id.EventRegisteredTab);
-        leftTabTitle = view.findViewById(R.id.event_registered_tab_text);
-        rightTab = view.findViewById(R.id.EventAllTab);
-        rightTabTitle = view.findViewById(R.id.event_all_tab_text);
-
-        if (position == 0){
-            setLeftTabSelected();
-        }else{
-            setRightTabSelected();
-        }
-
-
         mpager = (ViewPager) view.findViewById(R.id.programPager);
 
         adapter = new ProgramsFragment.ScreenSlidePagerAdapter(getChildFragmentManager());
@@ -109,30 +73,7 @@ public class ProgramsFragment extends Fragment {
         System.out.println();
 
 
-        //mpager.setCurrentItem(0);
-
-
-
-        leftTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setLeftTabSelected();
-                onClickOnButton(0);
-            }
-        });
-
-        rightTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setRightTabSelected();
-                onClickOnButton(1);
-            }
-        });
-
-
-
-
-
+        mpager.setCurrentItem(1);
     }
 
 
@@ -149,6 +90,8 @@ public class ProgramsFragment extends Fragment {
 
     public void onClickOnButton(int pos) {
         position = pos;
+        if (pos == 0)
+            return;
         mpager.setCurrentItem(pos, false);
 
     }

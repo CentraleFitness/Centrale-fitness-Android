@@ -79,7 +79,8 @@ public class ProgramDetailsActivity extends AppCompatActivity {
                             String name = step.getString("name");
                             String time = step.getString("time");
                             String icon = step.getString("icon");
-                            itemsIdsList.add(new BasicActivityObject("1", name, getApplicationContext(), Integer.parseInt(time), icon));
+                            boolean isModule = step.getBoolean("is_module");
+                            itemsIdsList.add(new BasicActivityObject("1", name, getApplicationContext(), Integer.parseInt(time), icon, isModule));
                         }
                         recyclerView.setAdapter(new ProgramActivityCardsAdapter(itemsIdsList, getApplicationContext(), ProgramDetailsActivity.this));
                     }

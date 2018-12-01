@@ -225,6 +225,8 @@ public class NFCScanActivity extends Activity  {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
                                 Intent intent = new Intent(NFCScanActivity.this, SessionActivity.class);
+                                intent.putExtra("fromProgram", fromProgram);
+                                intent.putExtra("duration", duration);
                                 startActivity(intent);
                                 finish();
                             }else{
@@ -298,11 +300,16 @@ public class NFCScanActivity extends Activity  {
     NfcAdapter nfcAdapter;
     PendingIntent pendingIntent;
 
+    boolean fromProgram;
+    int duration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon_scan);
+
+        fromProgram = getIntent().getBooleanExtra("fromProgram", false);
+        duration = getIntent().getIntExtra("duration", 0);
 
         if (Store.getStore().getDemoObject().demo){
             AlertDialogBuilder.createAlertDialog(this, "Apparage auprès du module",
@@ -318,8 +325,6 @@ public class NFCScanActivity extends Activity  {
                     }).show();
             return;
         }
-
-        pair("5bfdc01a10dc321059fad5e6");
 
         text = findViewById(R.id.pairDesc);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
