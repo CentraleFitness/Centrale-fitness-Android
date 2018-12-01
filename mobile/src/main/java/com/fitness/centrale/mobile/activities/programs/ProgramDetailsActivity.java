@@ -58,11 +58,6 @@ public class ProgramDetailsActivity extends AppCompatActivity {
         startBtn = findViewById(R.id.startProgramButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         itemsIdsList = new ArrayList<>();
-        /*
-        itemsIdsList.add(new BasicActivityObject("1", "Heliptique", getApplicationContext(), 600));
-        itemsIdsList.add(new BasicActivityObject("1", "Repos", getApplicationContext(), 30));
-        itemsIdsList.add(new BasicActivityObject("1", "Heliptique", getApplicationContext(), 600));
-        itemsIdsList.add(new BasicActivityObject("1", "Repos", getApplicationContext(), 30));*/
 
         RequestQueue queue = Volley.newRequestQueue(this);
 

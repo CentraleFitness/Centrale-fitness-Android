@@ -16,11 +16,13 @@ public class BasicActivityObject  {
         public String id;
         public String name;
         public int duration;
+        public String logo;
 
-        public MinimalActivityObject(String id, String name, int duration){
+        public MinimalActivityObject(String id, String name, int duration, String logo){
             this.id = id;
             this.name = name;
             this.duration = duration;
+            this.logo = logo;
         }
     }
 
@@ -34,7 +36,7 @@ public class BasicActivityObject  {
 
     public String toJson(){
 
-        return new GsonBuilder().create().toJson(new MinimalActivityObject(this.id, this.name, this.duration));
+        return new GsonBuilder().create().toJson(new MinimalActivityObject(this.id, this.name, this.duration, this.iconB64));
 
     }
 

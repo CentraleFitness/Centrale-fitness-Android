@@ -18,6 +18,7 @@
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:textColor="@color/black"
         android:text="Félicitation, votre programme est terminé !"
         android:layout_weight=".5"
         android:textSize="30sp"
@@ -32,16 +33,16 @@
 
         <LinearLayout
             android:id="@+id/submitButton"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:background="@color/ourRed"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:background="@color/ourViolet"
             android:layout_gravity="center"
             >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="SUPER !"
+                android:text="Super !"
                 android:textColor="@color/white"
                 android:textSize="30sp"/>
         </LinearLayout>

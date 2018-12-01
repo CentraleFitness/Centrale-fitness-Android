@@ -1,6 +1,7 @@
 package com.fitness.centrale.mobile.activities.programs.run.program;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fitness.centrale.misc.ImageUtility;
 import com.fitness.centrale.mobile.R;
 import com.fitness.centrale.mobile.activities.programs.BasicActivityObject;
 import com.google.gson.Gson;
@@ -23,6 +25,10 @@ public class RunProgramActivity extends AppCompatActivity {
     LinearLayout skipBtn;
     ImageView logo;
     TextView skipText;
+    TextView activityName;
+    TextView activityDuration;
+    LinearLayout noMoreActivityLyt;
+    LinearLayout nextActivityLyt;
 
     int minutes;
     int seconds;
@@ -44,6 +50,10 @@ public class RunProgramActivity extends AppCompatActivity {
         skipBtn = findViewById(R.id.skipButton);
         logo = findViewById(R.id.activityLogo);
         skipText = findViewById(R.id.skipText);
+        activityName = findViewById(R.id.activityName);
+        activityDuration = findViewById(R.id.activityDuration);
+        noMoreActivityLyt = findViewById(R.id.noMoreActivityLyt);
+        nextActivityLyt = findViewById(R.id.nextActivityLyt);
 
         ArrayList<String> arrayJson = getIntent().getStringArrayListExtra("array");
 
@@ -65,6 +75,28 @@ public class RunProgramActivity extends AppCompatActivity {
         }
 
         BasicActivityObject.MinimalActivityObject obj = list.get(0);
+        if (list.size() > 1) {
+            nextActivityLyt.setVisibility(View.VISIBLE);
+            BasicActivityObject.MinimalActivityObject nextObj = list.get(1);
+            new B64ToImageTask(nextObj.logo, logo).execute();
+            this.activityName.setText(nextObj.name);
+            if (nextObj.duration > 60){
+
+                double initialTime = nextObj.duration;
+
+                double time = initialTime / 60;
+                double seconds = (Math.floor((time % 1) * 10) / 10) * 60;
+
+                int finalMinutes = (int) Math.floor(time);
+
+                activityDuration.setText(String.valueOf(finalMinutes) + " minutes " + ((int) seconds == 0 ? "" : String.valueOf((int)seconds)));
+
+            }else{
+                activityDuration.setText(String.valueOf(nextObj.duration) + " secondes");
+            }
+        } else {
+            noMoreActivityLyt.setVisibility(View.VISIBLE);
+        }
 
         title.setText(obj.name);
 
@@ -87,11 +119,6 @@ public class RunProgramActivity extends AppCompatActivity {
             this.seconds = obj.duration;
 
             counter.setText(String.valueOf(obj.duration) + " secondes");
-        }
-
-
-        if (obj.name.equals("Repos")){
-            this.logo.setImageDrawable(getDrawable(R.drawable.rest_logo));
         }
 
         this.skipText.setText("Démarrer");
@@ -124,8 +151,6 @@ public class RunProgramActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
 
@@ -186,6 +211,39 @@ public class RunProgramActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+
+
+    private class B64ToImageTask extends AsyncTask{
+
+        final String pictureB64;
+        final ImageView imageView;
+
+        public B64ToImageTask(final String pictureB64, final ImageView imageView){
+            this.pictureB64 = pictureB64;
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            String []splitted = pictureB64.split(",");
+            if (splitted.length == 2){
+                return ImageUtility.base64ToImage(splitted[1]);
+            }
+
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+            if (result != null) {
+                logo.setImageBitmap((Bitmap) result);
+            }
+        }
+
     }
 
 }

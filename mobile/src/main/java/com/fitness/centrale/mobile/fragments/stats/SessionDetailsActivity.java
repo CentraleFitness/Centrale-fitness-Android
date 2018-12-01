@@ -90,12 +90,16 @@ public class SessionDetailsActivity extends AppCompatActivity {
 
                                 List<Double> entries = new ArrayList<>();
 
+                                double total = 0;
                                 for (int i = 0; i < response.getJSONArray("production").length(); i++) {
                                     Double value = response.getJSONArray("production").getDouble(i);
                                     entries.add(value);
+                                    total += value;
                                 }
 
-                                System.out.println();
+                                double average = total / entries.size();
+                                maxProd.setText("Production Totale: " + Math.round(total * 100.0) / 100.0 + " Watts");
+                                averageProd.setText("Production Moyenne: " + Math.round(average * 100.0) / 100.0 + " Watts");
 
 
 

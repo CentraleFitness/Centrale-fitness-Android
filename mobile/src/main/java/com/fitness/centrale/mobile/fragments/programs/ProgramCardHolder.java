@@ -37,7 +37,7 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
 
     private CardView program;
     private TextView title;
-    private ImageView eventPicture;
+    private ImageView programPicture;
 
     public ProgramCardHolder(View itemView, Context context, Activity parent) {
         super(itemView);
@@ -46,7 +46,7 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
 
         program = itemView.findViewById(R.id.cardViewProgram);
         title = itemView.findViewById(R.id.cardProgramTitle);
-        //eventPicture = itemView.findViewById(R.id.programPicture);
+        programPicture = itemView.findViewById(R.id.programPicture);
     }
 
 
@@ -70,6 +70,10 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
                     System.out.println(response.getString("code"));
                     if (response.getString("code").equals("001")){
                         final int duration = Integer.parseInt(response.getString("duration"));
+                        final String logo = response.getString("logo");
+                        if (!logo.equals("")) {
+                            new B64ToImageTask(logo, programPicture).execute();
+                        }
                         program.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -121,17 +125,14 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
             if (splitted.length == 2){
                 return ImageUtility.base64ToImage(splitted[1]);
             }
-
-
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Object result) {
             if (result != null) {
-                eventPicture.setImageBitmap((Bitmap) result);
-                //eventPictureBitmap = (Bitmap) result;
+                programPicture.setImageBitmap((Bitmap) result);
+                //programPictureBitMap = (Bitmap) result;
             }
         }
 

@@ -4,28 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6F1F1"
     tools:context=".activities.programs.run.program.RunProgramActivity"
     android:orientation="vertical">
 
 
-
-
-    <ImageView
-        android:id="@+id/activityLogo"
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/bikelogo"
-        />
-
     <TextView
         android:id="@+id/activityTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="27sp"
-        android:text="Activity"
-        android:gravity="center"/>
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:text="Abdominaux"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@color/white"
+        android:elevation="4dp"/>
+
 
     <TextView
         android:id="@+id/timeCounter"
@@ -33,9 +29,114 @@
         android:layout_height="0dp"
         android:layout_weight=".5"
         android:text="10:00"
+        android:textColor="@color/black"
         android:gravity="center"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:elevation="4dp"
         android:textSize="40sp"/>
 
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/nextActivityLyt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prochaine activité"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_height=".5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/grey"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/activityLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <TextView
+                        android:id="@+id/activityName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_weight="1.6"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/activityDuration"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_weight="2"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/noMoreActivityLyt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Vous avez bientot fini !"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -45,12 +146,13 @@
 
         <LinearLayout
             android:id="@+id/skipButton"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:layout_gravity="center"
-            android:background="@color/ourRed"
-
+            android:layout_margin="20dp"
+            android:background="@color/ourViolet"
             >
             <TextView
                 android:id="@+id/skipText"
@@ -58,6 +160,25 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="PASSER"
+                android:textColor="@color/white"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/quitButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            android:background="@color/ourViolet"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Quitter"
                 android:textColor="@color/white"
                 android:textSize="30sp"/>
         </LinearLayout>

@@ -40,10 +40,6 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
 
         this.name.setText(myObject.name);
 
-        if (myObject.name.equals("Repos")){
-            this.logo.setImageDrawable(parent.getDrawable(R.drawable.rest_logo));
-        }
-
         new B64ToImageTask(myObject.iconB64, logo).execute();
 
 
@@ -53,7 +49,6 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
 
             double time = initialTime / 60;
             double seconds = (Math.floor((time % 1) * 10) / 10) * 60;
-            System.out.println(time);
 
             int finalMinutes = (int) Math.floor(time);
 
@@ -62,11 +57,6 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
         }else{
             duration.setText(String.valueOf(myObject.duration) + " secondes");
         }
-
-
-
-
-
     }
 
 
@@ -85,7 +75,6 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
         protected Object doInBackground(Object[] objects) {
             String []splitted = pictureB64.split(",");
             if (splitted.length == 2){
-                System.out.println();
                 return ImageUtility.base64ToImage(splitted[1]);
             }
 
@@ -98,6 +87,7 @@ public class ProgramActivityCardHolder extends RecyclerView.ViewHolder   {
         protected void onPostExecute(Object result) {
             if (result != null) {
                 activityPictureBitmap = (Bitmap) result;
+                imageView.setImageBitmap(activityPictureBitmap);
             }
         }
 
