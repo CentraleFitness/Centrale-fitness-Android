@@ -125,7 +125,7 @@ public class StatsFragment extends Fragment {
         final Map<String, Object> params = new HashMap<>();
         params.put(Constants.TOKEN, Prefs.getPrefs(getContext()).getToken());
         params.put(Constants.START, 0);
-        params.put(Constants.END, 10);
+        params.put(Constants.END, 100);
 
         JsonObjectRequest request = new JsonObjectRequest(Constants.SERVER + Constants.GET_STATS_SESSIONS, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -134,9 +134,6 @@ public class StatsFragment extends Fragment {
                         try {
                             System.out.println("Response code : " + response.getString("code"));
                             if (response.getString("code").equals("001")){
-
-
-
 
                                 for (int index = 0; index < response.getJSONArray("session id").length(); index++){
 
@@ -150,7 +147,6 @@ public class StatsFragment extends Fragment {
                                     object.date = "12/03/2018";
                                     object.duration = 120;
                                     itemsList.add(object);
-
 
 
                                 }
