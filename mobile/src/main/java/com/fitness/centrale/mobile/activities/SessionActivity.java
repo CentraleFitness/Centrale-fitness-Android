@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,6 +52,11 @@ public class SessionActivity extends AppCompatActivity {
 
     CustomGauge gauge;
     TextView sessionText;
+    TextView textDuree;
+    TextView textProdIm;
+    TextView textCalorie;
+    TextView textProdCum;
+    Button stopSession;
     int maxGaugeValue = 500;
     LineChartView chart;
     List<PointValue> points = new ArrayList<PointValue>();
@@ -59,8 +66,11 @@ public class SessionActivity extends AppCompatActivity {
     Float average = 0f;
     int count = 0;
     ImageView backArrow;
-    ProgressBar prg;
     float elecCrea = 0;
+    int dureeSession = 0;
+    int minutes = 0;
+    float calorie = 0;
+
     @Override
     public void onBackPressed() {
 
@@ -132,7 +142,6 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
-        prg = findViewById(R.id.progressBar);
 
         AlertDialogBuilder.createAlertDialog(this, "Votre session sportive",
                 "Ici vous pourrez constater votre production d'énergie en temps réel dans votre salle de sport et voir" +
@@ -142,7 +151,16 @@ public class SessionActivity extends AppCompatActivity {
         gauge.setEndValue(maxGaugeValue);
         sessionText = findViewById(R.id.SessionText);
         backArrow = findViewById(R.id.backArrow);
+        stopSession = findViewById(R.id.stopSession);
 
+        textDuree = findViewById(R.id.textDuree);
+
+        stopSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +175,35 @@ public class SessionActivity extends AppCompatActivity {
     }
 
 
+    Thread TimeTread = new Thread() {
+        @Override
+        public void run() {
+
+            while (!isInterrupted()) {
+
+                try {
+                    Thread.sleep(1000);  //1000ms = 1 sec
+
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            dureeSession++;
+                            if (dureeSession >= 60) {
+                                dureeSession = 0;
+                                minutes++;
+                            }
+                            textDuree.setText("Duree : " + String.valueOf(minutes) + "min " + String.valueOf(dureeSession) + "sec");
+                        }
+                    });
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    };
 
 
     class ProductionGetter extends AsyncTask{
@@ -176,8 +223,11 @@ public class SessionActivity extends AppCompatActivity {
                         gauge.setEndValue(maxGaugeValue);
                     }
                     elecCrea += random;
-                    prg.setProgress((int) elecCrea/1000);
                     sessionText.setText(String.valueOf(random));
+                    textProdIm.setText("Production: " + String.valueOf(random) +"W");
+                    textProdCum.setText("Production totale: " + String.valueOf(elecCrea) +"W");
+                    calorie = elecCrea / 3600 * 859;
+                    textCalorie.setText(String.valueOf(calorie));
                     gauge.setValue(convertedValue);
                     values.add(random);
                     totalValues.add(random);

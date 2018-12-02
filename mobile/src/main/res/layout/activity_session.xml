@@ -104,69 +104,62 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_weight="3"
-                android:paddingLeft="10dp"
-                android:paddingTop="40dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="180dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Energie produite" />
 
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="50dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Calorie brulée" />
-                </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="180dp"
-                    android:layout_height="60dp"
+                <TextView
+                    android:id="@+id/textDuree"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="kw" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/editText6"
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
+                <TextView
+                    android:id="@+id/textProdIm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="J" />
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textCalorie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textProdCum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/stopSession"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Arretez la session" />
 
 
 </LinearLayout>

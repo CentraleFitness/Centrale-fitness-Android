@@ -319,7 +319,7 @@ public class NFCScanActivity extends Activity  {
             return;
         }
 
-
+        pair("5bfc4c3310dc321627ee50c6");
         text = findViewById(R.id.pairDesc);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
