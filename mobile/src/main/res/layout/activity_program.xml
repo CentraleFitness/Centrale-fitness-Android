@@ -31,7 +31,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/circle"
             android:elevation="@dimen/global_elevation_level"
             android:layout_margin="5dp"
             android:padding="5dp">
@@ -44,27 +43,11 @@
                 android:text="21 minutes"/>
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/circle"
-            android:elevation="@dimen/global_elevation_level"
-            android:layout_margin="5dp"
-            android:padding="5dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:gravity="center"
-                android:text="Par\n Centrale fitness"/>
 
-        </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/circle"
             android:elevation="@dimen/global_elevation_level"
             android:layout_margin="5dp"
             android:padding="5dp">
