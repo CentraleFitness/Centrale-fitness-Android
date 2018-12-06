@@ -80,6 +80,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         Intent intent = new Intent(RegisterActivity.this, AffiliationActivity.class);
                                         startActivity(intent);
+                                    } else if (response.getString("code").equals("301")) {
+                                        final AlertDialog.Builder builder;
+
+                                        builder = new AlertDialog.Builder(RegisterActivity.this);
+                                        builder.setTitle("Erreur").setMessage("Ce login n'est pas disponible").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }).setCancelable(false).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

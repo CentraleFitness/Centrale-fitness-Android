@@ -1,5 +1,7 @@
 package com.fitness.centrale.mobile.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,7 +52,18 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                         startActivity(intent);
 
-                    }else{
+                    }else if (response.getString("code").equals("502")){
+                        final AlertDialog.Builder builder;
+
+                        builder = new AlertDialog.Builder(LoginActivity.this);
+                        builder.setTitle("Erreur").setMessage("Votre compte a été désactivé. Contactez le support pour plus d'informations").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).setCancelable(false).show();
+                    }else
+                    {
 
                         Intent intent = new Intent(LoginActivity.this, AffiliationActivity.class);
                         startActivity(intent);

@@ -141,6 +141,16 @@ public class SplashScreen extends AppCompatActivity {
                                 System.out.println("Response code : " + response.getString("code"));
                                 if (response.getString("code").equals("201")){
                                     sendAffiliationRequest();
+                                }else if (response.getString("code").equals("502")){
+                                    final AlertDialog.Builder builder;
+
+                                    builder = new AlertDialog.Builder(SplashScreen.this);
+                                    builder.setTitle("Erreur").setMessage("Votre compte a été désactivé. Contactez le support pour plus d'informations").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).setCancelable(false).show();
                                 }else{
                                     Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                                     startActivity(intent);
