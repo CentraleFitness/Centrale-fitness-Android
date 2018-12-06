@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class RunProgramActivity extends AppCompatActivity {
     LinearLayout skipBtn;
     ImageView logo;
     TextView skipText;
+    Button quitProgram;
 
     int minutes;
     int seconds;
@@ -44,6 +46,7 @@ public class RunProgramActivity extends AppCompatActivity {
         skipBtn = findViewById(R.id.skipButton);
         logo = findViewById(R.id.activityLogo);
         skipText = findViewById(R.id.skipText);
+        quitProgram = findViewById(R.id.stopProgramme);
 
         ArrayList<String> arrayJson = getIntent().getStringArrayListExtra("array");
 
@@ -95,6 +98,12 @@ public class RunProgramActivity extends AppCompatActivity {
         }
 
         this.skipText.setText("Démarrer");
+        quitProgram.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                RunProgramActivity.super.onBackPressed();
+            }
+        });
 
         this.skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override

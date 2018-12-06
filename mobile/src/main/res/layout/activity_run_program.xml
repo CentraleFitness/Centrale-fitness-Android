@@ -62,7 +62,13 @@
                 android:textSize="30sp"/>
         </LinearLayout>
 
+
     </LinearLayout>
+    <Button
+        android:id="@+id/stopProgramme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Arretez le programme" />
 
 
 </LinearLayout>
