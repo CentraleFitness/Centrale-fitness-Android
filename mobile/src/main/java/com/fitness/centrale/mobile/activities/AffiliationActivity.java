@@ -35,7 +35,6 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
 
 
     private QRCodeReaderView qrCodeReaderView;
-    private LinearLayout discoverButton;
     private ImageView backButton;
 
     @Override
@@ -52,7 +51,6 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
         setContentView(R.layout.activity_affiliation);
 
 
-        discoverButton = findViewById(R.id.discoverButton);
         qrCodeReaderView = findViewById(R.id.qrcodeView);
         backButton = findViewById(R.id.backArrow);
         qrCodeReaderView.setOnQRCodeReadListener(this);
@@ -87,19 +85,6 @@ public class AffiliationActivity extends AppCompatActivity implements QRCodeRead
             // Permission is not granted
         }
 
-        if (Constants.DEMO_AVAILABLE){
-            discoverButton.setVisibility(View.VISIBLE);
-            discoverButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Store.getStore().setMisc(true);
-                    Intent intent = new Intent(AffiliationActivity.this, ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                }
-            });
-        }
 
 
 

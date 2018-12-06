@@ -88,7 +88,7 @@
                 android:id="@+id/topProfileLyt"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".4"
+                android:layout_weight=".6"
                 android:orientation="horizontal"
                 >
 
@@ -116,7 +116,7 @@
                         android:layout_height="110dp"
                         android:background="@drawable/circle_gradien">
                         <de.hdodenhof.circleimageview.CircleImageView
-
+                            android:scaleType="centerCrop"
                             android:layout_margin="2dp"
                             android:id="@+id/profileProfilePicture"
                             android:layout_width="match_parent"
@@ -222,15 +222,8 @@
 
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:background="@drawable/background_gradient_radius">
-                                <TextView
-                                    android:fontFamily="@font/aquawaxlight"
-                                    android:textColor="@color/white"
-                                    android:textSize="17sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="BETA"/>
+                                android:gravity="center">
+
                             </LinearLayout>
 
                         </LinearLayout>
@@ -283,24 +276,6 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <LinearLayout
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/circle_gradien">
-
-        <ImageView
-            android:id="@+id/commentPicture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:src="@drawable/comment" />
-
-    </LinearLayout>
 
 
 

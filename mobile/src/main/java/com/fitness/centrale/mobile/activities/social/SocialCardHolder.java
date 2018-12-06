@@ -100,12 +100,14 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
     }
 
 
-    public void setContent(final Date date, final String content, String name, String isCenter){
+    public void setContent(final Date date, final String content, String name, String isCenter, String icon){
 
 
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy hh:mm");
         String dateStr = format.format(date);
+        if (icon != null)
+            new B64ToImageTask(icon, circleImageView).execute();
 
         postContent.setText(content);
         posterName.setText(name);
@@ -291,7 +293,6 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
 
                                     return;
                                 } else if (myObject.type == BasicSocialObject.PostType.PHOTO) {
-                                    System.out.println();
                                     setContentPicture(response.getString("post picture"),
                                             response.getString("post title"),
                                             response.getString("post content"));
@@ -382,7 +383,13 @@ public class SocialCardHolder extends RecyclerView.ViewHolder   {
                                         return false;
                                     }
                                 });
-                                setContent(date, content, response.getString("name"), response.getString("isCenter"));
+                                String icon = null;
+                                try {
+                                    icon = response.getString("post icon");
+                                } catch (JSONException e) {
+
+                                }
+                                setContent(date, content, response.getString("name"), response.getString("isCenter"), icon);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

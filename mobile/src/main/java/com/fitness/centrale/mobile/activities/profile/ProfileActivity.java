@@ -60,7 +60,6 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView center;
     LinearLayout topProfileLyt;
     TextView presentationText;
-    ImageView comment;
 
     private ArrayList<BasicSocialObject> itemsIdsList;
     private View view;
@@ -118,40 +117,6 @@ public class ProfileActivity extends AppCompatActivity {
          center = findViewById(R.id.profileButton);
          topProfileLyt = findViewById(R.id.topProfileLyt);
          presentationText = findViewById(R.id.presentationText);
-         comment = findViewById(R.id.commentPicture);
-
-         comment.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, FeedBackActivity.class);
-                startActivity(intent);
-             }
-         });
-
-         if (Store.getStore().getDemoObject().demo && !Store.getStore().getDemoObject().enterInDemo){
-             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-             builder.setTitle("Bienvenue dans la beta Centrale Fitness !")
-                     .setMessage("Durant cette session, toutes les données utilisées seront fausses.\n" +
-                             "Néanmoins, l'expérience Central Fitness que vous allez essayer est elle parfaitement authentique.\n" +
-                             "Les actions que vous allez effectuer durant cette phase de test ne seront pas sauvegardées une fois l'application quittée.\n" +
-                             "Nous vous souhaitons une agréable expérience durant cette phase de test et vous remercions pour les commentaires !")
-                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                         @Override
-                         public void onClick(DialogInterface dialog, int which) {
-                             dialog.dismiss();
-                             AlertDialogBuilder.createAlertDialog(ProfileActivity.this,
-                                     "Page de profil",
-                                     "La page de profil permet de visualiser sa photo de profil, son identifiant ainsi que les détails de la dernière session.\n" +
-                                             "Vous pouvez également accéder via les petites icones en haut à la modification de votre profil ou à la deconnexion de votre compte.",
-                                     "Ok").show();
-                         }
-                     });
-             AlertDialog dialog = builder.create();
-             dialog.show();
-             Store.getStore().getDemoObject().enterInDemo = true;
-         }
-
-
 
 
         session.setOnClickListener(new View.OnClickListener() {
@@ -235,6 +200,7 @@ public class ProfileActivity extends AppCompatActivity {
                             if (response.getString("code").equals("001")){
                                 Bitmap bitmap = ImageUtility.base64ToImage(response.getString(Constants.PICTURE));
                                 profilePicture.setImageBitmap(bitmap);
+                                profilePicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                                 Bitmap gaussianRender =  GaussianBlur.with(ProfileActivity.this).render(bitmap);
                                 BitmapDrawable drawable = new BitmapDrawable(getResources(), gaussianRender);
@@ -336,7 +302,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     if (type == BasicSocialObject.PostType.PUBLICATION)
                                         itemsIdsList.add(socialObject);
 
-                                    if (itemsIdsList.size() == 3)
+                                    if (itemsIdsList.size() == 2)
                                         break;
 
                                 }

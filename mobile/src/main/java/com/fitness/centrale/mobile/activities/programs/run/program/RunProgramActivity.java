@@ -62,6 +62,7 @@ public class RunProgramActivity extends AppCompatActivity {
         activityDuration = findViewById(R.id.activityDuration);
         noMoreActivityLyt = findViewById(R.id.noMoreActivityLyt);
         nextActivityLyt = findViewById(R.id.nextActivityLyt);
+        quitButton = findViewById(R.id.quitButton);
 
         ArrayList<String> arrayJson = getIntent().getStringArrayListExtra("array");
 

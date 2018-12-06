@@ -53,6 +53,7 @@ public class SessionActivity extends AppCompatActivity {
     List<PointValue> points = new ArrayList<PointValue>();
     LinkedList<Float> values = new LinkedList<>();
     ProductionGetter getter;
+    Decounter decounter;
     Float average = 0f;
     int count = 0;
     Button stopSession;
@@ -156,7 +157,8 @@ public class SessionActivity extends AppCompatActivity {
             getter = new ProductionGetter();
             getter.execute();
         } else {
-            new Decounter(this).execute();
+            decounter = new Decounter(this);
+            decounter.execute();
         }
 
     }
@@ -335,6 +337,7 @@ public class SessionActivity extends AppCompatActivity {
                                 if (yourList.size() > 0) {
 
                                     final double value = Double.parseDouble(yourList.get(yourList.size() - 1));
+                                    final double finalValue = Math.round(value * 100.0) / 100.0;
 
                                     totalCounter[0] += value;
                                     allData.add(value);
@@ -348,7 +351,7 @@ public class SessionActivity extends AppCompatActivity {
 
                                     handler.post(new Runnable(){
                                         public void run() {
-                                            sessionText.setText(String.valueOf(value));
+                                            sessionText.setText(String.valueOf(finalValue));
                                             gauge.setValue(convertedValue);
                                         }
                                     });
@@ -386,7 +389,7 @@ public class SessionActivity extends AppCompatActivity {
                                 }
                             } else {
                                 SessionActivity.super.onBackPressed();
-                                getter.cancel(true);
+                                decounter.cancel(true);
                                 finish();
                                 canRun = false;
                             }

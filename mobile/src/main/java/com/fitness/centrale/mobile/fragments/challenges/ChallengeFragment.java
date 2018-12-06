@@ -324,6 +324,10 @@ public class ChallengeFragment extends Fragment {
                                 } else if (total > 500) {
                                     setSelected(3);
                                     int percentage = total * 100 / 2000;
+                                    if (percentage > 100) {
+                                        percentageText.setVisibility(View.INVISIBLE);
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                    }
                                     percentageText.setText(percentage + "%");
                                     progressBar.setProgress(percentage);
                                 } else {

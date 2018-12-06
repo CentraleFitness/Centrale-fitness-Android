@@ -40,6 +40,7 @@ public class ProgramDetailsActivity extends AppCompatActivity {
     private List<BasicActivityObject> itemsIdsList;
     private RecyclerView recyclerView;
     private LinearLayout startBtn;
+    private TextView programDuration;
 
 
 
@@ -50,9 +51,12 @@ public class ProgramDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_program);
 
         TextView title = findViewById(R.id.programTitle);
+        programDuration = findViewById(R.id.programDuration);
 
         title.setText(getIntent().getStringExtra("name"));
         String id  = getIntent().getStringExtra("id");
+        int duration = getIntent().getIntExtra("duration", 0);
+        programDuration.setText(duration + " minutes");
 
         recyclerView = findViewById(R.id.programContentRecycler);
         startBtn = findViewById(R.id.startProgramButton);

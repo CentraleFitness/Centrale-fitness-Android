@@ -37,7 +37,6 @@
                     android:id="@+id/photoTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fitness Plus"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textAlignment="center"
@@ -54,8 +53,7 @@
                     android:textColor="@color/black"
                     android:id="@+id/photoDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Desc de l'event"/>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 

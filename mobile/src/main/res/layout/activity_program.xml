@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:gravity="center"
-        android:text="Un test"
         android:textStyle="bold"
         android:background="@color/white"
         android:elevation="4dp"
@@ -39,14 +38,14 @@
             android:padding="5dp">
 
             <TextView
+                android:id="@+id/programDuration"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_margin="3dp"
                 android:textSize="27sp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="21 minutes"/>
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

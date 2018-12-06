@@ -311,20 +311,6 @@ public class NFCScanActivity extends Activity  {
         fromProgram = getIntent().getBooleanExtra("fromProgram", false);
         duration = getIntent().getIntExtra("duration", 0);
 
-        if (Store.getStore().getDemoObject().demo){
-            AlertDialogBuilder.createAlertDialog(this, "Apparage auprès du module",
-                    "C'est ici que se fait l'apparaige de l'application au module.\n" +
-                            "Il vous suffi de rapprocher votre téléphone du module afin de le connecter à ce dernier.\n" +
-                            "Etant donné que vous êtes en beta, je vais vous connecter moi même!", "Ok",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            setPaired();
-                        }
-                    }).show();
-            return;
-        }
 
         text = findViewById(R.id.pairDesc);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);

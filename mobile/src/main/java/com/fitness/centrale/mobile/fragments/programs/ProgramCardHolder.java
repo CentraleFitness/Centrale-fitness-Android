@@ -37,6 +37,7 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
 
     private CardView program;
     private TextView title;
+    private TextView duration;
     private ImageView programPicture;
 
     public ProgramCardHolder(View itemView, Context context, Activity parent) {
@@ -47,6 +48,7 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
         program = itemView.findViewById(R.id.cardViewProgram);
         title = itemView.findViewById(R.id.cardProgramTitle);
         programPicture = itemView.findViewById(R.id.programPicture);
+        duration = itemView.findViewById(R.id.programDuration);
     }
 
 
@@ -69,7 +71,8 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
                 try {
                     System.out.println(response.getString("code"));
                     if (response.getString("code").equals("001")){
-                        final int duration = Integer.parseInt(response.getString("duration"));
+                        final int duration = Integer.parseInt(response.getString("duration")) / 60;
+                        ProgramCardHolder.this.duration.setText(duration + " minutes");
                         final String logo = response.getString("logo");
                         if (!logo.equals("")) {
                             new B64ToImageTask(logo, programPicture).execute();
@@ -80,7 +83,7 @@ public class ProgramCardHolder extends RecyclerView.ViewHolder   {
                                 Intent intent = new Intent(parent, ProgramDetailsActivity.class);
                                 intent.putExtra("name", myObject.name);
                                 intent.putExtra("id", myObject.id);
-                                intent.putExtra("duration", String.valueOf(duration));
+                                intent.putExtra("duration", duration);
                                 parent.startActivity(intent);
                             }
                         });
